@@ -1,6 +1,8 @@
-
+import pic from "./404.png"
 export default function FourOFour() {
   return (
-    <div>Page not found!</div>
+    <div>
+      <img src={pic} alt="pic"/>
+    </div>
   )
 }
