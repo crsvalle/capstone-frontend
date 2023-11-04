@@ -13,7 +13,7 @@ import EditListing from "./Pages/EditListing";
 import Navbar from "./Components/Navbar";
 
 //STYLE
-import './App.css';
+import './index.css';
 import User from "./Pages/User";
 
 function App() {
