@@ -1,0 +1,27 @@
+/* Navbar container */
+.nav {
+    display: flex;
+    height: 75px;
+    width: 100%;
+    border-bottom: 1px solid black;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px; 
+  }
+  
+  /* Logo/image */
+.nav__logo {
+    margin-right: 20px; 
+}
+  
+  /* Navbar items on the right */
+.nav__end {
+    display: flex;
+    align-items: center;
+}
+  
+.nav__item {
+    margin-right: 10px; 
+    margin-left: 10px;
+}
+  

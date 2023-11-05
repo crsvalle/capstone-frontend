@@ -8,6 +8,7 @@ import IndexListings from "./Pages/IndexListings";
 import NewListing from "./Pages/NewListing";
 import ShowListing from "./Pages/ShowListing";
 import EditListing from "./Pages/EditListing";
+import Login from "./Pages/Login";
 
 //COMPONENTS
 import Navbar from "./Components/Navbar";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/listings/:index" element={<ShowListing />}/>
           <Route path="/listings/:index/edit" element={<EditListing />} />
           <Route path="/user/:index" element={<User />} />
+          <Route path="/login" element={<Login/>} />
           <Route path='*' element={<FourOFour />}/>
         </Routes>
       </main>
