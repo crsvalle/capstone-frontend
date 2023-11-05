@@ -1,5 +1,5 @@
 import Searchbar from "../Components/Searchbar";
-import '../Style/Home.css'
+import '../style/Home.css'
 
 
 export default function Home() {
