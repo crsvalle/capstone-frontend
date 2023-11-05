@@ -6,23 +6,22 @@
     border-bottom: 1px solid black;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px; /* Add padding to the entire navbar */
+    padding: 0 20px; 
   }
   
   /* Logo/image */
-  .nav__logo {
+.nav__logo {
     margin-right: 20px; 
-  }
+}
   
   /* Navbar items on the right */
-  .nav__end {
+.nav__end {
     display: flex;
     align-items: center;
-  }
+}
   
-  /* Individual navbar items (e.g., links) */
-  .nav__item {
+.nav__item {
     margin-right: 10px; 
     margin-left: 10px;
-  }
+}
   

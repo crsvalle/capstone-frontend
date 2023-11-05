@@ -1,14 +1,15 @@
 import '../style/Navbar.css';
+import { Link } from "react-router-dom"
 
 export default function Navbar() {
   return (
     <div className='nav'>
-      <img src='' alt='logo' className='nav__logo' />
+      <Link to='/'><img src='' alt='logo' className='nav__logo' /></Link>
       <div className='nav__end'>
-        <div className='nav__item'>About</div>
-        <div className='nav__item'>Login</div>
+        <Link to='/about'><div className='nav__item'>About</div></Link>
+        <Link to='/login'><div className='nav__item'>Login</div></Link>
         <div>/</div>
-        <div className='nav__item'>Register</div>
+        <Link to='/register'><div className='nav__item'>Register</div></Link>
       </div>
     </div>
   );
