@@ -1,6 +1,9 @@
+import Listings from "../Components/Listings";
 
 export default function IndexListings() {
   return (
-    <div>IndexListings</div>
+    <div>
+      <Listings />
+    </div>
   )
 }
