@@ -1,6 +1,11 @@
+import Searchbar from "../Components/Searchbar";
+import '../Style/Home.css'
+
 
 export default function Home() {
   return (
-    <div>Home</div>
+    <div className="home">
+      <Searchbar/>
+    </div>
   )
 }
