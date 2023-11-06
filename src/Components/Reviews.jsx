@@ -1,15 +1,13 @@
-
+import '../style/review.css'
 
 export default function Reviews({review}) {
     return (
-        <div>
-            hello
+        <div className='review__container'>
+            <div className='review__container__profile__pic'>
+                <img src="" alt="pic" />
+                <div>{review.rating}</div>
+            </div>
             <div>{review.title}</div>
-            <img src="" alt="pic" />
-            <p>{review.author_id}</p>
-            <div>{review.rating}</div>
-            <div>{review.title}</div>
-            <div>date</div>
             <div>{review.body}</div>
         </div>
 
