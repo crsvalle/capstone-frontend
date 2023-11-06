@@ -9,7 +9,9 @@ import NewListing from "./Pages/NewListing";
 import ShowListing from "./Pages/ShowListing";
 import EditListing from "./Pages/EditListing";
 import Login from "./Pages/Login";
+import Checkout from "./Pages/Checkout";
 import Footer from "./Pages/Footer";
+
 
 //COMPONENTS
 import Navbar from "./Components/Navbar";
@@ -31,6 +33,7 @@ function App() {
           <Route path="/listings/:index/edit" element={<EditListing />} />
           <Route path="/user/:index" element={<User />} />
           <Route path="/login" element={<Login/>} />
+          <Route path="/checkout" element={<Checkout/>} />
           <Route path='*' element={<FourOFour />}/>
         </Routes>
       </main>
