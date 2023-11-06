@@ -1,0 +1,31 @@
+.footer__container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 25px 0 25px;
+}
+
+.footer__last {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 25px 0 25px;
+    height: 100px;
+}
+
+.footer__last__bottom {
+    display: flex;
+}
+
+.footer__last__bottom__title {
+    padding: 10px;
+}
+
+.footer__icons {
+    display: flex;
+    padding: 10px;
+}
+
+.hr__second {
+    margin-left: 10%;
+    margin-right: 10%;
+}
