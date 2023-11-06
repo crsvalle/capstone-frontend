@@ -10,15 +10,17 @@ function ListingReviews() {
     useEffect(() => {
         axios
         .get("http://localhost:3003/listingReviews")
-        .then((res) => setReviews(res.data))
+        .then((res) =>setReviews(res.data))
         .catch((e) => console.warn("catch", e ))
     }, [])
 
     return (
-        <div>      
-       {reviews.map(review => {
-      <Reviews review={review}/>
-    })}
+        <div>  
+            <div>Comments : {reviews.length}</div>   
+            <div>Read More...</div> 
+            {reviews.map(review => 
+                <Reviews review={review}/>
+            )}
         </div>
     )
 }
