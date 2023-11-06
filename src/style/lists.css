@@ -1,0 +1,19 @@
+.listing__single > img {
+    width: 175px;
+    height: 75px;
+}
+.listing {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 25px;
+    padding: 25px;
+}
+
+.listing__single {
+    border: 1px solid transparent;
+    padding: 5px;
+    margin: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 5px rgb(149, 149, 149);
+}
