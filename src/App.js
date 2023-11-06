@@ -9,6 +9,7 @@ import NewListing from "./Pages/NewListing";
 import ShowListing from "./Pages/ShowListing";
 import EditListing from "./Pages/EditListing";
 import Login from "./Pages/Login";
+import Footer from "./Pages/Footer";
 
 //COMPONENTS
 import Navbar from "./Components/Navbar";
@@ -33,6 +34,7 @@ function App() {
           <Route path='*' element={<FourOFour />}/>
         </Routes>
       </main>
+      <Footer/>
     </Router>
   );
 }
