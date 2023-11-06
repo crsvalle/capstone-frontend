@@ -1,0 +1,12 @@
+.whole-page{
+    display: flex;
+    flex-direction: row;
+}
+
+.left{
+    flex: .5;
+}
+
+.right{
+    flex:.5
+}

@@ -4,5 +4,14 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    z-index: -1;
   }
   
+.home > img {
+  position: relative;
+}
+
+.search__bar{
+  position: absolute;
+  top: 500px;
+}
