@@ -1,0 +1,17 @@
+.checkout__container > button {
+    background-color: #3e91fe;
+    border: 1px solid #3e91fe;
+    border-radius: 17px;
+    padding:10px;
+    margin-top: 35px;
+    margin-left: 500px; 
+}
+.checkout__container > button:hover {
+    border: 2px solid white;
+}
+
+.date-picker {
+    display: flex;
+    justify-content: center;
+    border: 1px solid rgba(0, 0, 0, 0.117);
+}
