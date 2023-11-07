@@ -8,7 +8,7 @@ export default function User() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    axios.get(`${API}/users/1`)
+    axios.get(`http://localhost:3003/users/1`)
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
   }, [])
