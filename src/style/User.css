@@ -1,0 +1,38 @@
+.user__conainer {
+    display: flex;
+    margin: 25px; 
+}
+
+.user__conainer > img {
+    width: 210px;
+    height: 210px;
+    border: 2px solid black;
+    border-radius: 99px;
+}
+
+.profile {
+    margin-top: 175px;
+    margin-left: 5%;
+    border-right: 2px solid black;
+    width: 50%;
+}
+
+.message {
+    margin-top: 175px;
+    margin-left: 5%;
+    border: 1px solid blue;
+    border-radius: 15px;
+    height: fit-content;
+    padding: 15px;
+}
+
+.reviews,
+.reviews__posted {
+    margin-left: 25px;
+    border-bottom: 2px solid green;
+    width: fit-content;
+}
+
+span {
+    font-size: x-large;
+}
