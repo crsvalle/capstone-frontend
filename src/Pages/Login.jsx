@@ -6,7 +6,11 @@ export default function Login () {
             <form>
                 <table>
                     <tr>
-                        <td>Full Name:</td>
+                        <td>First Name:</td>
+                        <td><input type="text" name="fullname" id="fullname" /></td>
+                    </tr>
+                    <tr>
+                        <td>Last Name:</td>
                         <td><input type="text" name="fullname" id="fullname" /></td>
                     </tr>
                     <tr>
@@ -31,4 +35,4 @@ export default function Login () {
         </div>
         
     )
-}
+};
