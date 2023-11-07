@@ -1,18 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import '../style/User.css'
+
+const API = process.env.REACT_APP_API_URL;
 
 export default function User() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    axios.get(`${API}/users/${id}`)
+    axios.get(`${API}/users/1`)
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
   }, [])
 
   return (
     <>
-    <div class="conainer">
+    <div class="user__conainer">
         <img src="" alt="avatar"/>
         <div class="profile">
             <span>****</span>
