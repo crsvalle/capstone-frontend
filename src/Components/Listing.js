@@ -13,7 +13,7 @@ export default function Listing({listing}) {
     .then((response) =>{
         setHost((response.data));
     }).catch((e) => console.error("catch", e))
-}, []);
+}, [listing.host]);
 
   return (
     <div>
