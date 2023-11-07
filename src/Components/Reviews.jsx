@@ -9,6 +9,7 @@ export default function Reviews({review}) {
             </div>
             <div>{review.title}</div>
             <div>{review.body}</div>
+            <hr className='review__hr'/>
         </div>
 
     )
