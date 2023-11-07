@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Reviews from "../Components/Reviews";
+import '../style/review.css'
 
 //const API = process.env.REACT_APP_API_URL;
 
@@ -15,12 +16,13 @@ function ListingReviews() {
     }, [])
 
     return (
-        <div>  
+        <div className="home__review">  
+            <div>Reviews</div>   
             <div>Comments : {reviews.length}</div>   
-            <div>Read More...</div> 
-            {reviews.map(review => 
+            {reviews.slice(0,4).map(review => 
                 <Reviews review={review}/>
-            )}
+                )}
+            <div>Read More...</div>
         </div>
     )
 }
