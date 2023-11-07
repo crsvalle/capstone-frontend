@@ -8,7 +8,6 @@ import IndexListings from "./Pages/IndexListings";
 import NewListing from "./Pages/NewListing";
 import ShowListing from "./Pages/ShowListing";
 import EditListing from "./Pages/EditListing";
-import ListingReviews from "./Pages/ListingReviews";
 
 //COMPONENTS
 import Navbar from "./Components/Navbar";
@@ -29,7 +28,6 @@ function App() {
           <Route path="/listings/:index" element={<ShowListing />}/>
           <Route path="/listings/:index/edit" element={<EditListing />} />
           <Route path="/user/:index" element={<User />} />
-          <Route path="/listingReviews" element={<ListingReviews />} />
           <Route path='*' element={<FourOFour />}/>
         </Routes>
       </main>
