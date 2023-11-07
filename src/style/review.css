@@ -1,5 +1,4 @@
 .review__container {
-    border: 2px solid rgb(204, 200, 200);
     padding-left: 35px;
 }
 
@@ -13,3 +12,16 @@
     display: flex;
     align-items: center;
 }
+
+.review__hr {
+    padding-top: 25px;
+    margin-top: 15px;
+}
+
+/* listingReviews */
+
+.home__review {
+    padding: 50px;
+}
+
+/* memo---try bubble talk box  */
