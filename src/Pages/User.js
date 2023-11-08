@@ -1,17 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import '../style/User.css'
+import { useParams } from "react-router-dom";
 
 const API = process.env.REACT_APP_API_URL;
 
 export default function User() {
   const [user, setUser] = useState([]);
+  const { index } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3003/users/1`)
+    axios.get(`http://localhost:3003/users/${index}`)
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
-  }, [])
+  }, [index])
 
   return (
     <>
@@ -19,7 +21,7 @@ export default function User() {
         <img src="" alt="avatar"/>
         <div class="profile">
             <span>****</span>
-            <h1>{user.firstName + " " + user.lastName}</h1>
+            <p>{user.firstname + " " + user.lastname}</p>
             <p>role :{user.role}</p>
             <p>add :{user.address}</p>
             <p>phone :{user.phone}</p>

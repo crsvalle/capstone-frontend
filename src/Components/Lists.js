@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import '../style/lists.css'
+import Ratings from "./Ratings";
 
 
 const API = process.env.REACT_APP_API_URL;
@@ -23,7 +24,7 @@ export default function Lists(){
         <>
           <div className="listing__single">
           <img src="https://dingdong887180022.files.wordpress.com/2021/06/empty-room.jpg" alt=""/>
-            {el.listing_id}
+          <Ratings rating={el.avg_rating}/>
            <div>{el.size}</div> 
            <div>${el.price}</div> 
           </div>
