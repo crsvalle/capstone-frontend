@@ -18,7 +18,7 @@ function ListingReviews() {
     return (
         <div className="home__review">  
             <div>Reviews</div>   
-            <div>Comments : {reviews.length}</div>   
+            <div>Total Reviews : {reviews.length}</div>   
             {reviews.slice(0,4).map(review => 
                 <Reviews review={review}/>
                 )}
