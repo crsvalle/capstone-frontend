@@ -2,6 +2,7 @@ import Searchbar from "../Components/Searchbar";
 import Lists from "../Components/Lists"
 import '../style/Home.css'
 import hero from './house.png'
+import ListingReviews from "./ListingReviews";
 
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <img src={hero}></img>
       <Searchbar className="search__bar"/>
       <Lists/>
+      <ListingReviews/>
     </div>
   )
 }

@@ -18,7 +18,7 @@ export default function User() {
   return (
     <>
     <div class="user__conainer">
-        <img src="" alt="avatar"/>
+        <img src={user.image} alt="avatar"/>
         <div class="profile">
             <span>****</span>
             <p>{user.firstname + " " + user.lastname}</p>
