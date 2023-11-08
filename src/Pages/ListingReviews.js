@@ -20,7 +20,7 @@ function ListingReviews() {
             <div>Reviews</div>   
             <div>Total Reviews : {reviews.length}</div>   
             {reviews.slice(0,4).map(review => 
-                <Reviews review={review}/>
+                <Reviews key={review.user_id} review={review}/>
                 )}
             <div>Read More...</div>
         </div>
