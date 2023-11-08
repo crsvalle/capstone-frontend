@@ -1,16 +1,18 @@
 .wholePage{
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
 }
 
 /* 3 parts of the page */
 .left{
-    flex: 0.5;
+    flex: 0.4;
     margin-left: 4px;
 }
 
 .middle{
-    flex: 0.3;
+    flex: 0.4;
+    margin-left: 4px;
 }
 
 .right{
@@ -36,5 +38,23 @@
 
 .custom-carousel-container {
     width: 100%; 
-    height: 500px; 
+    height: 400px;
+    z-index: 1;
+  }
+
+  .priceCard{
+    border: 1px solid black;
+    margin-bottom: 5px;
+    padding-bottom: 100px;
+  }
+
+  .bookButton{
+    float: right;
+  }
+
+  .calendar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }
