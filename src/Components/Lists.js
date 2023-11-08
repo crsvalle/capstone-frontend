@@ -23,7 +23,7 @@ export default function Lists(){
       {listings.map(el => 
         <>
           <div className="listing__single">
-          <img src="https://dingdong887180022.files.wordpress.com/2021/06/empty-room.jpg" alt=""/>
+          <img src={el.image} alt=""/>
           <Ratings rating={el.avg_rating}/>
            <div>{el.size}</div> 
            <div>${el.price}</div> 
