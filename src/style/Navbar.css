@@ -1,5 +1,6 @@
 /* Navbar container */
 .nav {
+  background-color: white;
     display: flex;
     height: 75px;
     width: 100%;
@@ -7,6 +8,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 20px; 
+    position: fixed;
   }
   
   /* Logo/image */
