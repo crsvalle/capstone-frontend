@@ -4,11 +4,13 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    z-index: -1;
+    z-index: -2;
   }
   
 .home > img {
+  top: 75px;
   position: relative;
+  z-index: -3;
 }
 
 .search__bar{
