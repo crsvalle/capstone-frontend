@@ -1,6 +1,6 @@
-import "../style/Login.css"
+import "../style/SignUp.css"
 
-export default function Login () {
+export default function SignUp () {
     return (
         <div className="form__container">
             <form>
