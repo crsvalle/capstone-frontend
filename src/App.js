@@ -14,6 +14,7 @@ import Footer from "./Pages/Footer";
 
 
 //COMPONENTS
+import Login from "./Pages/Login";
 import Navbar from "./Components/Navbar";
 
 //STYLE
@@ -33,6 +34,7 @@ function App() {
           <Route path="/listings/:index/edit" element={<EditListing />} />
           <Route path="/user/:index" element={<User />} />
           <Route path="/signup" element={<SignUp/>} />
+          <Route path="/login" element={<Login/>} />
           <Route path="/checkout" element={<Checkout/>} />
           <Route path='*' element={<FourOFour />}/>
         </Routes>
