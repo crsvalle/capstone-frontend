@@ -9,7 +9,7 @@ export default function Reviews({review}) {
                 <Avatar src='' alt='pic' sx={{ width: 30, height: 30 }} />
                 <Ratings rating={review.rating}/>
             </div>
-            <div>{review.title}</div>
+            <div className='pt-3'>{review.title}</div>
             <div>{review.body}</div>
             <hr className='review__hr'/>
         </div>

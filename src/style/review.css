@@ -2,15 +2,11 @@
     padding-left: 35px;
 }
 
-.review__container__profile__pic > img {
-    width: 35px;
-    border: 1px solid black;
-    border-radius: 50%;
-}
-
 .review__container__profile__pic {
     display: flex;
     align-items: center;
+    width: 110px;
+    justify-content: space-between;
 }
 
 .review__hr {
@@ -22,6 +18,21 @@
 
 .home__review {
     padding: 50px;
+}
+
+.home__review__star__count {
+    display: flex;
+}
+
+.home__review__star__count > span {
+    font-size: small;
+    padding-left: 25px;
+    color: rgba(0, 0, 0, 0.577);
+}
+
+.home__review__star__wraper {
+    margin-top: 15px;
+    margin-bottom: 25px;
 }
 
 /* memo---try bubble talk box  */
