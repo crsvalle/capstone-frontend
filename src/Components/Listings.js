@@ -9,7 +9,7 @@ export default function Listings() {
 
     useEffect(() => {
         axios
-        .get(`${API}/listings`)
+        .get(`http://localhost:3003/listings`)
         .then((response) =>{
             setListings((response.data));
         }).catch((e) => console.error("catch", e))
