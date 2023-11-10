@@ -30,10 +30,10 @@ export default function Footer (){
                     <div className='footer__last__bottom__title'>Policy</div>
                 </div>
                 <div className="footer__icons">
-                    <FacebookIcon/>
-                    <InstagramIcon/>
-                    <TwitterIcon/>
-                    <MailOutlineIcon/>
+                    <FacebookIcon className='mx-2'/>
+                    <InstagramIcon className='mx-2'/>
+                    <TwitterIcon className='mx-2'/>
+                    <MailOutlineIcon className='mx-2'/>
                 </div>
             </div>
         </>
