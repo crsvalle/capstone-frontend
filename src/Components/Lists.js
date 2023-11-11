@@ -2,9 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react"
 import '../style/lists.css'
 import Ratings from "./Ratings";
+import { Link } from "react-router-dom";
 
 
-const API = process.env.REACT_APP_API_URL;
+//const API = process.env.REACT_APP_API_URL;
 export default function Lists(){
 
   const [listings, setListings] = useState([]);
@@ -21,14 +22,14 @@ export default function Lists(){
   return (
     <div className="listing" >
       {listings.map(el => 
-        <>
+        <Link className='listing__link' to={`/listings/${el.listing_id}`}>
           <div className="listing__single">
-          <img src={el.image} alt=""/>
-          <Ratings rating={el.avg_rating}/>
-           <div>{el.size}</div> 
-           <div>${el.price}</div> 
+            <img src={el.image} alt=""/>
+            <Ratings rating={el.avg_rating}/>
+            <div>{el.size}</div> 
+            <div>${el.price}</div> 
           </div>
-        </>
+        </Link>
       )}
     </div>
   );
