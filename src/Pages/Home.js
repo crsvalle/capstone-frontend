@@ -14,7 +14,7 @@ export default function Home() {
       <Searchbar className="search__bar"/>
       <Lists/>
       <ListingReviews/>
-      <GeoLocation/>
+      {/* <GeoLocation/> */}
     </div>
   )
 }
