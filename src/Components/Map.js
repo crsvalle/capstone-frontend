@@ -7,8 +7,8 @@ const containerStyle = {
 };
 
 const center = {
-  lat: 0, // Set initial latitude
-  lng: 0, // Set initial longitude
+  lat: 0,
+  lng: 0,
 };
 
 const mapAPI = process.env.GEOLOCATION_API
@@ -21,7 +21,7 @@ const Map = ({ location }) => {
         center={location}
         zoom={11}
       >
-        {<Marker/> ? <Marker position={location} /> : <Marker/>}
+        <Marker position={location} />
       </GoogleMap>
     </LoadScript>
   );
