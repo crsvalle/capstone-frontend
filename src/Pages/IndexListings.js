@@ -1,5 +1,5 @@
 import Listings from "../Components/Listings";
-import Map from "../Components/Map";
+import GeoLocation from "../Components/GeoLocation";
 import '../style/IndexListings.css'
 
 export default function IndexListings() {
@@ -9,7 +9,7 @@ export default function IndexListings() {
         <Listings/>
       </section>
       <section className="right">
-        <Map />
+        <GeoLocation/>
       </section>
     </div>
   )
