@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import '../style/ListingInfo.css'
+import 'react-date-range/dist/styles.css';
+import 'react-date-range/dist/theme/default.css';
 
 
 import { Rating } from "@material-tailwind/react";
@@ -95,7 +97,6 @@ export default function ListingInfo() {
 
             <div className="middle">
                 <div className="calendar">
-
                     <DateRange
                     editableDateInputs={true}
                     onChange={handleDateRangeChange}
