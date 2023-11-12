@@ -1,0 +1,153 @@
+.new-listing {
+  padding-top: 90px;
+}
+
+.new-listing h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.new-listing-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #0000001a;
+}
+
+.address-detail {
+  display: flex;
+  flex-direction: row;
+}
+
+.address {
+  border-right: 1px solid #ccc;
+}
+
+.form-section {
+  padding: 15px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  height: 45px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.last-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+input[type="submit"] {
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  width: 220px;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+label {
+  font-size: 13px;
+}
+
+.card {
+  padding: 10px;
+  box-shadow: 0 0 5px #ffdfdf;
+  overflow: hidden;
+}
+
+.card .top {
+  text-align: center;
+}
+
+.card p {
+  font-weight: bold;
+}
+
+.card .drag-area {
+  background: #f4f3f9;
+  border: 2px dashed #0086fe;
+  border-radius: 5px;
+  color: #0086fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  margin-top: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.card .drag-area .visible {
+  font-size: 18px;
+}
+
+.card .select {
+  color: #5256ad;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: 0.4s;
+}
+
+.card .select:hover {
+  opacity: 0.2%;
+}
+
+.card .container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+  height: auto;
+  width: 100%;
+}
+
+.card .container .images {
+  margin-bottom: 8px;
+  margin-right: 5px;
+  position: relative;
+  height: 75px;
+  width: 75px;
+}
+ 
+.card .container .images img {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.card .container .images span {
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  right: 9px;
+  top: -2px;
+}
+
+.card input,
+.card .drag-area .on-drop,
+.card .drag-area.dragover .visible {
+  display: none;
+}
