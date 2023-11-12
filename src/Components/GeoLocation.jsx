@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Map from './Map';
 
-const Geolocation = () => {
+const GeoLocation = () => {
     const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
 
     useEffect(() => {
@@ -52,11 +52,10 @@ const Geolocation = () => {
   
 
   return (
-    <div>
-      <h1>Geolocation</h1>
+    <div className='home__map'>
       <Map location={userLocation} />
     </div>
   );
 };
 
-export default Geolocation;
+export default GeoLocation;
