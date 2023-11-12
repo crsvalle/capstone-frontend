@@ -5,14 +5,14 @@ import Ratings from "./Ratings";
 import { Link } from "react-router-dom";
 
 
-//const API = process.env.REACT_APP_API_URL;
+const API = process.env.REACT_APP_API_URL;
 export default function Lists(){
 
   const [listings, setListings] = useState([]);
 
   useEffect(() => {
     axios
-    .get('http://localhost:3003/listings')
+    .get(`${API}/listings`)
     .then((res) => {
       setListings(res.data)
     })

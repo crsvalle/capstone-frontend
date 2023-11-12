@@ -1,5 +1,6 @@
 //DEPENDENCIES
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 //PAGES
 import Home from "./Pages/Home";
@@ -11,6 +12,7 @@ import EditListing from "./Pages/EditListing";
 import SignUp from "./Pages/SignUp";
 import Checkout from "./Pages/Checkout";
 import Footer from "./Pages/Footer";
+import Dashboard from "./Pages/Dashboard";
 
 
 //COMPONENTS
@@ -21,6 +23,18 @@ import Navbar from "./Components/Navbar";
 import './index.css';
 import User from "./Pages/User";
 
+const PrivateRoutes = () =>{
+  const { isAuth } = useSelector((state) => state.auth);
+
+  return <>{isAuth ? <Outlet /> : <Navigate to={'/login'} />}</>
+}
+
+const RestrictedRoutes = () =>{
+  const { isAuth } = useSelector((state) => state.auth);
+
+  return <>{!isAuth ? <Outlet /> : <Navigate to={'/dashboard'} />}</>
+}
+
 function App() {
   return (
     <Router>
@@ -28,12 +42,22 @@ function App() {
       <main>
         <Routes>
           <Route path='/' element={<Home />} />
+
+          <Route element={<PrivateRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+
+          <Route element={<RestrictedRoutes />}>
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+          </Route>
+        
           <Route path="/listings" element={<IndexListings />} />
           <Route path="/listings/new" element={<NewListing/>}/>
           <Route path="/listings/:index" element={<ShowListing />}/>
           <Route path="/listings/:index/edit" element={<EditListing />} />
           <Route path="/user/:index" element={<User />} />
-          <Route path="/signup" element={<SignUp/>} />
+          <Route path="/register" element={<SignUp/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/checkout" element={<Checkout/>} />
           <Route path='*' element={<FourOFour />}/>
