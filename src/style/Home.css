@@ -15,13 +15,5 @@
 
 .search__bar{
   position: absolute;
-  top: 500px;
-}
-
-.home__map {
-  position: absolute;
-  top: 80px;
-  right: 25px;
-  border: 2px solid white;
-  border-radius: 10px;
+  top: 400px;
 }
