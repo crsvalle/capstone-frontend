@@ -1,22 +1,75 @@
-import React, {useState, useRef} from 'react';
+import axios from 'axios';
+import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useRef } from 'react';
+const API = process.env.REACT_APP_API_URL;
 
 export default function ListingNew() {
+  let navigate = useNavigate();
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
-  const [images, setImages] = useState([]);
-  const [isDragging, setIsDragging] =  useState(false);
   const fileInputRef = useRef(null);
+  const [images, setImages] = useState([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const [listing, setListing] = useState({
+    street: "",
+    apt: "",
+    city: "",
+    state: "AL",
+    zip: "",
+    size: "",
+    price: "",
+    posted_at: "",
+    type: "Closet",
+    host: "",
+    renter: "",
+    isRented: false,
+    avg_rating: 0,
+    description: ""
+  });
+
+  const addNewListing = (newListing) => {
+    axios
+      .post(`${API}/listings`, newListing)
+      .then(
+        (res) => navigate(`/listings/${res.data.id}`),
+        (error) => console.error(error)
+      )
+      .catch((c) => console.warn("catch", c));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addNewListing(listing);
+  }
+
+  const handleTextChange = (event) => {
+    setListing({ ...listing, [event.target.id]: event.target.value });
+  };
+
+  const handleNumberChange = (event) => {
+    setListing({ ...listing, [event.target.id]: Number(event.target.value) });
+  };
+
+  const handleDateChange = (event) => {
+    let newDate = event.target.value.replace(/(....).(..).(..)/, "$2/$3/$1");
+    // let date = new Date(event.target.value);
+    // let newDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+    setListing({ ...listing, [event.target.id]: newDate });
+  };
 
   const selectFiles = () => {
     fileInputRef.current.click();
   }
 
-  const onFileSelect = (event) => {
-    const files = event.target.files;
-    if (!files.length) return;
+  const processImages = (files) => {
+    console.log(files)
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.split('/')[0] !== 'image') continue;
-      if (!images.some(e => e.name === files[i].name)) {
+      if (files[i].size > 5242880) {
+        alert("One or more images exceed the size limit of 5MB!");
+        continue;
+      }
+      if (!images.some(img => img.name === files[i].name) && images.length < 5) {
         setImages(prevImages => [
           ...prevImages, {
             name: files[i].name,
@@ -25,7 +78,19 @@ export default function ListingNew() {
         ]);
       }
     }
-    console.log(images)
+  }
+
+  const onFileSelect = (event) => {
+    const files = event.target.files;
+    if (!files.length) return;
+    processImages(files);
+  }
+
+  const onDrop = (event) => {
+    event.preventDefault();
+    setIsDragging(false);
+    const files = event.dataTransfer.files;
+    processImages(files);
   }
 
   const onDragOver = (event) => {
@@ -39,31 +104,13 @@ export default function ListingNew() {
     setIsDragging(false);
   }
 
-  const onDrop = (event) => {
-    event.preventDefault();
-    setIsDragging(false);
-    const files = event.dataTransfer.files;
-    for (let i = 0; i < files.length; i++) {
-      if (files[i].type.split('/')[0] !== 'image') continue;
-      if (!images.some(e => e.name === files[i].name)) {
-        setImages(prevImages => [
-          ...prevImages, {
-            name: files[i].name,
-            url: URL.createObjectURL(files[i])
-          }
-        ]);
-      }
-    }
-    console.log(images)
-  }
-
   const deleteImage = (index) => {
-    setImages((prevImgs) => prevImgs.filter((img, i) => i !== index));
+    setImages((prevImages) => prevImages.filter((img, i) => i !== index));
   }
 
   return (
     <div>
-      <form className="new-listing-form">
+      <form className="new-listing-form" onSubmit={handleSubmit}>
         <div className="address-detail">
           <div className="address form-section">
             <h3>--Address--</h3>
@@ -72,6 +119,8 @@ export default function ListingNew() {
               className="input"
               id="street"
               type="text"
+              value={listing.street}
+              onChange={handleTextChange}
               required
             />
             <label>Floor/Unit/Apt (Optional):</label>
@@ -79,16 +128,20 @@ export default function ListingNew() {
               className="input"
               id="apt"
               type="text"
+              value={listing.apt}
+              onChange={handleTextChange}
             />
             <label>City:</label>
             <input
               className="input"
               id="city"
               type="text"
+              value={listing.city}
+              onChange={handleTextChange}
               required
             />
             <label>Select State:</label>
-            <select className="input" name="states" id="states">
+            <select className="input" name="states" id="state" value={listing.state} onChange={handleTextChange}>
               {states.map(st => <option key={st} value={st}> {st} </option>)}
             </select>
             <label>Zip Code:</label>
@@ -96,6 +149,8 @@ export default function ListingNew() {
               className="input"
               id="zip"
               type="text"
+              value={listing.zip}
+              onChange={handleTextChange}
               required
             />
           </div>
@@ -103,17 +158,22 @@ export default function ListingNew() {
           <div className="space-detail form-section">
             <h3>--Space Details--</h3>
             <label>Type:</label>
-            <input
-              className="input"
-              id="type"
-              type="text"
-              required
-            />
+            <select className="input" name="type" id="type" value={listing.type} onChange={handleTextChange}>
+              <option value="Closet">Closet</option>
+              <option value="Spare Room">Spare Room</option>
+              <option value="Basement">Basement</option>
+              <option value="Backyard Shade">Backyard Shade</option>
+              <option value="Garage">Garage</option>
+              <option value="Parking Spot">Parking Spot</option>
+              <option value="Other">Other</option>
+            </select>
             <label>Size:</label>
             <input
               className="input"
               id="size"
               type="text"
+              value={listing.size}
+              onChange={handleTextChange}
               required
             />
             <label>Available Until:</label>
@@ -129,6 +189,8 @@ export default function ListingNew() {
               id="price"
               type="number"
               min="0"
+              value={listing.price}
+              onChange={handleNumberChange}
               required
             />
             <label>Short Description:</label>
@@ -138,6 +200,8 @@ export default function ListingNew() {
               type="text"
               maxLength="1000"
               placeholder="Maximum 1000 characters"
+              value={listing.description}
+              onChange={handleTextChange}
               required
             />
           </div>
@@ -146,10 +210,11 @@ export default function ListingNew() {
           <div className="card">
             <div className="top">
               <p>Add Images</p>
+              <label>(Not more than 5 images & max size 5MB)</label>
             </div>
             <div className="drag-area" onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
               {isDragging ? (
-                <span className="select">Drop images here</span>
+                <span>Drop images here</span>
               ) : (
                 <>
                   Drag & Drop images here or {" "}
@@ -166,15 +231,18 @@ export default function ListingNew() {
               />
             </div>
             <div className="container">
-              {images.map((img, index) => {
+              {images.map((img, index) =>
                 <div className="images" key={index}>
                   <span className="delete" onClick={() => deleteImage(index)}>&times;</span>
                   <img src={img.url} alt={img.name}/>
                 </div>
-              })}
+              )}
             </div>
           </div>
           <input type="submit" value="SUBMIT"/>
+          <Link to={`/listings`}>
+            <button id='backButton'>BACK</button>
+          </Link>
         </div>
       </form>
     </div>
