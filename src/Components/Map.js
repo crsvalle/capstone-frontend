@@ -1,7 +1,8 @@
-import  { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { useEffect, useState } from 'react';
+import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
+import '../style/Map.css'
 
-const MAP_API = process.env.GEOLOCATION_API
+const MAP_API = process.env.GEOLOCATION_API;
 
 const containerStyle = {
   width: '400px',
@@ -13,6 +14,7 @@ const Map = ({ location }) => {
   const [loading, setLoading] = useState(true);
   const [mapLoading, setMapLoading] = useState(true);
   const [markers, setMarkers] = useState([]);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -46,6 +48,11 @@ const Map = ({ location }) => {
 
           newMarkers.push({
             position: result,
+            icon: {
+              url: el.image,
+              scaledSize: new window.google.maps.Size(30, 30),
+            },
+            content: `$${el.price}`, 
           });
         } catch (error) {
           console.error('Geocoding error:', error);
@@ -53,23 +60,46 @@ const Map = ({ location }) => {
       }
 
       setMarkers(newMarkers);
-      setMapLoading(false)
+      setMapLoading(false);
     };
 
     fetchGeocodedMarkers();
   }, [list]);
 
+  const handleMarkerClick = (marker) => {
+    setSelectedMarker(marker);
+  };
+
+  const handleInfoWindowClose = () => {
+    setSelectedMarker(null);
+  };
+
   return (
     loading && mapLoading ? <div>Loading ...</div> : (
       <LoadScript googleMapsApiKey={MAP_API}>
-      <GoogleMap mapContainerStyle={containerStyle} center={location} zoom={11}>
+        <GoogleMap mapContainerStyle={containerStyle} center={location} zoom={11}>
           {markers.map((marker, index) => (
-            <Marker key={index} position={marker.position} />
+            <Marker
+              key={index}
+              position={marker.position}
+              icon={marker.icon}
+              onClick={() => handleMarkerClick(marker)}
+            />
           ))}
-      </GoogleMap>
-    </LoadScript>
+          {selectedMarker && (
+            <InfoWindow
+              position={selectedMarker.position}
+              onCloseClick={handleInfoWindowClose}
+            >
+              <div className='map__marker'>
+                <img src={selectedMarker.icon.url} alt="Marker Icon" style={{ width: '40px', height: '40px' }}/>
+                <p>{selectedMarker.content}</p>
+              </div>
+            </InfoWindow>
+          )}
+        </GoogleMap>
+      </LoadScript>
     )
-    
   );
 };
 
