@@ -1,6 +1,8 @@
 import  { useEffect, useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
+const MAP_API = process.env.GEOLOCATION_API
+
 const containerStyle = {
   width: '400px',
   height: '400px',
@@ -9,6 +11,7 @@ const containerStyle = {
 const Map = ({ location }) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mapLoading, setMapLoading] = useState(true);
   const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
@@ -22,6 +25,7 @@ const Map = ({ location }) => {
   }, []);
 
   useEffect(() => {
+    setMapLoading(true);
     const fetchGeocodedMarkers = async () => {
       const newMarkers = [];
 
@@ -49,23 +53,23 @@ const Map = ({ location }) => {
       }
 
       setMarkers(newMarkers);
+      setMapLoading(false)
     };
 
     fetchGeocodedMarkers();
   }, [list]);
 
-  if (loading) {
-    return <div>Loading ...</div>;
-  }
-
   return (
-    <LoadScript googleMapsApiKey={process.env.GEOLOCATION_API}>
+    loading && mapLoading ? <div>Loading ...</div> : (
+      <LoadScript googleMapsApiKey={MAP_API}>
       <GoogleMap mapContainerStyle={containerStyle} center={location} zoom={11}>
           {markers.map((marker, index) => (
             <Marker key={index} position={marker.position} />
           ))}
       </GoogleMap>
     </LoadScript>
+    )
+    
   );
 };
 
