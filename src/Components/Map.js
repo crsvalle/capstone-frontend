@@ -1,13 +1,10 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { GoogleMap, LoadScript, MarkerClusterer, Marker } from '@react-google-maps/api';
+import  { useEffect, useState } from 'react';
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '400px',
   height: '400px',
 };
-
-const MAP_API = process.env.GEOLOCATION_API;
 
 const Map = ({ location }) => {
   const [list, setList] = useState([]);
@@ -17,10 +14,10 @@ const Map = ({ location }) => {
   useEffect(() => {
     setLoading(true);
 
-    axios
-      .get('http://localhost:3003/listings')
-      .then((res) => setList(res.data))
-      .catch((e) => console.warn("catch", e))
+    fetch('http://localhost:3003/listings')
+      .then((response) => response.json())
+      .then((data) => setList(data))
+      .catch((error) => console.error('Error fetching listings:', error))
       .finally(() => setLoading(false));
   }, []);
 
@@ -29,21 +26,23 @@ const Map = ({ location }) => {
       const newMarkers = [];
 
       for (const el of list) {
+        const address = `${el.street}, ${el.city}, ${el.state} ${el.zip}`;
+
         try {
-          const response = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-            params: {
-              address: el.address,
-              key: MAP_API,
-            },
+          const geocoder = new window.google.maps.Geocoder();
+          const result = await new Promise((resolve, reject) => {
+            geocoder.geocode({ address }, (results, status) => {
+              if (status === 'OK' && results.length > 0) {
+                resolve(results[0].geometry.location);
+              } else {
+                reject(new Error('Geocoding failed'));
+              }
+            });
           });
 
-          const results = response.data.results;
-
-          if (results.length > 0) {
-            newMarkers.push({
-              position: results[0].geometry.location,
-            });
-          }
+          newMarkers.push({
+            position: result,
+          });
         } catch (error) {
           console.error('Geocoding error:', error);
         }
@@ -60,17 +59,11 @@ const Map = ({ location }) => {
   }
 
   return (
-    <LoadScript googleMapsApiKey={MAP_API}>
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={location}
-        zoom={11}
-      >
-        <MarkerClusterer>
+    <LoadScript googleMapsApiKey={process.env.GEOLOCATION_API}>
+      <GoogleMap mapContainerStyle={containerStyle} center={location} zoom={11}>
           {markers.map((marker, index) => (
             <Marker key={index} position={marker.position} />
           ))}
-        </MarkerClusterer>
       </GoogleMap>
     </LoadScript>
   );
