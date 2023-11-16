@@ -9,6 +9,7 @@ export default function ListingNew() {
 
   const fileInputRef = useRef(null);
   const [images, setImages] = useState([]);
+  const [errorMsg, setErrorMsg] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [listing, setListing] = useState({
     street: "",
@@ -64,19 +65,30 @@ export default function ListingNew() {
   const processImages = (files) => {
     console.log(files)
     for (let i = 0; i < files.length; i++) {
-      if (files[i].type.split('/')[0] !== 'image') continue;
-      if (files[i].size > 5242880) {
-        alert("One or more images exceed the size limit of 5MB!");
+      if (files[i].type.split('/')[0] !== 'image') {
+        setErrorMsg("File must be an image!");
         continue;
       }
-      if (!images.some(img => img.name === files[i].name) && images.length < 5) {
-        setImages(prevImages => [
-          ...prevImages, {
-            name: files[i].name,
-            url: URL.createObjectURL(files[i])
-          }
-        ]);
+      if (files[i].size > 5242880) {
+        setErrorMsg("One or more images exceed the size limit of 5MB!");
+        continue;
       }
+      if (images.some(img => img.name === files[i].name)) {
+        setErrorMsg("Image file already added!");
+        continue;
+      }
+      if (images.length >= 5) {
+        setErrorMsg("Can't add mode than 5 images! Delete one to add a new image.");
+        continue;
+      }
+
+      setImages(prevImages => [
+        ...prevImages, {
+          name: files[i].name,
+          url: URL.createObjectURL(files[i])
+        }
+      ]);
+      setErrorMsg("");
     }
   }
 
@@ -113,7 +125,7 @@ export default function ListingNew() {
       <form className="new-listing-form" onSubmit={handleSubmit}>
         <div className="address-detail">
           <div className="address form-section">
-            <h3>--Address--</h3>
+            <h3 className='section-text'>--Address--</h3>
             <label>Street Address:</label>
             <input
               className="input"
@@ -156,7 +168,7 @@ export default function ListingNew() {
           </div>
           
           <div className="space-detail form-section">
-            <h3>--Space Details--</h3>
+            <h3 className='section-text'>--Space Details--</h3>
             <label>Type:</label>
             <select className="input" name="type" id="type" value={listing.type} onChange={handleTextChange}>
               <option value="Closet">Closet</option>
@@ -209,17 +221,18 @@ export default function ListingNew() {
         <div className="last-section">
           <div className="card">
             <div className="top">
-              <p>Add Images</p>
-              <label>(Not more than 5 images & max size 5MB)</label>
+              <p className='section-text'>Add Images</p>
+              <label>(Add upto 5 images & max size 5MB)</label>
             </div>
             <div className="drag-area" onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
               {isDragging ? (
                 <span>Drop images here</span>
               ) : (
-                <>
-                  Drag & Drop images here or {" "}
-                  <span className="select" role='button' onClick={selectFiles}>Browse from Files</span>
-                </>
+                <section className='drop-text'>
+                  <span>Drag & Drop in this box</span>
+                  <span>or</span>
+                  <span className="select-image" role='button' onClick={selectFiles}>Browse from files</span>
+                </section>
               )}
               <input
                 type="file"
@@ -231,12 +244,15 @@ export default function ListingNew() {
               />
             </div>
             <div className="container">
+              {errorMsg && <p>{errorMsg}</p>}
+              <div className='images'>
               {images.map((img, index) =>
-                <div className="images" key={index}>
+                <div className="image" key={index}>
                   <span className="delete" onClick={() => deleteImage(index)}>&times;</span>
                   <img src={img.url} alt={img.name}/>
                 </div>
               )}
+              </div>
             </div>
           </div>
           <input type="submit" value="SUBMIT"/>
