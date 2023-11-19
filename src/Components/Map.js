@@ -53,7 +53,8 @@ const Map = ({ location }) => {
               url: el.image,
               scaledSize: new window.google.maps.Size(30, 30),
             },
-            content: `$${el.price}`, 
+            content: `${el.price}`,
+            id:  `${el.listing_id}`,
           });
         } catch (error) {
           console.error('Geocoding error:', error);
@@ -93,7 +94,7 @@ const Map = ({ location }) => {
               onCloseClick={handleInfoWindowClose}
             >
               <div className='map__marker'>
-                <Link to={`/listings/${selectedMarker.listing_id}`}>
+                <Link to={`/listings/${selectedMarker.id}`}>
                   <img className='map__marker__img' src={selectedMarker.icon.url} alt="Marker Icon" style={{ width: '40px', height: '40px' }}/>
                   <p className='map__marker__p'>{selectedMarker.content}</p>
                 </Link>
