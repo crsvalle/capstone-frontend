@@ -5,10 +5,12 @@ import React, { useState, useRef } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
 
+
 export default function ListingNew() {
   let navigate = useNavigate();
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
   const userId = localStorage.getItem('id') || '';
+  console.log(userId)
 
   const fileInputRef = useRef(null);
   const [images, setImages] = useState([]);
@@ -22,11 +24,9 @@ export default function ListingNew() {
     state: "AL",
     zip: "",
     size: "",
-    price: "",
-    posted_at: "",
+    price: 0,
     type: "Closet",
     host: userId,
-    renter: "",
     isRented: false,
     avg_rating: 0,
     description: ""
