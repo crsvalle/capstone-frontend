@@ -8,6 +8,7 @@ const API = process.env.REACT_APP_API_URL;
 export default function ListingNew() {
   let navigate = useNavigate();
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+  const userId = localStorage.getItem('id') || '';
 
   const fileInputRef = useRef(null);
   const [images, setImages] = useState([]);
@@ -24,7 +25,7 @@ export default function ListingNew() {
     price: "",
     posted_at: "",
     type: "Closet",
-    host: "",
+    host: userId,
     renter: "",
     isRented: false,
     avg_rating: 0,
