@@ -1,12 +1,5 @@
-.whole-page{
-    display: flex;
-    flex-direction: row;
-}
-
-.left{
-    flex: .5;
-}
-
-.right{
-    flex:.5
-}
+.whole-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px; /* Gap between columns */
+  }

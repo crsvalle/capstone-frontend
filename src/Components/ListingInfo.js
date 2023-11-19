@@ -5,6 +5,7 @@ import '../style/ListingInfo.css'
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
+import { useNavigate } from "react-router-dom";
 
 import { Rating } from "@material-tailwind/react";
 import { Carousel } from "@material-tailwind/react";
@@ -21,6 +22,7 @@ export default function ListingInfo() {
     const [listing, setListing] = useState([]);
     const [host, setHost] = useState([]);
     const [rated, setRated] = useState(null)
+    const navigate = useNavigate()
     
     const [dateRange, setDateRange] = useState([
         {
@@ -55,6 +57,21 @@ export default function ListingInfo() {
     const end = new Date (dateRange[0].endDate) 
     let time = Math.round(Math.abs((start - end) / (1000*60*60*24)))
 
+    const handleBooking = () => {
+        // Extract start and end dates from the dateRange state
+        const startDate = dateRange[0].startDate.toISOString();
+        const endDate = dateRange[0].endDate.toISOString();
+    
+        // Store data in localStorage
+        localStorage.setItem('bookingData', JSON.stringify({
+            index,
+            startDate,
+            endDate,
+        }));
+    
+        // Redirect to the checkout page
+        navigate('/checkout');
+    };
 
     return (
         <div className="wholePage">
@@ -87,7 +104,7 @@ export default function ListingInfo() {
                 </div>
                 <div className="desc">
                     <p>
-                        Incoming text
+                        {listing.description}
                     </p>
                 </div>
                 <div>
@@ -111,7 +128,7 @@ export default function ListingInfo() {
                     <p> Total price ({time} days): ${listing.price * time}</p>
                 </div>
 
-                <Button className="bookButton" variant="outlined">Book</Button>
+                <Button className="bookButton" variant="outlined" onClick={handleBooking}>Book</Button>
             </div>
 
             <div className="right">test</div>
