@@ -1,7 +1,7 @@
 
 export default function Searchbar() {
   return (
-<div className="search__bar w-11/12 md:w-8/12 xl:w-1/2 h-auto p-5 rounded-3xl bg-white flex flex-col shadow-md">
+<div className="w-11/12 md:w-8/12 xl:w-1/2 h-auto p-5 rounded-3xl bg-white flex flex-col shadow-md">
   <section className="w-full h-10 flex items-center">
     <input
       type="text"
