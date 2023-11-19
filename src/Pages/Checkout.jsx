@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
@@ -12,6 +12,22 @@ export default function Checkout() {
       key: 'selection',
     },
   ]);
+
+  useEffect(() => {
+    // Retrieve data from localStorage
+    const bookingData = localStorage.getItem('bookingData');
+
+    // Check if data exists
+    if (bookingData) {
+        const { index, startDate, endDate } = JSON.parse(bookingData);
+
+        // Use the data as needed
+        console.log(index, startDate, endDate);
+
+        // Optionally, clear the data from localStorage once used
+        // localStorage.removeItem('bookingData');
+    }
+}, []);
 
   const handleDateRangeChange = (ranges) => {
     setDateRange([ranges.selection]);
