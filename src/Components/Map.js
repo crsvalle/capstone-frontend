@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import '../style/Map.css'
 
@@ -92,8 +93,10 @@ const Map = ({ location }) => {
               onCloseClick={handleInfoWindowClose}
             >
               <div className='map__marker'>
-                <img src={selectedMarker.icon.url} alt="Marker Icon" style={{ width: '40px', height: '40px' }}/>
-                <p>{selectedMarker.content}</p>
+                <Link to={`/listings/${selectedMarker.listing_id}`}>
+                  <img className='map__marker__img' src={selectedMarker.icon.url} alt="Marker Icon" style={{ width: '40px', height: '40px' }}/>
+                  <p className='map__marker__p'>{selectedMarker.content}</p>
+                </Link>
               </div>
             </InfoWindow>
           )}
