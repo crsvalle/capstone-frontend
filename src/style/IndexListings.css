@@ -10,3 +10,8 @@
 .right{
     flex:.5
 }
+
+.indexListings__searchbar {
+    width: 800px;
+    padding:10px 0 10px;
+}
