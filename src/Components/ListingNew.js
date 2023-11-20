@@ -23,7 +23,6 @@ export default function ListingNew() {
     zip: "",
     size: "",
     price: "",
-    posted_at: "",
     type: "Closet",
     host: userId,
     renter: "",
