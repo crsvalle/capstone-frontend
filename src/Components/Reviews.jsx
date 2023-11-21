@@ -4,12 +4,14 @@ import Ratings from './Ratings';
 import Avatar from '@mui/material/Avatar';
 import axios from 'axios';
 
+const API = process.env.REACT_APP_API_URL;
+
 export default function Reviews({review}) {
     const [user, setUser] = useState([]);
 
     useEffect(() => {
         axios
-        .get(`http://localhost:3003/users/${review.author_id}`)
+        .get(`${API}/${review.author_id}`)
         .then((res) => setUser(res.data))
         .catch((e) => console.warn("catch", e))
     },[review.author_id])
