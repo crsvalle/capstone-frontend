@@ -8,12 +8,16 @@
   }
   
 .home > img {
-  top: 0;
+  /* top: 0; */
   position: relative;
-  z-index: -3;
+  /* z-index: -3; */
+  border: 2px solid black;
 }
 
 .search__bar{
   position: absolute;
-  top: 400px;
+  top: 300px;
+  width: 900px;
+  display: flex;
+  justify-content: center;
 }

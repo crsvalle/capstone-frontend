@@ -3,3 +3,9 @@
     grid-template-columns: 1fr 1fr; /* Two equal columns */
     gap: 20px; /* Gap between columns */
   }
+
+.indexListings__searchbar {
+    width: 800px;
+    padding:10px 0 10px;
+}
+

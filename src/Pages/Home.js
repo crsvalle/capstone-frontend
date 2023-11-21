@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="home">
       <img src={hero}></img>
-      <Searchbar className="search__bar"/>
+      <div className="search__bar" ><Searchbar /></div>
       <Lists/>
       <ListingReviews/>
     </div>

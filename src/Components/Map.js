@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import '../style/Map.css'
 
@@ -52,7 +53,8 @@ const Map = ({ location }) => {
               url: el.image,
               scaledSize: new window.google.maps.Size(30, 30),
             },
-            content: `$${el.price}`, 
+            content: `${el.price}`,
+            id:  `${el.listing_id}`,
           });
         } catch (error) {
           console.error('Geocoding error:', error);
@@ -92,8 +94,10 @@ const Map = ({ location }) => {
               onCloseClick={handleInfoWindowClose}
             >
               <div className='map__marker'>
-                <img src={selectedMarker.icon.url} alt="Marker Icon" style={{ width: '40px', height: '40px' }}/>
-                <p>{selectedMarker.content}</p>
+                <Link to={`/listings/${selectedMarker.id}`}>
+                  <img className='map__marker__img' src={selectedMarker.icon.url} alt="Marker Icon" style={{ width: '40px', height: '40px' }}/>
+                  <p className='map__marker__p'>{selectedMarker.content}</p>
+                </Link>
               </div>
             </InfoWindow>
           )}
