@@ -17,10 +17,11 @@ export default function Listings() {
         }).catch((e) => console.error("catch", e))
     }, []);
 
+    console.log(listings)
   return (
     <div className="listing-card">
         {listings.map((listing)=>{
-            return <Listing key={listing.id} listing={listing} />
+            return <Listing key={listing.listing_id} listing={listing} />
         })}
     </div>
 

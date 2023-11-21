@@ -1,14 +1,20 @@
 import axios from 'axios';
-import { useNavigate, Link } from "react-router-dom";
+import { storage } from './firebase';
+import { ref, uploadBytes } from 'firebase/storage';
 import React, { useState, useRef } from 'react';
+import { useNavigate, Link } from "react-router-dom";
 const API = process.env.REACT_APP_API_URL;
+
 
 export default function ListingNew() {
   let navigate = useNavigate();
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
+  const userId = localStorage.getItem('id') || '';
+  console.log(userId)
 
   const fileInputRef = useRef(null);
   const [images, setImages] = useState([]);
+  const [upImages, setUpImages] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [isDragging, setIsDragging] = useState(false);
   const [listing, setListing] = useState({
@@ -18,11 +24,9 @@ export default function ListingNew() {
     state: "AL",
     zip: "",
     size: "",
-    price: "",
-    posted_at: "",
+    price: 0,
     type: "Closet",
-    host: "",
-    renter: "",
+    host: userId,
     isRented: false,
     avg_rating: 0,
     description: ""
@@ -32,7 +36,15 @@ export default function ListingNew() {
     axios
       .post(`${API}/listings`, newListing)
       .then(
-        (res) => navigate(`/listings/${res.data.id}`),
+        (res) => {
+          console.log(res)
+          for (let img of upImages) {
+            const imageRef = ref(storage, `images/${res.data.listing_id}/${img.name}`);
+            uploadBytes(imageRef, img);
+          }
+          alert("Listing Added!");
+          navigate(`/listings/${res.data.listing_id}`);
+        },
         (error) => console.error(error)
       )
       .catch((c) => console.warn("catch", c));
@@ -78,7 +90,7 @@ export default function ListingNew() {
         continue;
       }
       if (images.length >= 5) {
-        setErrorMsg("Can't add mode than 5 images! Delete one to add a new image.");
+        setErrorMsg("You can only add 5 images!");
         continue;
       }
 
@@ -88,6 +100,7 @@ export default function ListingNew() {
           url: URL.createObjectURL(files[i])
         }
       ]);
+      setUpImages(prevs => [ ...prevs, files[i] ]);
       setErrorMsg("");
     }
   }
@@ -117,7 +130,7 @@ export default function ListingNew() {
   }
 
   const deleteImage = (index) => {
-    setImages((prevImages) => prevImages.filter((img, i) => i !== index));
+    setImages((prevs) => prevs.filter((img, i) => i !== index));
   }
 
   return (
@@ -195,7 +208,7 @@ export default function ListingNew() {
               type="date"
               required
             />
-            <label>Monthly Rent:</label>
+            <label>Monthly Rent in USD($):</label>
             <input
               className="input"
               id="price"
@@ -222,7 +235,7 @@ export default function ListingNew() {
           <div className="card">
             <div className="top">
               <p className='section-text'>Add Images</p>
-              <label>(Add upto 5 images & max size 5MB)</label>
+              <label>(Add up to 5 images & max size 5MB per image)</label>
             </div>
             <div className="drag-area" onDragOver={onDragOver} onDragLeave={onDragLeave} onDrop={onDrop}>
               {isDragging ? (

@@ -28,7 +28,6 @@ export default function Login() {
       const user = await onLogin(input);
       
       const { id, email } = user;
-      console.log(user)
       
       dispatch(authenticateUser());
       dispatch(updateUserInfo({ id, email }));
@@ -78,6 +77,7 @@ export default function Login() {
         <Button variant="outlined" size="large" type='submit'>
             LOGIN
         </Button>
+      {/* ADD ERROR MESSAGE HERE */}
       </div>
       <div className="login__box__footer">
       <div className="forgetPass">Forgot Password?</div>
