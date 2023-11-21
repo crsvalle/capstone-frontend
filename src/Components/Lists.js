@@ -22,8 +22,8 @@ export default function Lists(){
   return (
     <div className="listing" >
       {listings.map((el, index) => 
-        <Link className='listing__link' to={`/listings/${el.listing_id}`}>
-          <div className="listing__single" key={index}>
+        <Link className='listing__link' to={`/listings/${el.listing_id}`} key={el.listing_id}>
+          <div className="listing__single" >
             <img src={el.image} alt=""/>
             <Ratings rating={el.avg_rating}/>
             <div>{el.size}</div> 

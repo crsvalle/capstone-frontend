@@ -58,7 +58,7 @@ function ListingReviews() {
                 <div className="home__review__star__count"><Ratings rating={1}/> <span>{ratingsCount[1]}</span></div>    
             </div>  
             {reviews.slice(0, 4).map(review => 
-                <Reviews key={review.user_id} review={review}/>
+                <Reviews key={review.id} review={review}/>
             )}
             <div>Read More...</div>
         </div>
