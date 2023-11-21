@@ -45,6 +45,8 @@ function App() {
 
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/listings/new" element={<NewListing/>}/>
+            <Route path="/listings/:index/edit" element={<EditListing />} />
           </Route>
 
           <Route element={<RestrictedRoutes />}>
@@ -53,9 +55,9 @@ function App() {
           </Route>
         
           <Route path="/listings" element={<IndexListings />} />
-          <Route path="/listings/new" element={<NewListing/>}/>
+          {/* <Route path="/listings/new" element={<NewListing/>}/> */}
           <Route path="/listings/:index" element={<ShowListing />}/>
-          <Route path="/listings/:index/edit" element={<EditListing />} />
+          {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
           <Route path="/user/:index" element={<User />} />
           <Route path="/register" element={<SignUp/>} />
           <Route path="/login" element={<Login/>} />

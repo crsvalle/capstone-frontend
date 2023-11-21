@@ -6,10 +6,12 @@ import '../style/IndexListings.css'
 
 export default function IndexListings() {
   return (
-    <div className="whole-page">
-        <Listings/>
-        <div className="indexListings__searchbar"><Searchbar /></div>
-        <GeoLocation/>
+    <div>
+      <div className="indexListings__searchbar"><Searchbar /></div>
+      <div className="whole-page">
+          <Listings/>
+          <GeoLocation/>
+      </div>
     </div>
   )
 }

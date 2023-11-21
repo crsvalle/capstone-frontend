@@ -8,6 +8,7 @@ import {  useNavigate } from 'react-router-dom'
 import { authenticateUser, updateUserInfo } from '../redux/slices/authSlice'
 import { onLogin } from '../api/auth'
 import { useState } from 'react';
+import { Typography } from '@material-tailwind/react';
 
 export default function Login() {
   const [input, setInput] = useState({
@@ -73,11 +74,13 @@ export default function Login() {
           value={input.password}
           onChange={(e) => handleTextChange(e)}
         />
+      <Typography style={{ color: 'red'}}>
+        {error}
+      </Typography>
       <div className='login__box__btn'>
         <Button variant="outlined" size="large" type='submit'>
             LOGIN
         </Button>
-      {/* ADD ERROR MESSAGE HERE */}
       </div>
       <div className="login__box__footer">
       <div className="forgetPass">Forgot Password?</div>

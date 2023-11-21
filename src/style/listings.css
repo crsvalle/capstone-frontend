@@ -1,4 +1,4 @@
 .listing-card{
-    max-height: 600px; /* Set the maximum height as per your design */
+    height: 90vh; /* Set the maximum height as per your design */
     overflow-y: auto; 
 }

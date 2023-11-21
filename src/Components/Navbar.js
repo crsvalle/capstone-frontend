@@ -31,13 +31,13 @@ export default function Navbar() {
       
       {isAuth ? 
            <div className='nav__end'>
-            <Link to='/about'><div className='nav__item'>About</div></Link>
-            <Link to='/login'><AccountCircleOutlinedIcon/></Link>
+            <Link to='/listings/new'><div className='nav__item'>Create</div></Link>
+            <Link to='/login'><AccountCircleOutlinedIcon/>Hello (insert name here)!</Link>
             <button onClick={logout}> Logout</button>
           </div>:
           <div className='nav__end'>
             <Link to='/about'><div className='nav__item'>About</div></Link>
-            <Link to='/login'><AccountCircleOutlinedIcon/></Link>
+            {/* <Link to='/login'><AccountCircleOutlinedIcon/></Link> */}
             <Link to='/login'><div className='nav__item'>Login</div></Link>
             <div>/</div>
             <Link to='/register'><div className='nav__item'>Register</div></Link>

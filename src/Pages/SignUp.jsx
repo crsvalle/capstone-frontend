@@ -2,6 +2,7 @@ import "../style/SignUp.css"
 import {  useState } from "react"
 import { onRegistration } from '../api/auth'
 import { Typography } from  "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp () {
     const [values, setValues] = useState({
@@ -14,8 +15,9 @@ export default function SignUp () {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [loading, setLoading] = useState(false);
     
-    
+    const navigate = useNavigate()
     const onChange = (e) => {
         const { name, value } = e.target;
 
@@ -30,6 +32,7 @@ export default function SignUp () {
 
     const onSubmit = async (e) => {
         e.preventDefault()
+        setLoading(true);
         if (values.email !== confirmEmail) {
             setError('Email and Confirm Email must match');
             return;
@@ -49,9 +52,12 @@ export default function SignUp () {
             setValues({ firstName: '', lastName: '', email: '', password: ''})
             setConfirmEmail('');
             setConfirmPassword('');
+            navigate('/login')
+            setLoading(false);
         } catch (error) {
             setError(error.response.data.errors[0].msg)
             setSuccess('');
+            setLoading(false);
         }
     }
     
@@ -139,6 +145,7 @@ export default function SignUp () {
             {success}
           </Typography>
                 <input type="submit" value="Submit" />
+                {loading && <p>Loading...</p>}
             </form>
         </div>
         

@@ -12,7 +12,7 @@ export default function User() {
   const { index } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3003/users/${index}`)
+    axios.get(`${API}/${index}`)
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
   }, [index])
