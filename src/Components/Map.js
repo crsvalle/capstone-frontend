@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import '../style/Map.css'
 
-const MAP_API = process.env.GEOLOCATION_API;
+const MAP_API = process.env.REACT_APP_GEOLOCATION_API;
 
 const containerStyle = {
   width: '400px',

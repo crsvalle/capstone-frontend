@@ -4,14 +4,14 @@ import Reviews from "../Components/Reviews";
 import '../style/review.css'
 import Ratings from "../Components/Ratings";
 
-//const API = process.env.REACT_APP_API_URL;
+const API = process.env.REACT_APP_API_URL;
 
 function ListingReviews() {
     const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
         axios
-        .get("http://localhost:3003/listingReviews")
+        .get(`${API}/listingReviews`)
         .then((res) =>setReviews(res.data))
         .catch((e) => console.warn("catch", e ))
     }, [])
