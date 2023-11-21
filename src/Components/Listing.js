@@ -62,8 +62,8 @@ return (
 							<span className="text-gray-500 font-normal"></span>
 						</p>
 					</div>
-					<div className="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
-						Superhost</div>
+					{/* <div className="bg-gray-200 px-3 py-1 rounded-full text-xs font-medium text-gray-800 hidden md:block">
+						Superhost</div> */}
 				</div>
 				<h3 className="font-black text-gray-800 md:text-2xl text-xl">{listing.size}</h3>
 				<p className="md:text-m text-gray-500 text-base overflow-hidden max-h-16 leading-snug text-truncate">{listing.description}</p>

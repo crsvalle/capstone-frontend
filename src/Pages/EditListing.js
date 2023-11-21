@@ -1,6 +1,7 @@
+import ListingEdit from "../Components/ListingEdit";
 
 export default function EditListing() {
   return (
-    <div>EditListing</div>
-  )
+    <ListingEdit />
+    )
 }
