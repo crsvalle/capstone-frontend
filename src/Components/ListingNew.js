@@ -8,9 +8,8 @@ const API = process.env.REACT_APP_API_URL;
 
 export default function ListingNew() {
   let navigate = useNavigate();
-  const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
   const userId = localStorage.getItem('id') || '';
-  console.log(userId)
+  const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
   const fileInputRef = useRef(null);
   const [images, setImages] = useState([]);
@@ -39,7 +38,7 @@ export default function ListingNew() {
         (res) => {
           console.log(res)
           for (let img of upImages) {
-            const imageRef = ref(storage, `images/${res.data.listing_id}/${img.name}`);
+            const imageRef = ref(storage, `listings/${res.data.listing_id}/${img.name}`);
             uploadBytes(imageRef, img);
           }
           alert("Listing Added!");
@@ -75,7 +74,6 @@ export default function ListingNew() {
   }
 
   const processImages = (files) => {
-    console.log(files)
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.split('/')[0] !== 'image') {
         setErrorMsg("File must be an image!");
