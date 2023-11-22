@@ -23,7 +23,8 @@ export default function ListingNew() {
     state: "AL",
     zip: "",
     size: "",
-    price: 0,
+    price: "",
+    posted_at: "",
     type: "Closet",
     host: userId,
     isRented: false,
@@ -36,7 +37,6 @@ export default function ListingNew() {
       .post(`${API}/listings`, newListing)
       .then(
         (res) => {
-          console.log(res)
           for (let img of upImages) {
             const imageRef = ref(storage, `listings/${res.data.listing_id}/${img.name}`);
             uploadBytes(imageRef, img);
@@ -51,6 +51,7 @@ export default function ListingNew() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    listing.posted_at = new Date().toLocaleDateString();
     addNewListing(listing);
   }
 
@@ -64,9 +65,7 @@ export default function ListingNew() {
 
   const handleDateChange = (event) => {
     let newDate = event.target.value.replace(/(....).(..).(..)/, "$2/$3/$1");
-    // let date = new Date(event.target.value);
-    // let newDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-    setListing({ ...listing, [event.target.id]: newDate });
+    // setListing({ ...listing, [event.target.id]: newDate });
   };
 
   const selectFiles = () => {
@@ -204,6 +203,7 @@ export default function ListingNew() {
               className="input"
               id="date"
               type="date"
+              onChange={handleDateChange}
               required
             />
             <label>Monthly Rent in USD($):</label>
