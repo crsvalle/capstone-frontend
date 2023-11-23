@@ -1,18 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import '../style/ListingInfo.css'
+import { useParams, useNavigate } from "react-router-dom";
+import '../style/ListingInfo.css';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-
-import { useNavigate } from "react-router-dom";
 
 import { Rating } from "@material-tailwind/react";
 import { Carousel } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
 import { DateRange } from "react-date-range";
 
-
+import { storage } from "./firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -21,37 +20,54 @@ export default function ListingInfo() {
     const { index } = useParams();
     const [listing, setListing] = useState([]);
     const [host, setHost] = useState([]);
-    const [rated, setRated] = useState(null)
-    const navigate = useNavigate()
+    const [rated, setRated] = useState(null);
+    const [id, setId] = useState('');
+    const navigate = useNavigate();
+
+    const [images, setImages] = useState([]);
+    const imgListRef = ref(storage, `listings/${id}`);
     
     const [dateRange, setDateRange] = useState([
         {
-          startDate: new Date(),
-          endDate: new Date(),
-          key: 'selection',
-        },
-      ]);
+            startDate: new Date(),
+            endDate: new Date(),
+            key: 'selection',
+        }
+    ]);
     
-      const handleDateRangeChange = (ranges) => {
+    const handleDateRangeChange = (ranges) => {
         setDateRange([ranges.selection]);
-      };
+    };
 
 
     useEffect(() => {
         axios
         .get(`${API}/listings/${index}`)
         .then((response) =>{
-            setListing((response.data))
+            setListing((response.data));
             setRated((response.data.avg_rating));
-        }).catch((e) => console.error("catch", e))
+            setId(listing.listing_id);
+        })
+        .catch((e) => console.error("catch", e));
 
-        axios.get(`${API}/users/${listing.host}`)
+        axios
+        .get(`${API}/users/${listing.host}`)
         .then((response) => {
-            setHost(response.data)
+            setHost(response.data);
         })
         .catch((e) => console.error("catch", e));
 
     }, [index, listing.host]);
+
+    useEffect(() => {
+        listAll(imgListRef).then((res) =>
+            res.items.forEach((item) =>
+                getDownloadURL(item).then((url) =>
+                    setImages((prevs) => [...prevs, url])
+                )
+            )
+        )
+    }, [id]);
 
     const start = new Date(dateRange[0].startDate)
     const end = new Date (dateRange[0].endDate) 
@@ -78,7 +94,7 @@ export default function ListingInfo() {
             <div className="left">
                 <div className="custom-carousel-container">
                     <Carousel className="rounded-xl">
-                        <img
+                        {/* <img
                             src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
                             alt="iage 1"
                             className="h-full w-full object-cover"
@@ -92,7 +108,15 @@ export default function ListingInfo() {
                             src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
                             alt="iage 3"
                             className="h-full w-full object-cover"
-                        />
+                        /> */}
+                        {images.map((image, index) =>
+                            <img
+                                src={image}
+                                key={index}
+                                alt="Listing"
+                                className="h-full w-full object-cover"
+                            />
+                        )}
                     </Carousel>
                 </div>
                 <div className="listingCard">
@@ -103,12 +127,10 @@ export default function ListingInfo() {
                     <p className="listingText">Posted at: {listing.posted_at}</p>
                 </div>
                 <div className="desc">
-                    <p>
-                        {listing.description}
-                    </p>
+                    <p>{listing.description}</p>
                 </div>
                 <div>
-                    <Button fullWidth>Contact Owner</Button>;
+                    <Button fullWidth>Contact Owner</Button>
                 </div>
             </div>
 
