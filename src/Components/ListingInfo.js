@@ -57,8 +57,9 @@ export default function ListingInfo() {
         })
         .catch((e) => console.error("catch", e));
 
-    }, [index, listing.host]);
+    }, [index, listing.host, listing.listing_id]);
 
+    
     useEffect(() => {
         listAll(imgListRef).then((res) =>
             res.items.forEach((item) =>
@@ -68,6 +69,7 @@ export default function ListingInfo() {
             )
         )
     }, [id]);
+
 
     const start = new Date(dateRange[0].startDate)
     const end = new Date (dateRange[0].endDate) 

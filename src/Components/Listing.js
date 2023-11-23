@@ -1,19 +1,26 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
+
+import { storage } from "./firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
 import '../style/Listing.css'
-
-import { Link } from "react-router-dom";
 import {
   Button,
   Carousel
 } from "@material-tailwind/react";
+
 
 const API = process.env.REACT_APP_API_URL;
 
 
 export default function Listing({listing}) {
   const [avail, setAvail] = useState([])
+  const [id] = useState(listing.listing_id);
+
+  const [images, setImages] = useState([]);
+  const imgListRef = ref(storage, `listings/${id}`);
 
   useEffect(() => {
     axios
@@ -21,8 +28,17 @@ export default function Listing({listing}) {
     .then((response) =>{
         setAvail((response.data));
     }).catch((e) => console.error("catch", e))
-}, []);
+}, [listing.listing_id]);
 
+  useEffect(() => {
+    listAll(imgListRef).then((res) =>
+        res.items.forEach((item) =>
+            getDownloadURL(item).then((url) =>
+                setImages((prevs) => [...prevs, url])
+            )
+        )
+    )
+  }, [id]);
 
 return (
 <div className="flex flex-col justify-center my-3">
@@ -30,21 +46,19 @@ return (
     <div className="w-full md:w-1/2 bg-white grid place-items-center">
       <div className="h-60 overflow-hidden rounded-xl">
         <Carousel>
-          <img
-            src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-            alt="image 1"
-            className="w-full h-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-            alt="image 2"
-            className="w-full h-full object-cover"
-          />
-          <img
-            src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-            alt="image 3"
-            className="w-full h-full object-cover"
-          />
+          {images.length ? 
+              images.map((image, index) =>
+                <img
+                    src={image}
+                    key={index}
+                    alt="Listing"
+                    className="h-full w-full object-cover"
+                />
+              ):<img 
+                    src={process.env.PUBLIC_URL + '/imgs/no_image.jpeg'}
+                    alt="empty"
+                    />
+            }
         </Carousel>
       </div>
     </div>
@@ -84,7 +98,7 @@ return (
 					<span className="font-normal text-gray-600 text-base">/month</span>
 				</p>
         <Link to={`/listings/${listing.listing_id}`}>
-          <Button size="m" fullWidth={true}>
+          <Button size="md" fullWidth={true}>
             See more
           </Button>
         </Link>
