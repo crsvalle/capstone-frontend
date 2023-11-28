@@ -15,7 +15,7 @@ import {
 const API = process.env.REACT_APP_API_URL;
 
 
-export default function Listing({listing}) {
+export default function Listing({ listing, onMouseEnter, onMouseLeave }) {
   const [avail, setAvail] = useState([])
   const [id] = useState(listing.listing_id);
 
@@ -41,6 +41,9 @@ export default function Listing({listing}) {
   }, [id]);
 
 return (
+  <div className="listing"
+  onMouseEnter={onMouseEnter}
+  onMouseLeave={onMouseLeave}>
 <div className="flex flex-col justify-center my-3">
   <div className="relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3 max-w-xs md:max-w-3xl mx-auto border border-white bg-white">
     <div className="w-full md:w-1/2 bg-white grid place-items-center">
@@ -105,6 +108,7 @@ return (
 			</div>
 		</div>
 	</div>
+  </div>
   )
 
 }
