@@ -1,59 +1,150 @@
+import {useEffect, useRef, useState} from 'react';
+import '../style/Searchbar.css'
+import SearchIcon from '@mui/icons-material/Search';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-// export default function Searchbar() {
-//   return (
-// <div className="w-11/12 md:w-8/12 xl:w-1/2 h-auto p-5 rounded-3xl bg-white flex flex-col shadow-md">
-//   <section className="w-full h-10 flex items-center">
-//     <input
-//       type="text"
-//       className="w-full h-full font-medium md:pl-2 focus:outline-none searchInput"
-//       placeholder="Search locations.."
-//     />
-//     <button className="w-28 h-full bg-blue-800 flex justify-center items-center rounded-2xl text-white font-medium"> Search</button>
-//   </section>
-// </div>
-//   )
-// }
+const apiKey = process.env.REACT_APP_GEOLOCATION_API;
+const mapApiJs = 'https://maps.googleapis.com/maps/api/js';
+const geocodeJson = 'https://maps.googleapis.com/maps/api/geocode/json';
 
-// SearchBar.js
-import React, { useState, useEffect } from 'react';
-import GoogleAPILoader from './GoogleAPILoader';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
-const SearchBar = () => {
-  const googleMaps = React.useContext(GoogleAPILoader);
-  const [address, setAddress] = useState('');
-  const [results, setResults] = useState([]);
+// load google map api js
 
-  const handleSelect = async (selectedAddress) => {
-    try {
-      const results = await geocodeByAddress(selectedAddress, googleMaps);
-      const latLng = await getLatLng(results[0]);
-      setAddress(selectedAddress);
-      setResults(results);
-    } catch (error) {
-      console.error('Error selecting address:', error);
+function loadAsyncScript(src) {
+  return new Promise(resolve => {
+    const script = document.createElement("script");
+    Object.assign(script, {
+      type: "text/javascript",
+      async: true,
+      src
+    })
+    script.addEventListener("load", () => resolve(script));
+    document.head.appendChild(script);
+  })
+}
+
+const extractAddress = (place) => {
+
+  const address = {
+    city: "",
+    state: "",
+    zip: "",
+    country: "",
+    plain() {
+      const city = this.city ? this.city + ", " : "";
+      const zip = this.zip ? this.zip + ", " : "";
+      const state = this.state ? this.state + ", " : "";
+      return city + zip + state + this.country;
     }
-  };
+  }
+
+  if (!Array.isArray(place?.address_components)) {
+    return address;
+  }
+
+  place.address_components.forEach(component => {
+    const types = component.types;
+    const value = component.long_name;
+
+    if (types.includes("locality")) {
+      address.city = value;
+    }
+
+    if (types.includes("administrative_area_level_2")) {
+      address.state = value;
+    }
+
+    if (types.includes("postal_code")) {
+      address.zip = value;
+    }
+
+    if (types.includes("country")) {
+      address.country = value;
+    }
+
+  });
+
+  return address;
+}
+
+
+function Searchbar() {
+
+  const searchInput = useRef(null);
+  const [address, setAddress] = useState({});
+
+
+  // init gmap script
+  const initMapScript = () => {
+    // if script already loaded
+    if(window.google) {
+      return Promise.resolve();
+    }
+    const src = `${mapApiJs}?key=${apiKey}&libraries=places&v=weekly`;
+    return loadAsyncScript(src);
+  }
+
+  // do something on address change
+  const onChangeAddress = (autocomplete) => {
+    const place = autocomplete.getPlace();
+    setAddress(extractAddress(place));
+  }
+
+  // init autocomplete
+  const initAutocomplete = () => {
+    if (!searchInput.current) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(searchInput.current);
+    autocomplete.setFields(["address_component", "geometry"]);
+    autocomplete.addListener("place_changed", () => onChangeAddress(autocomplete));
+
+  }
+
+
+  const reverseGeocode = ({ latitude: lat, longitude: lng}) => {
+    const url = `${geocodeJson}?key=${apiKey}&latlng=${lat},${lng}`;
+    searchInput.current.value = "Getting your location...";
+    fetch(url)
+        .then(response => response.json())
+        .then(location => {
+          const place = location.results[0];
+          const _address = extractAddress(place);
+          setAddress(_address);
+          searchInput.current.value = _address.plain();
+        })
+  }
+
+
+  const findMyLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        reverseGeocode(position.coords)
+      })
+    }
+  }
+
+
+
+
+
+  // load map script after mounted
+  useEffect(() => {
+    initMapScript().then(() => initAutocomplete())
+  }, []);
+
+
 
   return (
-    <div>
-      <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}  googleCallbackName="google-map-loaded">
-        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-          <div>
-            <input {...getInputProps({ placeholder: 'Search for a place...' })} />
-            <div>
-              {loading && <div>Loading...</div>}
-              {suggestions.map((suggestion) => (
-                <div key={suggestion.id} {...getSuggestionItemProps(suggestion)}>
-                  {suggestion.description}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </PlacesAutocomplete>
+    <div className="search__box">
+      <div>
+        <div className="search">
+          <span><SearchIcon /></span>
+          <input ref={searchInput} type="text" placeholder="Search location...."/>
+          <button onClick={findMyLocation}><LocationOnIcon /></button>
+        </div>
+      </div>
     </div>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default Searchbar;
