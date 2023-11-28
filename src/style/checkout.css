@@ -10,8 +10,43 @@
     border: 2px solid white;
 }
 
-.date-picker {
+
+.bottomBox {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    gap: 10px; 
+    margin-top: 10px;
+  }
+  
+.checkoutLeft {
+    background-color: #FFFFFF; 
+    border: 1px solid #CCCCCC; 
+    border-radius: 8px; 
+    padding: 20px
+}
+
+.checkoutPrice {
+    width: 200px; 
+    height: 200px; 
+    background-color: #F0F0F0; 
+    border: 1px solid #CCCCCC; 
+    border-radius: 8px; 
+    padding: 20px; 
+}
+
+.checkoutListing{
     display: flex;
     justify-content: center;
-    border: 1px solid rgba(0, 0, 0, 0.117);
+    align-items: center;
 }
+
+.checkoutBox{
+    width: 60%;
+    margin: 0 auto; 
+    padding: 20px;
+}
+
+
+.customSmallerText {
+    font-size: 0.7rem; /* Adjust the font size as needed */
+  }
