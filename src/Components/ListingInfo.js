@@ -83,6 +83,7 @@ export default function ListingInfo() {
         // Store data in localStorage
         localStorage.setItem('bookingData', JSON.stringify({
             index,
+            time,
             startDate,
             endDate,
         }));
