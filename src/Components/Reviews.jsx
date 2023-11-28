@@ -11,7 +11,7 @@ export default function Reviews({review}) {
 
     useEffect(() => {
         axios
-        .get(`${API}/${review.author_id}`)
+        .get(`${API}/users/${review.author_id}`)
         .then((res) => setUser(res.data))
         .catch((e) => console.warn("catch", e))
     },[review.author_id])
