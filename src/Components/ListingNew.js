@@ -47,29 +47,30 @@ export default function ListingNew() {
         (error) => console.error(error)
       )
       .catch((c) => console.warn("catch", c));
-  };
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!images.length) {
+      setErrorMsg("Must add images for the listing!");
+      return;
+    }
     listing.posted_at = new Date().toLocaleDateString();
     addNewListing(listing);
   }
 
   const handleTextChange = (event) => {
     setListing({ ...listing, [event.target.id]: event.target.value });
-  };
+  }
 
   const handleNumberChange = (event) => {
     setListing({ ...listing, [event.target.id]: Number(event.target.value) });
-  };
+  }
 
   const handleDateChange = (event) => {
-    let newDate = event.target.value.replace(/(....).(..).(..)/, "$2/$3/$1");
-    // setListing({ ...listing, [event.target.id]: newDate });
-  };
-
-  const selectFiles = () => {
-    fileInputRef.current.click();
+    let date = event.target.value.replace(/(....).(..).(..)/, "$2/$3/$1");
+    // let date = new Date(event.target.value).toLocaleDateString('en-US', { timeZone: 'UTC' });
+    // setListing({ ...listing, [event.target.id]: date });
   }
 
   const processImages = (files) => {
@@ -100,6 +101,10 @@ export default function ListingNew() {
       setUpImages(prevs => [ ...prevs, files[i] ]);
       setErrorMsg("");
     }
+  }
+
+  const selectFiles = () => {
+    fileInputRef.current.click();
   }
 
   const onFileSelect = (event) => {
