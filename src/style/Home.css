@@ -11,7 +11,6 @@
   /* top: 0; */
   position: relative;
   /* z-index: -3; */
-  border: 2px solid black;
 }
 
 .search__bar{
@@ -20,4 +19,33 @@
   width: 900px;
   display: flex;
   justify-content: center;
+}
+
+.home__img__wrapper {
+  display: flex;
+
+}
+
+.home__img__text1 {
+  font-size: x-large;
+  padding-top: 80px;
+  padding-right: 50px;
+}
+.home__img__text2 {
+  font-size: x-large;
+  padding-top: 70px;
+  padding-left: 50px;
+}
+
+.home__img__china {
+  width: 300px;
+  height: 200px;
+  margin-top: 50px;
+  border-radius: 5px;
+}
+
+.home__img__packing {
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
 }
