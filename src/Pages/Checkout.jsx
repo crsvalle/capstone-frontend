@@ -1,61 +1,98 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import axios from "axios";
+
+//STYLE
 import '../style/checkout.css'
+
+//COMPONENTS
 import ListingCheckoutCard from '../Components/ListingCheckoutCard';
+import HelperIcon from '../Components/HelperIcon';
+
 
 const API = process.env.REACT_APP_API_URL;
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_BOOKING_INFO':
+      return { ...state, bookingInfo: action.payload };
+    case 'SET_LISTING_AND_HOST':
+      return {
+        ...state,
+        listing: action.payload.listing,
+        id: action.payload.listing.listing_id,
+        host: action.payload.host,
+      };
+    default:
+      return state;
+  }
+};
 
 export default function Checkout() {
-  const [bookingInfo, setBookingInfo] = useState(null);
-  const [id, setId] = useState(null);
-  const [listing, setListing] = useState([]);
-  const [host, setHost] = useState([]);
+  const [state, dispatch] = useReducer(reducer, {
+    bookingInfo: null,
+    id: null,
+    listing: [],
+    host: [],
+  });
 
-  
-  
+  const { bookingInfo, id, listing, host } = state;
+
   useEffect(() => {
-    // Retrieve data from localStorage
     const bookingData = localStorage.getItem('bookingData');
-    
-    // Check if data exists
     if (bookingData) {
       const { index, time, startDate, endDate } = JSON.parse(bookingData);
       const initialTime = time === 0 ? 1 : time;
-      setBookingInfo({ index,  time: initialTime, startDate, endDate });
-
-      // Use the data as needed
-      console.log(index, time, startDate, endDate);
-      
-      // Optionally, clear the data from localStorage once used
-      // localStorage.removeItem('bookingData');
+      dispatch({ type: 'SET_BOOKING_INFO', payload: { index, time: initialTime, startDate, endDate } });
     }
   }, []);
-  
-  useEffect(() => {
-    // Fetch data only if bookingInfo exists and has an index
-    if (bookingInfo && bookingInfo.index) {
-        axios.get(`${API}/listings/${bookingInfo.index}`)
-          .then((response) => {
-            setListing(response.data);
-            setId(response.data.listing_id);
 
-            // Fetch host data once listing data is retrieved
-            return axios.get(`${API}/users/${response.data.host}`);
-          })
-          .then((hostResponse) => {
-            setHost(hostResponse.data);
-          })
-          .catch((error) => {
-            console.error("Error fetching data:", error);
-          });
+  useEffect(() => {
+    if (bookingInfo && bookingInfo.index) {
+      axios.get(`${API}/listings/${bookingInfo.index}`)
+        .then((response) => {
+          const { data } = response;
+          dispatch({ type: 'SET_LISTING_AND_HOST', payload: { listing: data, host: data.host } });
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
     }
   }, [bookingInfo]);
-  
-  // stripe goes here
+
   const handleCheckout = () => {
-    console.log("success");
+    if (bookingInfo && id) {
+      const blackout = {
+        listing_id: id,
+        start_date: bookingInfo.startDate,
+        end_date: bookingInfo.endDate,
+      };
+
+      axios.post(`${API}/blackout`, blackout)
+      .then((blackoutResponse) => {
+        console.log("Blackout date created:", blackoutResponse.data);
+        const blackoutId = blackoutResponse.data.id;
+
+        const booking = {
+          user_id: 2,
+          listing_id: id,
+          blackoutdate_id: blackoutId,
+          total: totalPrice, 
+          status: 'pending',
+          request: '',
+        };
+          return axios.post(`${API}/bookings`, booking);
+        })
+        .then((response) => {
+          console.log("Booking created:", response.data);
+          console.log("success");
+        })
+        .catch((error) => {
+          console.error("Error creating blackout date or booking:", error);
+        });
+    }
   };
+
+  const totalPrice = bookingInfo && bookingInfo.time ? (listing.price / 30 * bookingInfo.time).toFixed(2) : 0;
 
   return (
     <div className="checkout__container">
@@ -82,10 +119,15 @@ export default function Checkout() {
                     `Your storage booking spans ${bookingInfo.time} days.` :
                   'N/A'
                 }
-              </p>
-              <div className="text-lg font-bold">Total: 
-                {bookingInfo && bookingInfo.time ? ` $${(listing.price / 30 * bookingInfo.time).toFixed(2)}` : 'N/A'}
-              </div>        
+            </p>
+            <div className="text-lg font-bold">Total: 
+              {bookingInfo && bookingInfo.time ? ` $${totalPrice}` : 'N/A'}
+            </div>
+            <div className='flex'>
+              <p className='mr-1'>Due Now: ${(totalPrice*.08).toFixed(2)} </p>  
+              <HelperIcon title={'Reservation Protection'} body={'Payment is required for confirmed booking.'}/>   
+
+            </div>
             </div>
           </div>
         </div>
