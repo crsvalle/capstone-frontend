@@ -7,7 +7,7 @@ import "../style/listings.css";
 
 const API = process.env.REACT_APP_API_URL;
 
-export default function Listings() {
+export default function Listings({ googleMapsLoader }) {
   const [listings, setListings] = useState([]);
   const [hoveredListingId, setHoveredListingId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ export default function Listings() {
           ))}
         </div>
       )}
-      <GeoLocation hoveredListingId={hoveredListingId} />
+      <GeoLocation hoveredListingId={hoveredListingId} googleMapsLoader={googleMapsLoader} />
     </>
   );
 }

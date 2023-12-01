@@ -5,10 +5,10 @@ const GoogleAPILoader = () => {
 
   useEffect(() => {
     const loadGoogleMaps = async () => {
-      const apiKey = 'YOUR_API_KEY'; // Replace with your Google Maps API key
+      const apiKey = process.env.REACT_APP_GEOLOCATION_API; 
       const script = document.createElement('script');
       script.type = 'text/javascript';
-      script.src = `https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDcOcKb3_UIyI4muLU4wWlBE2vMzU2LHJQ&libraries=places`;
+      script.src = `https://maps.googleapis.com/maps/api/js?v=3&key=${apiKey}&libraries=places`;
       script.async = true;
       script.addEventListener('load', () => {
         console.log('Google Maps API loaded');
