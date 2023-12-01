@@ -34,7 +34,11 @@
   padding: 0;
   background: none;
   cursor: pointer;
-  color: #333333af;
+  color: #33333392;
+}
+
+.search button:hover {
+  color: rgba(255, 0, 0, 0.753);
 }
   
 .search input {
