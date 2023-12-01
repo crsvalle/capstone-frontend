@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Map from './Map';
 
-const GeoLocation = ({hoveredListingId}) => {
+const GeoLocation = ({hoveredListingId, googleMapsLoader}) => {
     const [userLocation, setUserLocation] = useState({ lat: 0, lng: 0 });
 
     useEffect(() => {
@@ -53,7 +53,7 @@ const GeoLocation = ({hoveredListingId}) => {
 
   return (
     <div className='home__map'>
-      <Map location={userLocation} hoveredListingId={hoveredListingId}/>
+      <Map location={userLocation} hoveredListingId={hoveredListingId} googleMapsLoader={googleMapsLoader}/>
     </div>
   );
 };
