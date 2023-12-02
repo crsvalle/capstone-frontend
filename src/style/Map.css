@@ -1,15 +1,30 @@
-.map__marker > img {
-   width: 30px;
-   height: 30px;
-   /* border: 1px solid black(22, 2, 2); */
-}
+/* .map__marker {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+} */
 
-.map__marker__img:hover {
-   border: 1px solid black;
+.map__marker__img {
+   /* margin: 0 0 0 5px; */
    border-radius: 5px;
-}
 
+}
+.map__marker__img:hover {
+   border-radius: 5px;
+   border: 1px solid black;
+}
+.map__marker__p{
+   padding-top: 5px;
+   color: black;
+   font-weight: bold;
+}
 .map__marker__p:hover{
    text-decoration: underline;
    color: rgb(6, 207, 140);
+}
+
+.map__marker__distance {
+   font-size: xx-small;
+   font-weight:400;
+
 }
