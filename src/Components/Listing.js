@@ -45,28 +45,38 @@ export default function Listing({ listing, onMouseEnter, onMouseLeave }) {
     )
   }, [id]);
 
-const isSpaceAvailable = () => {
-  const today = new Date();
+  const isSpaceAvailable = () => {
+    const today = new Date();
+    
+    if (blackoutDates.length > 0) {
+      const sortedRanges = blackoutDates
+        .map(item => ({
+          startDate: new Date(item.start_date),
+          endDate: new Date(item.end_date)
+        }))
+        .sort((a, b) => a.startDate - b.startDate);
+    
+      for (let i = 0; i < sortedRanges.length; i++) {
+        const { startDate, endDate } = sortedRanges[i];
+        
+        if (today >= startDate && today <= endDate) {
+          const nextDay = new Date(endDate);
+          nextDay.setDate(nextDay.getDate() + 1);
   
-  if (blackoutDates.length > 0) {
-    const sortedRanges = blackoutDates
-      .map(item => ({
-        startDate: new Date(item.start_date),
-        endDate: new Date(item.end_date)
-      }))
-      .sort((a, b) => a.startDate - b.startDate);
+          // Format the next day in the desired format
+          const formattedNextDay = nextDay.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          });
   
-    for (let i = 0; i < sortedRanges.length; i++) {
-      const { startDate, endDate } = sortedRanges[i];
-      
-      if (today >= startDate && today <= endDate) {
-        return `This space is unavailable until ${endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`;
+          return `This space is unavailable until ${formattedNextDay}`;
+        }
       }
     }
-  }
-  
-  return "This space is available now!";
-};
+    
+    return "This space is available now!";
+  };
 
 
 return (
