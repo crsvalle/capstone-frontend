@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
+import  useBlackoutDates from "../api/blackoutdates.js"
+
 import '../style/Listing.css'
 import {
   Button,
@@ -22,6 +24,9 @@ export default function Listing({ listing, onMouseEnter, onMouseLeave }) {
   const [images, setImages] = useState([]);
   const imgListRef = ref(storage, `listings/${id}`);
 
+  const { blackoutDates } = useBlackoutDates(listing.listing_id);
+
+  console.log(blackoutDates)
   useEffect(() => {
     axios
     .get(`${API}/listings/${listing.listing_id}/availability`)
@@ -39,6 +44,30 @@ export default function Listing({ listing, onMouseEnter, onMouseLeave }) {
         )
     )
   }, [id]);
+
+const isSpaceAvailable = () => {
+  const today = new Date();
+  
+  if (blackoutDates.length > 0) {
+    const sortedRanges = blackoutDates
+      .map(item => ({
+        startDate: new Date(item.start_date),
+        endDate: new Date(item.end_date)
+      }))
+      .sort((a, b) => a.startDate - b.startDate);
+  
+    for (let i = 0; i < sortedRanges.length; i++) {
+      const { startDate, endDate } = sortedRanges[i];
+      
+      if (today >= startDate && today <= endDate) {
+        return `This space is unavailable until ${endDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}`;
+      }
+    }
+  }
+  
+  return "This space is available now!";
+};
+
 
 return (
   <div className="listing"
@@ -85,9 +114,11 @@ return (
 				<h3 className="font-black text-gray-800 md:text-2xl text-xl">{listing.size}</h3>
 				<p className="md:text-m text-gray-500 text-base overflow-hidden max-h-16 leading-snug text-truncate">{listing.description}</p>
         <div>
-          {listing.isrented ? <p className="text-green-500 text-xs">This space is available now!</p> 
-          : 
-          <p className="text-red-500 text-xs">This space is unavailable until</p>}
+          {isSpaceAvailable() === 'This space is available now!' ? (
+            <p className="text-green-500 text-xs">{isSpaceAvailable()}</p>
+          ) : (
+            <p className="text-red-500 text-xs">{isSpaceAvailable()}</p>
+          )}
         </div>
         <div>
           <p className="text-xs">
