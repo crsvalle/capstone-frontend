@@ -2,16 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import '../style/ListingInfo.css';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 
 import { Rating } from "@material-tailwind/react";
 import { Carousel } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { DateRange } from "react-date-range";
 
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
+import Calendar from "./Calendar";
+
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -26,7 +25,7 @@ export default function ListingInfo() {
 
     const [images, setImages] = useState([]);
     const imgListRef = ref(storage, `listings/${id}`);
-    
+
     const [dateRange, setDateRange] = useState([
         {
             startDate: new Date(),
@@ -34,11 +33,6 @@ export default function ListingInfo() {
             key: 'selection',
         }
     ]);
-    
-    const handleDateRangeChange = (ranges) => {
-        setDateRange([ranges.selection]);
-    };
-
 
     useEffect(() => {
         axios
@@ -124,14 +118,7 @@ export default function ListingInfo() {
 
             <div className="middle">
                 <div className="calendar">
-                    <DateRange
-                    editableDateInputs={true}
-                    onChange={handleDateRangeChange}
-                    moveRangeOnFirstSelection={false}
-                    ranges={dateRange}
-                    showDateDisplay={false}
-                    minDate={new Date()}
-                    />
+                    <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
                 </div>
                 <div className="priceCard">
                     <p> Daily price: ${listing.price}</p>
