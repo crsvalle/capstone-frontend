@@ -3,6 +3,7 @@ import "../style/Searchbar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Loader } from "@googlemaps/js-api-loader";
+import { useNavigate } from "react-router-dom";
 
 const apiKey = process.env.REACT_APP_GEOLOCATION_API;
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
@@ -10,6 +11,7 @@ const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 function Searchbar() {
   const searchInput = useRef(null);
   const [address, setAddress] = useState({});
+  const  navigate  = useNavigate();
 
   //console.log('googleMapsLoader:', googleMapsLoader);
   const loader = new Loader({
@@ -64,11 +66,25 @@ function Searchbar() {
     return address;
   };
 
+
   // do something on address change
   const onChangeAddress = (autocomplete) => {
     const place = autocomplete.getPlace();
-    setAddress(extractAddress(place));
+    const newAddress = extractAddress(place);
+    setAddress(newAddress);
+    navigate(`/listings/${newAddress.zip}`) // navigating to listing w params as zip 
+    
+    // Trigger Axios call when the address changes
+    // if (newAddress.zip) {
+    //   axios
+    //   .get(`${API}/listings/search?query=${newAddress.zip}`)
+    //   .then((res) => {
+    //       console.log(res.data);
+    //     })
+    //     .catch((e) => console.warn("catch", e));
+    // }
   };
+
 
   // init autocomplete
   const initAutocomplete = () => {
