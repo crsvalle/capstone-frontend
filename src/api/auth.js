@@ -10,14 +10,8 @@ export async function onRegistration(registrationData) {
 }
 
 export async function onLogin(loginData) {
-    try {
-      const response = await axios.post(`${API}/users/login`, loginData);
-      const { id, email } = response.data;
-      return { id, email };
-    } catch (error) {
-      throw error; 
-    }
-  }
+  return await axios.post(`${API}/users/login`, loginData);
+}
 
 export async function onLogout() {
   return await axios.get(`${API}/users/logout`)
