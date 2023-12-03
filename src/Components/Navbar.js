@@ -4,16 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { unauthenticateUser } from '../redux/slices/authSlice';
 import { onLogout } from '../api/auth';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import { useUserInfo } from '../api/fetch';
 
 export default function Navbar() {
-
+  const userInfo = useUserInfo();
   const { isAuth } = useSelector((state) => state.auth);
+
+  const userName = userInfo.firstname && userInfo.lastName ?
+    `${userInfo.firstname} ${userInfo.lastName}` :
+    '';
+
   const dispatch = useDispatch()
 
   const logout = async () => {
     localStorage.setItem('isAuth', JSON.stringify(false));
-    localStorage.removeItem('email')
-    localStorage.removeItem('id')
     window.location.reload();
     try {
       await onLogout();
@@ -32,7 +36,9 @@ export default function Navbar() {
       {isAuth ? 
            <div className='nav__end'>
             <Link to='/listings/new'><div className='nav__item'>Create</div></Link>
-            <Link to='/login'><AccountCircleOutlinedIcon/>Hello (insert name here)!</Link>
+            <Link to='/login'>
+              <AccountCircleOutlinedIcon/> Hello {userName}
+            </Link>
             <button onClick={logout}> Logout</button>
           </div>:
           <div className='nav__end'>

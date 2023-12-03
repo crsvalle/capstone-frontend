@@ -9,6 +9,9 @@ import ListingCheckoutCard from '../Components/ListingCheckoutCard';
 import HelperIcon from '../Components/HelperIcon';
 
 
+//IMPORT USERINFO
+import { useUserInfo } from '../api/fetch';
+
 const API = process.env.REACT_APP_API_URL;
 
 const reducer = (state, action) => {
@@ -34,6 +37,9 @@ export default function Checkout() {
     listing: [],
     host: [],
   });
+
+  const userInfo = useUserInfo();
+  console.log(userInfo.id)
 
   const { bookingInfo, id, listing, host } = state;
 
@@ -73,7 +79,7 @@ export default function Checkout() {
         const blackoutId = blackoutResponse.data.id;
 
         const booking = {
-          user_id: 2,
+          user_id: userInfo.id,
           listing_id: id,
           blackoutdate_id: blackoutId,
           total: totalPrice, 

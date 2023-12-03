@@ -25,17 +25,13 @@ export default function Login() {
   const dispatch = useDispatch()
   const handleSignIn = async (e) => {
     e.preventDefault()
+
     try {
-      const user = await onLogin(input);
-      
-      const { id, email } = user;
-      
+      await onLogin(input);
       dispatch(authenticateUser());
-      dispatch(updateUserInfo({ id, email }));
   
       localStorage.setItem('isAuth', JSON.stringify(true));
-      localStorage.setItem('id', id);
-      localStorage.setItem('email', email );
+
       navigate('/')
 
     } catch (error) {
