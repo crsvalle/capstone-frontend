@@ -54,7 +54,7 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Route>
         
-          <Route path="/listings" element={<IndexListings />} />
+          <Route path="/listings/:index" element={<IndexListings />} />
           {/* <Route path="/listings/new" element={<NewListing/>}/> */}
           <Route path="/listings/:index" element={<ShowListing />}/>
           {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
