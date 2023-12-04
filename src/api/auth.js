@@ -18,5 +18,5 @@ export async function onLogout() {
 }
 
 export async function fetchProtectedInfo() {
-  return await axios.get(`${API}/users/protected`)
+  return await axios.get(`${API}/users/protected`, { withCredentials: true})
 }
