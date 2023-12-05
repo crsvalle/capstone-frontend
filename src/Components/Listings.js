@@ -16,17 +16,17 @@ export default function Listings({ googleMapsLoader }) {
 
   useEffect(() => {
     axios
-    .get(`${API}/listings/search?query=${index}`)  //querry search to backend the index that is passed as zip from searchbar
+    .get(`${API}/listings/search?query=${index}`)  //querry search backend, the index is passed as zip from searchbar
       .then((response) => {
         setListings(response.data);
-        console.log(response.data);
+        //console.log(response.data);
         setLoading(false);
       })
       .catch((e) => {
         console.error("catch", e);
         setLoading(false);
       });
-  }, []);
+  }, [index]);
 
   return (
     <>
