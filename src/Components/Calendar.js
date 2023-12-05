@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { DateRange } from "react-date-range";
-import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
+import 'react-date-range/dist/styles.css';
+import '../style/calendar.css'
 import useBlackoutDates from '../api/blackoutdates'; // Import the custom hook
 
 export default function Calendar({ dateRange, setDateRange, listingId }) {
@@ -37,8 +38,9 @@ export default function Calendar({ dateRange, setDateRange, listingId }) {
     }, [blackoutDates]);
 
     return (
-        <div>
+        <div className="">
             <DateRange
+                className=" "
                 editableDateInputs={true}
                 onChange={handleDateRangeChange}
                 moveRangeOnFirstSelection={false}
@@ -46,6 +48,7 @@ export default function Calendar({ dateRange, setDateRange, listingId }) {
                 showDateDisplay={false}
                 minDate={new Date()}
                 disabledDates={disabledDates}
+
             />
         </div>
     );

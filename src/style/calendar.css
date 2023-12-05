@@ -1,0 +1,24 @@
+/* 
+.rdrCalendarWrapper {
+    width: 500px; 
+}
+
+
+.rdrMonth {
+width: 30rem; 
+}
+
+.rdrDay {
+box-sizing: border-box;
+width: calc(100% / 7);
+padding-bottom: 1px; 
+margin-bottom: 10px;
+text-align: center;
+}
+
+.rdrDays {
+display: flex;
+flex-wrap: wrap;
+margin: 0 -9px;
+}  */
+
