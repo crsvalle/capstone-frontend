@@ -11,7 +11,7 @@
   /* top: 0; */
   position: relative;
   /* z-index: -3; */
-  filter: hue-rotate(18deg);
+  /* filter: hue-rotate(18deg); */
 }
 
 .search__bar{
