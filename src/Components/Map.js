@@ -9,7 +9,7 @@ import '../style/Map.css'
 const API = process.env.REACT_APP_API_URL;
 
 const containerStyle = {
-  width: '400px',
+  width: '525px',
   height: '400px',
 };
 
@@ -114,7 +114,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader}) => {
   };
 
   const handleMarkerClick = (marker) => {
-    console.log('Clicked Marker ID:', marker.id);
+    //console.log('Clicked Marker ID:', marker.id);
 
     // Calculate distance between center location and marker location
     const distance = calculateDistance(
