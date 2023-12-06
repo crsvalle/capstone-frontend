@@ -16,12 +16,12 @@ export default function User() {
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
   }, [index])
-console.log(user.rating);
+//console.log(user.rating);
   return (
     <>
-    <div class="user__conainer">
+    <div className="user__conainer">
         <img src={user.image} alt="avatar"/>
-        <div class="profile">
+        <div className="profile">
             <Ratings rating={user.rating}/>
             <p>{user.firstname + " " + user.lastname}</p>
             <p>role :{user.role}</p>
@@ -34,10 +34,10 @@ console.log(user.rating);
             <hr/>
             <p>payment info</p>
         </div>
-        <div class="message">message</div>
+        <div className="message">message</div>
     </div>
-    <div class="reviews">reviews for</div>
-    <div class="reviews__posted">reviews posted</div>
+    <div className="reviews">reviews for</div>
+    <div className="reviews__posted">reviews posted</div>
     </>
   )
 }
