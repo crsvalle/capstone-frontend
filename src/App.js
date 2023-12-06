@@ -46,7 +46,7 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/listings/new" element={<NewListing/>}/>
-            <Route path="/listings/:index/edit" element={<EditListing />} />
+            <Route path="/listings/:id/edit" element={<EditListing />} />
           </Route>
 
           <Route element={<RestrictedRoutes />}>
