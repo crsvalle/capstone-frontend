@@ -37,8 +37,9 @@ export default function ListingNew() {
       .post(`${API}/listings`, newListing)
       .then(
         (res) => {
+          let imgID = 1;
           for (let img of upImages) {
-            const imageRef = ref(storage, `listings/${res.data.listing_id}/${img.name}`);
+            const imageRef = ref(storage, `listings/${res.data.listing_id}/${imgID++}`);
             uploadBytes(imageRef, img);
           }
           alert("Listing Added!");
