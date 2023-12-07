@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import '../style/User.css'
-import { useParams } from "react-router-dom";
+import { useUserInfo } from '../api/fetch';
 import Ratings from "../Components/Ratings";
 
 
@@ -9,13 +9,13 @@ const API = process.env.REACT_APP_API_URL;
 
 export default function User() {
   const [user, setUser] = useState([]);
-  const { index } = useParams();
+  const userInfo = useUserInfo();
 
   useEffect(() => {
-    axios.get(`${API}/users/${index}`)
+    axios.get(`${API}/users/${userInfo.id}`)
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
-  }, [index])
+  }, [userInfo.id]);
 //console.log(user.rating);
   return (
     <>
