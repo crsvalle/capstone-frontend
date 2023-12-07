@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import '../style/User.css'
-import { useUserInfo } from '../api/fetch';
 import Ratings from "../Components/Ratings";
 
+import { useUserInfo } from '../api/fetch';
+import Bookings from "../Components/Bookings";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -15,15 +16,14 @@ export default function User() {
     axios.get(`${API}/users/${userInfo.id}`)
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
-  }, [userInfo.id]);
-//console.log(user.rating);
+  }, [userInfo.id])
   return (
     <>
     <div className="user__conainer">
         <img src={user.image} alt="avatar"/>
         <div className="profile">
             <Ratings rating={user.rating}/>
-            <p>{user.firstname + " " + user.lastname}</p>
+            <p>name: {user.firstname + " " + user.lastname}</p>
             <p>role :{user.role}</p>
             <p>add :{user.address}</p>
             <p>phone :{user.phone}</p>
@@ -38,6 +38,7 @@ export default function User() {
     </div>
     <div className="reviews">reviews for</div>
     <div className="reviews__posted">reviews posted</div>
+    <div><Bookings userId={userInfo.id}/></div>
     </>
   )
 }
