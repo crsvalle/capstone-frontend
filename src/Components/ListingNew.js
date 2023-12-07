@@ -3,15 +3,17 @@ import { storage } from './firebase';
 import { ref, uploadBytes } from 'firebase/storage';
 import React, { useState, useRef } from 'react';
 import { useNavigate, Link } from "react-router-dom";
+import { useUserInfo } from '../api/fetch';
+
 const API = process.env.REACT_APP_API_URL;
 
 
 export default function ListingNew() {
   let navigate = useNavigate();
-  const userId = localStorage.getItem('id') || '';
+  const userInfo = useUserInfo();
+  const fileInputRef = useRef(null);
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
-  const fileInputRef = useRef(null);
   const [images, setImages] = useState([]);
   const [upImages, setUpImages] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
@@ -26,7 +28,7 @@ export default function ListingNew() {
     price: "",
     posted_at: "",
     type: "Closet",
-    host: userId,
+    host: userInfo.id,
     isRented: false,
     avg_rating: 0,
     description: ""
@@ -43,7 +45,7 @@ export default function ListingNew() {
             uploadBytes(imageRef, img);
           }
           alert("Listing Added!");
-          navigate(`/listings/${res.data.listing_id}`);
+          navigate(`/listings/show/${res.data.listing_id}`);
         },
         (error) => console.error(error)
       )
@@ -88,7 +90,7 @@ export default function ListingNew() {
         setErrorMsg("Image file already added!");
         continue;
       }
-      if (images.length >= 5) {
+      if (images.length + files.length >= 6) {
         setErrorMsg("You can only add 5 images!");
         continue;
       }
