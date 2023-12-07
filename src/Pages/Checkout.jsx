@@ -1,5 +1,6 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import axios from "axios";
+import { Textarea } from "@material-tailwind/react";
 
 //STYLE
 import '../style/checkout.css'
@@ -41,6 +42,11 @@ export default function Checkout() {
   const userInfo = useUserInfo();
 
   const { bookingInfo, id, listing, host } = state;
+  const [textareaValue, setTextareaValue] = useState('');
+
+  const handleTextareaChange = (event) => {
+    setTextareaValue(event.target.value);
+  };
 
   useEffect(() => {
     const bookingData = localStorage.getItem('bookingData');
@@ -83,7 +89,7 @@ export default function Checkout() {
           blackoutdate_id: blackoutId,
           total: totalPrice, 
           status: 'pending',
-          request: '',
+          request: textareaValue  ,
         };
           return axios.post(`${API}/bookings`, booking);
         })
@@ -109,6 +115,8 @@ export default function Checkout() {
 
         <div className='bottomBox'>
           <div className='checkoutLeft'>
+          <label htmlFor="requestTextarea" className='text-sm font-medium'>Request/Concerns</label>
+            <Textarea id="requestTextarea" size='lg' label={false} rows='6' value={textareaValue} onChange={handleTextareaChange} />
           </div>
           <div className='checkoutPrice bg-gray-100 rounded-lg shadow-md border border-gray-300'>
             <p className="text-md">Zip Code: {listing.zip}</p>
@@ -117,29 +125,27 @@ export default function Checkout() {
               <p className="text-md">Monthly price: ${listing.price.toFixed(2)}</p>
             )}
             <div className='mt-3'>
-            <p className='customSmallerText mb-1'>
-                {bookingInfo && bookingInfo.time !== undefined ?
-                  bookingInfo.time === 1 ?
-                    'Your storage booking spans 1 day.' :
-                    `Your storage booking spans ${bookingInfo.time} days.` :
-                  'N/A'
-                }
-            </p>
+              <p className='customSmallerText mb-1'>
+                  {bookingInfo && bookingInfo.time !== undefined ?
+                    bookingInfo.time === 1 ?
+                      'Your storage booking spans 1 day.' :
+                      `Your storage booking spans ${bookingInfo.time} days.` :
+                    'N/A'
+                  }
+              </p>
             <div className="text-lg font-bold">Total: 
               {bookingInfo && bookingInfo.time ? ` $${totalPrice}` : 'N/A'}
             </div>
             <div className='flex'>
               <p className='mr-1'>Due Now: ${(totalPrice*.08).toFixed(2)} </p>  
               <HelperIcon title={'Reservation Protection'} body={'Payment is required for confirmed booking.'}/>   
-
             </div>
             </div>
           </div>
         </div>
-
       </div>
+  <button onClick={handleCheckout}>Checkout</button>
       
-      <button onClick={handleCheckout}>Checkout</button>
     </div>
   );
 }
