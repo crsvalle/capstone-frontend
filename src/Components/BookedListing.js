@@ -69,7 +69,7 @@ export default function BookedListing({bookingInfo}) {
       return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden flex items-center relative w-80 md:w-96 lg:w-104 xl:w-104">
             <div className="absolute top-0 right-0 m-2">
-                <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id}/>
+                <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.id} total={bookingInfo.total} listingPrice={listing.price}/>
             </div>
       
           {/* Image Section */}
@@ -89,6 +89,7 @@ export default function BookedListing({bookingInfo}) {
             </h4>
             <p className="text-xs">Start Date: {blackout.start_date}</p>
             <p className="text-xs">End Date: {blackout.end_date}</p>
+            <p>${bookingInfo.total}</p>
           </div>
         </div>
       );

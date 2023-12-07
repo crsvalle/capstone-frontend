@@ -39,7 +39,6 @@ export default function Checkout() {
   });
 
   const userInfo = useUserInfo();
-  console.log(userInfo.id)
 
   const { bookingInfo, id, listing, host } = state;
 
