@@ -17,7 +17,6 @@ export default function User() {
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
   }, [userInfo.id])
-
   return (
     <>
     <div className="user__conainer">

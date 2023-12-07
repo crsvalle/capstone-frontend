@@ -11,15 +11,15 @@ import ListingReviews from "./ListingReviews";
 export default function Home() {
   return (
     <div className="home">
-      <img src={hero}></img>
+      <img src={hero} alt="hero"></img>
       <div className="search__bar" ><Searchbar /></div>
       <div className="home__img">
         <div className="home__img__wrapper">
           <div className="home__img__text1">"Your Memories, Our Keepsake.<br/>Where Memories Find Their Home.<br/>Making Space a Keepsake Experience."</div>
-          <img className="home__img__china" src={china}></img>
+          <img className="home__img__china" src={china} alt="china"></img>
         </div>
         <div className="home__img__wrapper">
-          <img className="home__img__packing" src={packing}></img>
+          <img className="home__img__packing" src={packing} alt="boxes"></img>
           <div className="home__img__text2">"Safe and Simple,<br/> Where space meets serenity." </div>
         </div>
       </div>
