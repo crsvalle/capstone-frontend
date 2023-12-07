@@ -1,13 +1,15 @@
 import '../style/Navbar.css';
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { unauthenticateUser } from '../redux/slices/authSlice';
 import { onLogout } from '../api/auth';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import { useUserInfo } from '../api/fetch';
+import Searchbar from './Searchbar';
 
 export default function Navbar() {
   const userInfo = useUserInfo();
+  const location = useLocation();
   const { isAuth } = useSelector((state) => state.auth);
 
   const userName = userInfo.firstname && userInfo.lastName ?
@@ -29,9 +31,12 @@ export default function Navbar() {
     }
   };
 
+  const isHomePage = location.pathname === '/';
+
   return (
     <div className='nav'>
       <Link to='/'><img src='' alt='logo' className='nav__logo' /></Link>
+      {!isHomePage && <Searchbar />}
       
       {isAuth ? 
            <div className='nav__end'>
