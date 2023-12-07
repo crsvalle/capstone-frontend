@@ -1,4 +1,4 @@
-/* 
+
 .rdrCalendarWrapper {
     width: 500px; 
 }
@@ -20,5 +20,9 @@ text-align: center;
 display: flex;
 flex-wrap: wrap;
 margin: 0 -9px;
-}  */
+} 
+
+.rdrDayNumber{
+    top:0px
+}
 
