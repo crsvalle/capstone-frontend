@@ -1,20 +1,22 @@
 import axios from 'axios';
 import { storage } from './firebase';
-import { ref, listAll, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref, listAll, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useParams } from "react-router-dom";
+// import { useUserInfo } from '../api/fetch';
 
+let imgID = 0;
 const API = process.env.REACT_APP_API_URL;
 
 
 export default function ListingEdit() {
   let { id } = useParams();
   let navigate = useNavigate();
-  const userId = localStorage.getItem('id') || '';
+  // const userInfo = useUserInfo();
+  const fileInputRef = useRef(null);
   const imgListRef = ref(storage, `listings/${id}`);
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
-  const fileInputRef = useRef(null);
   const [images, setImages] = useState([]);
   const [fireImgs, setFireImgs] = useState([]);
   const [upImages, setUpImages] = useState([]);
@@ -42,9 +44,9 @@ export default function ListingEdit() {
       .then(
         (res) => {
           res.data.listing_id ? setListing(res.data) : navigate(`/not-found`);
-          console.log(res.data.host);
-          console.log(userId);
-          // if (res.data.listing_id && res.data.host === userId) {
+          // console.log(res.data);
+          // console.log(userInfo.id);
+          // if (res.data.listing_id && res.data.host === userInfo.id) {
           //   setListing(res.data);
           // }
           // else navigate(`/not-found`);
@@ -55,32 +57,31 @@ export default function ListingEdit() {
 
   useEffect(() => {
     listAll(imgListRef).then((res) =>
-      res.items.forEach((item) =>
+      res.items.forEach((item) => {
+        let imgName = Number(item._location.path_.split('/').pop());
+        if (imgName > imgID) {
+          imgID = imgName;
+        }
         getDownloadURL(item).then((url) =>
-          setFireImgs((prevs) => [...prevs, url])
+          setFireImgs((prevs) =>
+            [...prevs, {imgObj: item, imgUrl: url}]
+          )
         )
-      )
+      })
     )
   }, []);
 
-  // useEffect(() => {
-  //   listAll(imgListRef).then((res) =>
-  //     setFireImgs(res.items)
-  //   )
-  // }, []);
-
-  const addNewListing = (updateListing) => {
+  const editListing = (updateListing) => {
     axios
       .put(`${API}/listings/${id}`, updateListing)
       .then(
         () => {
-          let imgID = 1;
           for (let img of upImages) {
             const imageRef = ref(storage, `listings/${id}/${imgID++}`);
             uploadBytes(imageRef, img);
           }
           alert("Listing Updated!");
-          navigate(`/listings/${id}`);
+          navigate(`/listings/show/${id}`);
         },
         (error) => console.error(error)
       )
@@ -94,7 +95,7 @@ export default function ListingEdit() {
       return;
     }
     // listing.posted_at = new Date().toLocaleDateString();
-    addNewListing(listing);
+    editListing(listing);
   }
 
   const handleTextChange = (event) => {
@@ -124,7 +125,7 @@ export default function ListingEdit() {
         setErrorMsg("Image file already added!");
         continue;
       }
-      if ((images.length + fireImgs.length) >= 5) {
+      if (images.length + fireImgs.length + files.length >= 6) {
         setErrorMsg("You can only add 5 images!");
         continue;
       }
@@ -170,6 +171,13 @@ export default function ListingEdit() {
 
   const deleteImage = (index) => {
     setImages((prevs) => prevs.filter((img, i) => i !== index));
+  }
+
+  const deleteFireImage = (imgObj, index) => {
+    const deleteRef = ref(storage, imgObj._location.path_);
+    deleteObject(deleteRef);
+
+    setFireImgs(prevs => prevs.filter((img, i) => i !== index))
   }
 
   return (
@@ -301,8 +309,8 @@ export default function ListingEdit() {
               <div className='images'>
               {fireImgs.map((img, index) =>
                 <div className="image" key={index}>
-                  <span className="delete" onClick={() => deleteImage(index)}>&times;</span>
-                  <img src={img} alt={index}/>
+                  <span className="delete" onClick={() => deleteFireImage(img.imgObj, index)}>&times;</span>
+                  <img src={img.imgUrl} alt={index}/>
                 </div>
               )}
               {images.map((img, index) =>
@@ -315,7 +323,7 @@ export default function ListingEdit() {
             </div>
           </div>
           <input type="submit" value="SUBMIT"/>
-          <Link to={`/listings`}>
+          <Link to={`/listings/show/${id}`}>
             <button id='backButton'>BACK</button>
           </Link>
         </div>
