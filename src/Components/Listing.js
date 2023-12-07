@@ -141,7 +141,7 @@ return (
 					${listing.price}
 					<span className="font-normal text-gray-600 text-base">/month</span>
 				</p>
-        <Link to={`/listings/${listing.listing_id}`}>
+        <Link to={`/listings/show/${listing.listing_id}`}>
           <Button size="md" fullWidth={true}>
             See more
           </Button>
