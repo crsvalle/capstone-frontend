@@ -28,29 +28,13 @@ export default function List({ listing }) {
     <div className="listing__info">
       <Link to={`/listings/show/${listing.listing_id}`}>
         <div className="m-3">
-          <div className="relative rounded-xl shadow-lg p-3 max- w-40  mx-auto border border-white bg-white">
-            <div className="w-30 bg-white">
-              <div className=" overflow-hidden rounded-xl">
-                <Carousel>
-                  {images.length ? (
-                    images.map((image, index) => (
-                      <img
-                        src={image}
-                        key={index}
-                        alt="Listing"
-                        className="h-full w-full object-cover"
-                      />
-                    ))
-                  ) : (
-                    <img
-                      src={process.env.PUBLIC_URL + "/imgs/no_image.jpeg"}
-                      alt="empty"
-                    />
-                  )}
-                </Carousel>
+          <div className="relative rounded-lg shadow-lg p-3 max- w-40  mx-auto border border-white bg-white">
+            <div className="w-30 bg-white" >
+              <div className=" overflow-hidden rounded-lg">
+                {images.length ? (<img src={images[0]} alt="pic" />) : (<img src={process.env.PUBLIC_URL + '/imgs/no_image.jpeg'} alt="" />)}
+                
               </div>
             </div>
-
             <div className="w-full md:w-1/2 bg-white flex flex-col ">
               <div className="flex justify-between items-center">
                 <div className="flex items-center">
