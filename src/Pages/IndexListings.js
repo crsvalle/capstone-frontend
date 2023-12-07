@@ -15,7 +15,8 @@ const googleMapsLoader = new Loader({
 export default function IndexListings() {
   return (
     <div>
-      <div className="indexListings__searchbar"><Searchbar googleMapsLoader={googleMapsLoader}/></div>
+      {/* <div className="indexListings__searchbar"><Searchbar googleMapsLoader={googleMapsLoader}/></div> */}
+      <div className="indexListings__searchbar"></div>
       <div className="whole-page">
           <Listings googleMapsLoader={googleMapsLoader}/>
           {/* <GeoLocation/> */}
