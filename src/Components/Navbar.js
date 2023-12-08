@@ -36,7 +36,8 @@ export default function Navbar() {
       <Link to='/'>
         <img src='' alt='logo' className='nav__logo' />
       </Link>
-      {isListingsPage && <div className='nav__searchBar'><Search /></div>}
+      {/* checking if the path and applying customClass attribute passedfrom searchbar comp */}
+      {isListingsPage && <Search customClass='nav__searchBar' />} 
       {isAuth ? (
         <div className='nav__end'>
           <Link to='/listings/new'>
