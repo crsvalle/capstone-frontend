@@ -29,7 +29,7 @@ export default function ListingNew() {
     posted_at: "",
     type: "Closet",
     host: userInfo.id,
-    isRented: false,
+    is_rented: false,
     avg_rating: 0,
     description: ""
   });
@@ -95,8 +95,8 @@ export default function ListingNew() {
         continue;
       }
 
-      setImages(prevImages => [
-        ...prevImages, {
+      setImages(prevs => [
+        ...prevs, {
           name: files[i].name,
           url: URL.createObjectURL(files[i])
         }

@@ -33,7 +33,7 @@ export default function ListingEdit() {
     posted_at: "",
     type: "",
     host: "",
-    isRented: false,
+    is_rented: false,
     avg_rating: 0,
     description: ""
   });
@@ -90,7 +90,7 @@ export default function ListingEdit() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!images.length) {
+    if (!(fireImgs.length + images.length)) {
       setErrorMsg("Must add images for the listing!");
       return;
     }
