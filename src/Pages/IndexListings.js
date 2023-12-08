@@ -1,6 +1,6 @@
 import Listings from "../Components/Listings";
 // import GeoLocation from "../Components/GeoLocation";
-import Searchbar from "../Components/Searchbar";
+//import Searchbar from "../Components/Searchbar";
 import '../style/IndexListings.css'
 import { Loader } from '@googlemaps/js-api-loader';
 
@@ -16,7 +16,6 @@ export default function IndexListings() {
   return (
     <div>
       {/* <div className="indexListings__searchbar"><Searchbar googleMapsLoader={googleMapsLoader}/></div> */}
-      <div className="indexListings__searchbar"></div>
       <div className="whole-page">
           <Listings googleMapsLoader={googleMapsLoader}/>
           {/* <GeoLocation/> */}

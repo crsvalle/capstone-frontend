@@ -2,16 +2,19 @@ import { useEffect, useRef, useState } from "react";
 import "../style/Searchbar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import CloseIcon from "@mui/icons-material/Close";
 import { Loader } from "@googlemaps/js-api-loader";
 import { useNavigate } from "react-router-dom";
 
 const apiKey = process.env.REACT_APP_GEOLOCATION_API;
 const geocodeJson = "https://maps.googleapis.com/maps/api/geocode/json";
 
-function Searchbar() {
+function Searchbar({ customClass }) {
+  //passing custome class for css
   const searchInput = useRef(null);
   const [address, setAddress] = useState({});
-  const  navigate  = useNavigate();
+  const navigate = useNavigate();
+  const [isInputFieldNotEmpty, setIsInputFieldNotEmpty] = useState(false); // State for close "X" icon.
 
   //console.log('googleMapsLoader:', googleMapsLoader);
   const loader = new Loader({
@@ -66,14 +69,14 @@ function Searchbar() {
     return address;
   };
 
-
   // do something on address change
   const onChangeAddress = (autocomplete) => {
     const place = autocomplete.getPlace();
     const newAddress = extractAddress(place);
     setAddress(newAddress);
-    navigate(`/listings/${newAddress.zip}`) // navigating to listing w params as zip 
-    
+    navigate(`/listings/${newAddress.zip}`); // navigating to listing w params as zip
+    setIsInputFieldNotEmpty(true);
+
     // Trigger Axios call when the address changes
     // if (newAddress.zip) {
     //   axios
@@ -84,7 +87,6 @@ function Searchbar() {
     //     .catch((e) => console.warn("catch", e));
     // }
   };
-
 
   // init autocomplete
   const initAutocomplete = () => {
@@ -120,8 +122,13 @@ function Searchbar() {
     }
   };
 
+  const handleClearInput = () => {
+    searchInput.current.value = "";
+    setIsInputFieldNotEmpty(false);
+  };
+
   return (
-    <div className="search__box">
+    <div className={`search__box ${customClass}`}>
       <div>
         <div className="search">
           <span>
@@ -131,10 +138,19 @@ function Searchbar() {
             ref={searchInput}
             type="text"
             placeholder="Search location...."
+            onChange={() =>
+              setIsInputFieldNotEmpty(!!searchInput.current.value) // Update based on input value
+            } 
           />
-          <button onClick={findMyLocation}>
-            <LocationOnIcon />
-          </button>
+          {isInputFieldNotEmpty ? (
+            <button className="clear-button" onClick={handleClearInput}>
+              <CloseIcon />
+            </button>
+          ) : (
+            <button onClick={findMyLocation}>
+              <LocationOnIcon />
+            </button>
+          )}
         </div>
       </div>
     </div>

@@ -53,3 +53,24 @@
   border: 2px solid #b4b3b4;
   background: white;
 }
+
+clear-button {
+  position: absolute;
+  top: 50%;
+  right: 35px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+}
+
+/* CUSTOME_CLASS FOR NAVBAR SEARCHBAR */
+
+.nav__searchBar input {
+ width: 300px;
+ height: 40px;
+ border: 1.5px solid black;
+}
