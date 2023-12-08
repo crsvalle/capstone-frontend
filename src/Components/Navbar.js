@@ -12,7 +12,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 
 export default function Navbar() {
   const userInfo = useUserInfo();
-  const location = useLocation();
+ 
   const { isAuth } = useSelector((state) => state.auth);
 
   const userName = userInfo.firstname && userInfo.lastName ? `${userInfo.firstname} ${userInfo.lastName}` : '';
