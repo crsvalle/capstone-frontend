@@ -64,8 +64,6 @@ export default function BookedListing({bookingInfo}) {
     if (!bookingInfo || !listing) {
         return <p>Loading...</p>; // Or any loading indicator
       }
-
-
       return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden flex items-center relative w-80 md:w-96 lg:w-104 xl:w-104">
             <div className="absolute top-0 right-0 m-2">

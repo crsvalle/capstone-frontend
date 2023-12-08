@@ -31,7 +31,7 @@ export default function Navbar() {
     }
   };
 
-  const isListingsPage = location.pathname.startsWith('/listings/');
+  const isHomePage = location.pathname === '/';
 
   return (
     <div className='nav'>
@@ -39,7 +39,7 @@ export default function Navbar() {
         <img src='' alt='logo' className='nav__logo' />
       </Link>
       {/* checking if the path and applying customClass attribute passedfrom searchbar comp */}
-      {isListingsPage && <Search customClass='nav__searchBar' />} 
+      {!isHomePage && <Search customClass='nav__searchBar' />} 
       {isAuth ? (
         <div className='nav__end'>
           <Link to='/listings/new'>
