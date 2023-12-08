@@ -4,7 +4,7 @@ export default function HelperIcon({title, body}) {
   return (
     <Tooltip
       content={
-        <div className="w-80">
+        <div className="w-80 bg-transparent">
           <Typography color="white" className="font-medium">
             {title}
           </Typography>
