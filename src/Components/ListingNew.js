@@ -59,6 +59,7 @@ export default function ListingNew() {
       return;
     }
     listing.posted_at = new Date().toLocaleDateString();
+    listing.host = userInfo.id;
     addNewListing(listing);
   }
 
