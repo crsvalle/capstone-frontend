@@ -18,10 +18,11 @@ export default function ListingEdit() {
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
 
   const [images, setImages] = useState([]);
-  const [fireImgs, setFireImgs] = useState([]);
   const [upImages, setUpImages] = useState([]);
-  const [errorMsg, setErrorMsg] = useState("");
+  const [fireImgs, setFireImgs] = useState([]);
+  const [deleteImgs, setDeleteImgs] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [listing, setListing] = useState({
     street: "",
     apt: "",
@@ -56,7 +57,7 @@ export default function ListingEdit() {
   }, [id, navigate]);
 
   useEffect(() => {
-    listAll(imgListRef).then((res) =>
+    listAll(imgListRef).then((res) => {
       res.items.forEach((item) => {
         let imgName = Number(item._location.path_.split('/').pop());
         if (imgName > imgID) {
@@ -66,9 +67,10 @@ export default function ListingEdit() {
           setFireImgs((prevs) =>
             [...prevs, {imgObj: item, imgUrl: url}]
           )
-        )
-      })
-    )
+        );
+      });
+      imgID += 1;
+    });
   }, []);
 
   const editListing = (updateListing) => {
@@ -91,10 +93,14 @@ export default function ListingEdit() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!(fireImgs.length + images.length)) {
-      setErrorMsg("Must add images for the listing!");
+      setErrorMessage("Must add images for the listing!");
       return;
     }
     // listing.posted_at = new Date().toLocaleDateString();
+    deleteImgs.forEach(img => {
+      const deleteRef = ref(storage, img._location.path_);
+      deleteObject(deleteRef);
+    });
     editListing(listing);
   }
 
@@ -114,19 +120,19 @@ export default function ListingEdit() {
   const processImages = (files) => {
     for (let i = 0; i < files.length; i++) {
       if (files[i].type.split('/')[0] !== 'image') {
-        setErrorMsg("File must be an image!");
+        setErrorMessage("File must be an image!");
         continue;
       }
       if (files[i].size > 5242880) {
-        setErrorMsg("One or more images exceed the size limit of 5MB!");
+        setErrorMessage("One or more images exceed the size limit of 5MB!");
         continue;
       }
       if (images.some(img => img.name === files[i].name)) {
-        setErrorMsg("Image file already added!");
+        setErrorMessage("Image file already added!");
         continue;
       }
       if (images.length + fireImgs.length + files.length >= 6) {
-        setErrorMsg("You can only add 5 images!");
+        setErrorMessage("You can only add 5 images!");
         continue;
       }
 
@@ -137,7 +143,7 @@ export default function ListingEdit() {
         }
       ]);
       setUpImages(prevs => [ ...prevs, files[i] ]);
-      setErrorMsg("");
+      setErrorMessage("");
     }
   }
 
@@ -174,11 +180,15 @@ export default function ListingEdit() {
   }
 
   const deleteFireImage = (imgObj, index) => {
-    const deleteRef = ref(storage, imgObj._location.path_);
-    deleteObject(deleteRef);
-
-    setFireImgs(prevs => prevs.filter((img, i) => i !== index))
+    setDeleteImgs(prevs => [...prevs, imgObj]);
+    setFireImgs(prevs => prevs.filter((img, i) => i !== index));
   }
+
+  // const deleteFireImage = (imgObj, index) => {
+  //   const deleteRef = ref(storage, imgObj._location.path_);
+  //   deleteObject(deleteRef);
+  //   setFireImgs(prevs => prevs.filter((img, i) => i !== index))
+  // }
 
   return (
     <div>
@@ -305,7 +315,7 @@ export default function ListingEdit() {
               />
             </div>
             <div className="container">
-              {errorMsg && <p>{errorMsg}</p>}
+              {errorMessage && <p>{errorMessage}</p>}
               <div className='images'>
               {fireImgs.map((img, index) =>
                 <div className="image" key={index}>
