@@ -60,7 +60,7 @@ function App() {
           <Route path="/listings/show/:index" element={<ShowListing />}/>
           {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
           <Route path="/confirmation/" element={ <Confirmation />}  />
-          <Route path="/user/:index" element={<User />} />
+          <Route path="/user/profile" element={<User />} />
           <Route path="/register" element={<SignUp/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/checkout" element={<Checkout/>} />
