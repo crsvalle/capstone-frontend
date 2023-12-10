@@ -42,8 +42,8 @@ export default function BookedListing({bookingInfo, allowEdit}) {
     const host = useUserDataById(hostId, API)
 
     const {
-      firstname ='',
-      lastname = '',
+      first_name ='',
+      last_name = '',
   } = host || {};
     
     const imgListRef = ref(storage, `listings/${id}`);
@@ -81,7 +81,7 @@ export default function BookedListing({bookingInfo, allowEdit}) {
           <div className="p-4 w-2/3">
             <h3 className="text-lg font-semibold">{listing.size}</h3>
             <h4 className="text-base font-medium">
-              Hosted by: {formatName(firstname)} {formatName(lastname).charAt(0)}.
+              Hosted by: {formatName(first_name)} {formatName(last_name).charAt(0)}.
             </h4>
             <p className="text-xs">Start Date: {blackout.start_date}</p>
             <p className="text-xs">End Date: {blackout.end_date}</p>

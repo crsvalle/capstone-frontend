@@ -39,7 +39,7 @@ export default function ListingCheckoutCard({listing, id, host, bookingInfo}) {
         <div className="p-4 w-2/3">
           <h3 className="text-lg font-semibold">{listing.size} - {listing.type}</h3>
           <h4 className="text-base font-medium">
-            Hosted by: {host.firstname} {host.lastname && host.lastname.charAt(0)}
+            Hosted by: {host.first_name} {host.last_name && host.last_name.charAt(0)}
           </h4>
           <p className="text-gray-500 text-sm">Start Date: {startDate}</p>
           <p className="text-gray-500 text-sm">End Date: {endDate}</p>

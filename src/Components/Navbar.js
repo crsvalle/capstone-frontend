@@ -16,7 +16,7 @@ export default function Navbar() {
  
   const { isAuth } = useSelector((state) => state.auth);
 
-  const userName = userInfo.firstname && userInfo.lastName ? `${formatName(userInfo.firstname)} ${formatName(userInfo.lastName)}` : '';
+  const userName = userInfo.first_name && userInfo.last_name ? `${formatName(userInfo.first_name)} ${formatName(userInfo.last_name)}` : '';
 
   const dispatch = useDispatch();
   const location = useLocation();
