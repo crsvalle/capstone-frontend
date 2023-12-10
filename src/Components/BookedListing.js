@@ -8,7 +8,7 @@ import {useUserDataById } from '../api/fetch'
 import { formatName } from '../utils/formatters';
 const API = process.env.REACT_APP_API_URL;
 
-export default function BookedListing({bookingInfo}) {
+export default function BookedListing({bookingInfo, allowEdit}) {
 
     const [images, setImages] = useState([]);
     const [id, setId] = useState(null);
@@ -44,11 +44,7 @@ export default function BookedListing({bookingInfo}) {
     const {
       firstname ='',
       lastname = '',
-      email = '',
-      phone =''
   } = host || {};
-
-
     
     const imgListRef = ref(storage, `listings/${id}`);
     
@@ -69,7 +65,7 @@ export default function BookedListing({bookingInfo}) {
       return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden flex items-center relative w-80 md:w-96 lg:w-104 xl:w-104">
             <div className="absolute top-0 right-0 m-2">
-                <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.id} total={bookingInfo.total} listingPrice={listing.price}/>
+                { allowEdit ? <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.id} total={bookingInfo.total} listingPrice={listing.price}/> :""}
             </div>
       
           {/* Image Section */}

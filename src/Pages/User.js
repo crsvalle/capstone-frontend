@@ -5,18 +5,21 @@ import Ratings from "../Components/Ratings";
 
 import { useUserInfo } from '../api/fetch';
 import Bookings from "../Components/Bookings";
+import CustomTabs  from "../Components/Tabs";
 
 const API = process.env.REACT_APP_API_URL;
 
 export default function User() {
   const [user, setUser] = useState([]);
-  const userInfo = useUserInfo();
+  const { id } = useUserInfo();
 
   useEffect(() => {
-    axios.get(`${API}/users/${userInfo.id}`)
+    axios.get(`${API}/users/${id}`)
     .then((res) => setUser(res.data))
     .catch((e) => console.warn("catch", e))
-  }, [userInfo.id])
+  }, [id])
+
+  const { firstname, lastname, role, address, phone, email, isVerified, created_at } = user;
 
   return (
     <>
@@ -24,14 +27,13 @@ export default function User() {
         <img src={user.image} alt="avatar"/>
         <div className="profile">
             <Ratings rating={user.rating}/>
-            <p>name: {user.firstname + " " + user.lastname}</p>
-            <p>role :{user.role}</p>
-            <p>add :{user.address}</p>
-            <p>phone :{user.phone}</p>
-            <p>email :{user.email}</p>
-            <p>password :{user.password}</p>
-            <p>verified :{user.isVerified}</p>
-            <p>member since :{user.created_at}</p> 
+            <p>name: {firstname && lastname ? `${firstname} ${lastname}` : 'N/A'}</p>
+            <p>role: {role || 'N/A'}</p>
+            <p>add: {address || 'N/A'}</p>
+            <p>phone: {phone || 'N/A'}</p>
+            <p>email: {email || 'N/A'}</p>
+            <p>verified:{isVerified ? " ✅" :" Not Yet"}</p>
+            <p>member since :{created_at}</p> 
             <hr/>
             <p>payment info</p>
         </div>
@@ -39,7 +41,8 @@ export default function User() {
     </div>
     <div className="reviews">reviews for</div>
     <div className="reviews__posted">reviews posted</div>
-    <div><Bookings userId={userInfo.id}/></div>
+    <CustomTabs userId={id}/>
+    {/* <div><Bookings userId={id}/></div> */}
     </>
   )
 }
