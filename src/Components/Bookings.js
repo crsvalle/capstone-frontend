@@ -79,13 +79,13 @@ export default function Bookings({userId}) {
         <div className="w-full md:w-1/3 p-2">
           <h2 className="text-lg font-semibold mb-2">Current Bookings</h2>
           {currentBookings.map((booked) => (
-            <BookedListing key={booked.id} bookingInfo={booked} allowEdit={true}/>
+            <BookedListing key={booked.id} bookingInfo={booked} allowEdit={false}/>
           ))}
         </div>
         <div className="w-full md:w-1/3 p-2">
           <h2 className="text-lg font-semibold mb-2">Upcoming Bookings</h2>
           {upcomingBookings.map((booked) => (
-            <BookedListing key={booked.id} bookingInfo={booked} allowEdit={false}/>
+            <BookedListing key={booked.id} bookingInfo={booked} allowEdit={true}/>
           ))}
         </div>
         <div className="w-full md:w-1/3 p-2">
