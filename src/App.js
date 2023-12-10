@@ -22,6 +22,7 @@ import Navbar from "./Components/Navbar";
 //STYLE
 import './index.css';
 import User from "./Pages/User";
+import Confirmation from "./Pages/Confirmation";
 
 const PrivateRoutes = () =>{
   const { isAuth } = useSelector((state) => state.auth);
@@ -58,6 +59,7 @@ function App() {
           {/* <Route path="/listings/new" element={<NewListing/>}/> */}
           <Route path="/listings/show/:index" element={<ShowListing />}/>
           {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
+          <Route path="/confirmation/" element={ <Confirmation />}  />
           <Route path="/user/:index" element={<User />} />
           <Route path="/register" element={<SignUp/>} />
           <Route path="/login" element={<Login/>} />
