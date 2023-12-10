@@ -111,7 +111,6 @@ export default function EditBooking({ listingId, blackoutId, bookingId, total, l
     setOpen(!open);
   };
 
-  console.log(datesBooked)
   return (
     <>
       <Button onClick={handleOpen} variant="gradient" className="p-2 text-sm">

@@ -3,13 +3,16 @@ import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import axios from "axios";
 import EditBooking from "./EditBooking";
+
+import {useUserDataById } from '../api/fetch'
+import { formatName } from '../utils/formatters';
 const API = process.env.REACT_APP_API_URL;
 
 export default function BookedListing({bookingInfo}) {
+
     const [images, setImages] = useState([]);
     const [id, setId] = useState(null);
     const [listing, setListing] = useState([]);
-    const [host, setHost] = useState([]);
     const [blackout, setBlackout] = useState([]);
     
     useEffect(() => {
@@ -34,6 +37,18 @@ export default function BookedListing({bookingInfo}) {
           });
       }
     }, [bookingInfo]);
+
+    const hostId = listing ? listing.host : null;
+    const host = useUserDataById(hostId, API)
+
+    const {
+      firstname ='',
+      lastname = '',
+      email = '',
+      phone =''
+  } = host || {};
+
+
     
     const imgListRef = ref(storage, `listings/${id}`);
     
@@ -46,19 +61,6 @@ export default function BookedListing({bookingInfo}) {
             )
         )
       }, [id]);
-    
-    useEffect(() => {
-      if (listing && listing.host) {
-        axios
-          .get(`${API}/users/${listing.host}`)
-          .then((response) => {
-            setHost(response.data);
-          })
-          .catch((error) => {
-            console.error('Error fetching host data:', error);
-          });
-      }
-    }, [listing]);
     
 
     if (!bookingInfo || !listing) {
@@ -83,7 +85,7 @@ export default function BookedListing({bookingInfo}) {
           <div className="p-4 w-2/3">
             <h3 className="text-lg font-semibold">{listing.size}</h3>
             <h4 className="text-base font-medium">
-              Hosted by: {host.firstname} {host.lastname && host.lastname.charAt(0)}
+              Hosted by: {formatName(firstname)} {formatName(lastname).charAt(0)}.
             </h4>
             <p className="text-xs">Start Date: {blackout.start_date}</p>
             <p className="text-xs">End Date: {blackout.end_date}</p>
