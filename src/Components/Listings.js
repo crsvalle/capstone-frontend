@@ -31,7 +31,7 @@ export default function Listings({ googleMapsLoader }) {
   return (
     <>
       {loading ? (
-        <div>Loading...</div>
+        <div className="loading-spinner">Loading...</div>
       ) : (
         <div className="listing-card">
           {listings.map((listing) => (

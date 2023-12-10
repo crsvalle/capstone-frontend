@@ -23,13 +23,12 @@ import PersonalListings from "./PersonalListings";
         value: "booked",
         desc : '',
         component: <Bookings userId={userId} />, 
-      },
-   
+      }
 
     ];
    
     return (
-      <Tabs id="custom-animation" value="html">
+      <Tabs id="custom-animation" value="listings">
         <TabsHeader>
           {data.map(({ label, value }) => (
             <Tab key={value} value={value}>
