@@ -26,7 +26,6 @@ export default function Listing({ listing, onMouseEnter, onMouseLeave }) {
 
   const { blackoutDates } = useBlackoutDates(listing.listing_id);
 
-  console.log(blackoutDates)
   useEffect(() => {
     axios
     .get(`${API}/listings/${listing.listing_id}/availability`)

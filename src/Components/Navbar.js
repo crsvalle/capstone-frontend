@@ -46,7 +46,7 @@ export default function Navbar() {
           <Link to='/listings/new'>
             <div className='nav__item'>Create</div>
           </Link>
-          <Link to='/login'>
+          <Link to='/user/profile'>
             <AccountCircleOutlinedIcon /> Hello {userName}
           </Link>
           <button onClick={logout}> &nbsp;Logout</button>
