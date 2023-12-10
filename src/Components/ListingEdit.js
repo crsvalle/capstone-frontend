@@ -123,16 +123,16 @@ export default function ListingEdit() {
         setErrorMessage("File must be an image!");
         continue;
       }
+      if (images.length + fireImgs.length + files.length >= 6) {
+        setErrorMessage("You can only add 5 images!");
+        continue;
+      }
       if (files[i].size > 5242880) {
         setErrorMessage("One or more images exceed the size limit of 5MB!");
         continue;
       }
       if (images.some(img => img.name === files[i].name)) {
         setErrorMessage("Image file already added!");
-        continue;
-      }
-      if (images.length + fireImgs.length + files.length >= 6) {
-        setErrorMessage("You can only add 5 images!");
         continue;
       }
 
