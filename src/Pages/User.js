@@ -19,30 +19,30 @@ export default function User() {
     .catch((e) => console.warn("catch", e))
   }, [id])
 
-  const { firstname, lastname, role, address, phone, email, isVerified, created_at } = user;
+  const { first_name, last_name, role, address, phone, email, is_verified, created_at } = user;
 
   return (
     <>
-    <div className="user__conainer">
+      <div className="user__conainer">
         <img src={user.image} alt="avatar"/>
         <div className="profile">
-            <Ratings rating={user.rating}/>
-            <p>name: {firstname && lastname ? `${firstname} ${lastname}` : 'N/A'}</p>
-            <p>role: {role || 'N/A'}</p>
-            <p>add: {address || 'N/A'}</p>
-            <p>phone: {phone || 'N/A'}</p>
-            <p>email: {email || 'N/A'}</p>
-            <p>verified:{isVerified ? " ✅" :" Not Yet"}</p>
-            <p>member since :{created_at}</p> 
-            <hr/>
-            <p>payment info</p>
+          <Ratings rating={user.rating}/>
+          <p>name: {first_name && last_name ? `${first_name} ${last_name}` : 'N/A'}</p>
+          <p>role: {role || 'N/A'}</p>
+          <p>add: {address || 'N/A'}</p>
+          <p>phone: {phone || 'N/A'}</p>
+          <p>email: {email || 'N/A'}</p>
+          <p>verified:{is_verified ? " ✅" :" Not Yet"}</p>
+          <p>member since :{created_at}</p> 
+          <hr/>
+          <p>payment info</p>
         </div>
         <div className="message">message</div>
-    </div>
-    <div className="reviews">reviews for</div>
-    <div className="reviews__posted">reviews posted</div>
-    <CustomTabs userId={id}/>
-    {/* <div><Bookings userId={id}/></div> */}
+      </div>
+      <div className="reviews">reviews for</div>
+      <div className="reviews__posted">reviews posted</div>
+      <CustomTabs userId={id}/>
+      {/* <div><Bookings userId={id}/></div> */}
     </>
   )
 }

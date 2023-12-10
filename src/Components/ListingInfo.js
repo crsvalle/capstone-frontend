@@ -104,7 +104,7 @@ export default function ListingInfo() {
                 <div className="listingCard">
                     {rated !== null && (<Rating value={rated} readonly />)}
                     <h1 className="listingText">Size: {listing.size}</h1>
-                    <h2 className="listingText">Hosted by: {host.firstname} {host.lastname}</h2>
+                    <h2 className="listingText">Hosted by: {host.first_name} {host.last_name}</h2>
                     <p className="listingText">Address: {listing.address}</p>
                     <p className="listingText">Posted at: {listing.posted_at}</p>
                 </div>

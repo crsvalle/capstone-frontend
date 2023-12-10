@@ -6,11 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignUp () {
     const [values, setValues] = useState({
-        firstName:'',
-        lastName:'',
+        first_name:'',
+        last_name:'',
         email: '',
         password: '',
-      })
+    });
     const [confirmEmail, setConfirmEmail] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState(false)
@@ -49,7 +49,7 @@ export default function SignUp () {
 
             setError('')
             setSuccess(data.message)
-            setValues({ firstName: '', lastName: '', email: '', password: ''})
+            setValues({ first_name: '', last_name: '', email: '', password: ''})
             setConfirmEmail('');
             setConfirmPassword('');
             navigate('/login')
@@ -70,10 +70,10 @@ export default function SignUp () {
                         <td><input 
                             className="form__input"
                             type="text" 
-                            name="firstName" 
-                            id="firstName" 
+                            name="first_name" 
+                            id="first_name" 
                             required
-                            value={values.firstName}
+                            value={values.first_name}
                             onChange={(e) => onChange(e)} 
                         /></td>
                     </tr>
@@ -82,10 +82,10 @@ export default function SignUp () {
                         <td><input 
                             className="form__input"
                             type="text"
-                            name="lastName"
-                            id="lastName"
+                            name="last_name"
+                            id="last_name"
                             required
-                            value={values.lastName}
+                            value={values.last_name}
                             onChange={(e) => onChange(e)} 
                          /></td>
                     </tr>
