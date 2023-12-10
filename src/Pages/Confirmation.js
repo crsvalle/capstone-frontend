@@ -8,7 +8,9 @@ export default function Confirmation() {
   
     return (
         <div>
+            {!bookingData ? "Nothing here" :
             <OrderConfirmation bookingData={bookingData}/>
+            }
         </div>
     );
 }
