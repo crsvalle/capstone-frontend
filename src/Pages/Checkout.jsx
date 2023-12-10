@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import axios from "axios";
 import { Textarea } from "@material-tailwind/react";
+import { useNavigate } from 'react-router-dom';
 
 //STYLE
 import '../style/checkout.css'
@@ -32,6 +33,7 @@ const reducer = (state, action) => {
 };
 
 export default function Checkout() {
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(reducer, {
     bookingInfo: null,
     id: null,
@@ -94,6 +96,7 @@ export default function Checkout() {
           return axios.post(`${API}/bookings`, booking);
         })
         .then((response) => {
+          navigate('/confirmation', { state: { bookingData: response.data } });
           console.log("Booking created:", response.data);
           console.log("success");
         })
@@ -116,7 +119,7 @@ export default function Checkout() {
         <div className='bottomBox'>
           <div className='checkoutLeft'>
           <label htmlFor="requestTextarea" className='text-sm font-medium'>Request/Concerns</label>
-            <Textarea id="requestTextarea" size='lg' label={false} rows='6' value={textareaValue} onChange={handleTextareaChange} />
+            <Textarea id="requestTextarea" size='lg' label='' rows='6' value={textareaValue} onChange={handleTextareaChange} />
           </div>
           <div className='checkoutPrice bg-gray-100 rounded-lg shadow-md border border-gray-300'>
             <p className="text-md">Zip Code: {listing.zip}</p>
