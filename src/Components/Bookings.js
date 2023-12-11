@@ -1,10 +1,8 @@
-import axios from 'axios';
+
 import { useState, useEffect } from 'react';
 import BookedListing from './BookedListing';
 import { useUserBookingsWithDetails } from '../api/fetch';
 
-
-const API = process.env.REACT_APP_API_URL;
 
 export default function Bookings({userId}) {
   const { userBookings: fetchedUserBookings } = useUserBookingsWithDetails(userId);

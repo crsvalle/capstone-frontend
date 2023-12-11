@@ -9,7 +9,6 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 
 
 import { useUserInfo } from "../api/fetch";
-import Bookings from "../Components/Bookings";
 import CustomTabs from "../Components/Tabs";
 
 import {formatName} from '../utils/formatters'
@@ -56,7 +55,7 @@ export default function User() {
           <Ratings rating={user.rating} />
           <p>
             name:{" "}
-            {first_name && last_name ? `${first_name} ${last_name}` : "N/A"}
+            {first_name && last_name ? `${formatName(first_name)} ${formatName(last_name)}` : "N/A"}
           </p>
           <p>role: {role || "N/A"}</p>
           <p>add: {address || "N/A"}</p>
@@ -82,7 +81,6 @@ export default function User() {
       <div className="reviews">reviews for</div>
       <div className="reviews__posted">reviews posted</div>
       <CustomTabs userId={id} />
-      {/* <div><Bookings userId={id}/></div> */}
     </>
   );
 }
