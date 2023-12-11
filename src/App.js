@@ -13,6 +13,7 @@ import SignUp from "./Pages/SignUp";
 import Checkout from "./Pages/Checkout";
 import Footer from "./Pages/Footer";
 import Dashboard from "./Pages/Dashboard";
+import EditUser from "./Pages/EditUser";
 
 
 //COMPONENTS
@@ -61,6 +62,7 @@ function App() {
           {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
           <Route path="/confirmation/" element={ <Confirmation />}  />
           <Route path="/user/profile" element={<User />} />
+          <Route path="/user/:index/edit" element={<EditUser/>} />
           <Route path="/register" element={<SignUp/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/checkout" element={<Checkout/>} />

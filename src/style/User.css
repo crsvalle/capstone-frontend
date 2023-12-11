@@ -42,3 +42,7 @@
 span {
     font-size: x-large;
 }
+
+.profile__btn {
+    margin-top: 25px;
+}
