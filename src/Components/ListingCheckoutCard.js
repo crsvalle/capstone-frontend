@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
+import { formatDate } from "../utils/formatters";
+
 export default function ListingCheckoutCard({listing, id, host, bookingInfo}) {
     const [images, setImages] = useState([]);
 
@@ -41,8 +43,8 @@ export default function ListingCheckoutCard({listing, id, host, bookingInfo}) {
           <h4 className="text-base font-medium">
             Hosted by: {host.first_name} {host.last_name && host.last_name.charAt(0)}
           </h4>
-          <p className="text-gray-500 text-sm">Start Date: {startDate}</p>
-          <p className="text-gray-500 text-sm">End Date: {endDate}</p>
+          <p className="text-gray-500 text-sm">Start Date: {formatDate(startDate)}</p>
+          <p className="text-gray-500 text-sm">End Date: {formatDate(endDate)}</p>
         </div>
       </div>
       );

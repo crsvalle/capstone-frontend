@@ -11,7 +11,7 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import { useUserInfo } from "../api/fetch";
 import CustomTabs from "../Components/Tabs";
 
-import {formatName} from '../utils/formatters'
+import {formatName, formatDate} from '../utils/formatters'
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -62,7 +62,7 @@ export default function User() {
           <p>phone: {phone || "N/A"}</p>
           <p>email: {email || "N/A"}</p>
           <p>verified:{is_verified ? <VerifiedIcon color="success" size="small"/> : "N/A"}</p>
-          <p>member since :{created_at}</p>
+          <p>member since: {formatDate(created_at)}</p>
           {/* <hr/> */}
           {/* <p>payment info</p> */}
           <Link to={`/user/${id}/edit`}>
