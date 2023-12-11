@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { fetchProtectedInfo } from '../api/auth';
 import axios from 'axios';
+const API = process.env.REACT_APP_API_URL;
+
 
 export const useUserInfo = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -84,4 +86,30 @@ export const useUserDataById  = (id, API) => {
   }, [id, API]);
 
   return user;
+};
+
+
+export const useUserBookingsWithDetails = (userId) => {
+  const [userBookings, setUserBookings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUserBookings = async () => {
+      try {
+        const response = await axios.get(`${API}/bookings/user/${userId}`);
+        setUserBookings(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message || 'Failed to fetch user bookings');
+        setLoading(false);
+      }
+    };
+
+    if (userId) {
+      fetchUserBookings();
+    }
+  }, [userId]);
+
+  return { userBookings, loading, error };
 };

@@ -7,9 +7,12 @@ import Ratings from "../Components/Ratings";
 import Button from "@mui/material/Button";
 import VerifiedIcon from '@mui/icons-material/Verified';
 
+
 import { useUserInfo } from "../api/fetch";
 import Bookings from "../Components/Bookings";
 import CustomTabs from "../Components/Tabs";
+
+import {formatName} from '../utils/formatters'
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -49,6 +52,7 @@ export default function User() {
           alt="avatar"
         />
         <div className="profile">
+
           <Ratings rating={user.rating} />
           <p>
             name:{" "}
