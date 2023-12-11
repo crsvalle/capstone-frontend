@@ -52,7 +52,7 @@ export default function BookedListing({bookingInfo, allowEdit}) {
         </h4>
         <p className="text-xs">Start Date: {formattedStartDate}</p>
         <p className="text-xs">End Date: {formattedEndDate}</p>
-        <p>Total: ${bookingInfo.total}</p>
+        <p className="text-sm">${bookingInfo.total}</p>
       </div>
     </div>
   );
