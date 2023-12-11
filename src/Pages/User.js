@@ -9,10 +9,9 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 
 
 import { useUserInfo } from "../api/fetch";
-import Bookings from "../Components/Bookings";
 import CustomTabs from "../Components/Tabs";
 
-import {formatName} from '../utils/formatters'
+import {formatName, formatDate} from '../utils/formatters'
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -56,14 +55,14 @@ export default function User() {
           <Ratings rating={user.rating} />
           <p>
             name:{" "}
-            {first_name && last_name ? `${first_name} ${last_name}` : "N/A"}
+            {first_name && last_name ? `${formatName(first_name)} ${formatName(last_name)}` : "N/A"}
           </p>
           <p>role: {role || "N/A"}</p>
           <p>add: {address || "N/A"}</p>
           <p>phone: {phone || "N/A"}</p>
           <p>email: {email || "N/A"}</p>
           <p>verified:{is_verified ? <VerifiedIcon color="success" size="small"/> : "N/A"}</p>
-          <p>member since :{created_at}</p>
+          <p>member since: {formatDate(created_at)}</p>
           {/* <hr/> */}
           {/* <p>payment info</p> */}
           <Link to={`/user/${id}/edit`}>
@@ -82,7 +81,6 @@ export default function User() {
       <div className="reviews">reviews for</div>
       <div className="reviews__posted">reviews posted</div>
       <CustomTabs userId={id} />
-      {/* <div><Bookings userId={id}/></div> */}
     </>
   );
 }

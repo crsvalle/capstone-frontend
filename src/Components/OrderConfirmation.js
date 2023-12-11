@@ -1,5 +1,5 @@
 import { useBlackoutInfo, useListingInfo, useUserInfo, useUserDataById } from '../api/fetch'
-import { formatName, useDateFormat } from '../utils/formatters';
+import { formatName, formatDate } from '../utils/formatters';
 const API = process.env.REACT_APP_API_URL;
 
 
@@ -14,8 +14,8 @@ export default function OrderConfirmation({bookingData}) {
   const startDate = blackoutInfo ? blackoutInfo.start_date : '';
   const endDate = blackoutInfo ? blackoutInfo.end_date : '';
 
-  const formattedStartDate = useDateFormat(startDate);
-  const formattedEndDate = useDateFormat(endDate);
+  const formattedStartDate = formatDate(startDate);
+  const formattedEndDate = formatDate(endDate);
 
   const { 
       type: listingType = '',

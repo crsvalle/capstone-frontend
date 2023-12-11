@@ -122,10 +122,10 @@ export default function Checkout() {
             <Textarea id="requestTextarea" size='lg' label='' rows='6' value={textareaValue} onChange={handleTextareaChange} />
           </div>
           <div className='checkoutPrice bg-gray-100 rounded-lg shadow-md border border-gray-300'>
-            <p className="text-md">Zip Code: {listing.zip}</p>
-            <p className="text-md">Daily price: ${(listing.price / 30).toFixed(2)}</p>
+            <p className="text-sm ">Zip Code: {listing.zip}</p>
+            <p className="text-sm">Daily price: ${(listing.price / 30).toFixed(2)}</p>
             {listing && listing.price !== undefined && (
-              <p className="text-md">Monthly price: ${listing.price.toFixed(2)}</p>
+              <p className="text-sm">Monthly price: ${listing.price.toFixed(2)}</p>
             )}
             <div className='mt-3'>
               <p className='customSmallerText mb-1'>
