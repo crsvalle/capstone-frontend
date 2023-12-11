@@ -1,52 +1,16 @@
 import { useEffect, useState } from "react";
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
-import axios from "axios";
 import EditBooking from "./EditBooking";
 
-import {useUserDataById } from '../api/fetch'
-import { formatName } from '../utils/formatters';
+import { formatName, useDateFormat } from '../utils/formatters';
 const API = process.env.REACT_APP_API_URL;
 
 export default function BookedListing({bookingInfo, allowEdit}) {
 
     const [images, setImages] = useState([]);
-    const [id, setId] = useState(null);
-    const [listing, setListing] = useState([]);
-    const [blackout, setBlackout] = useState([]);
-    
-    useEffect(() => {
-      if (bookingInfo && bookingInfo.listing_id) {
-        axios
-          .get(`${API}/listings/${bookingInfo.listing_id}`)
-          .then((response) => {
-            setListing(response.data);
-            setId(response.data.listing_id);
-          })
-          .catch((e) => console.error("Error fetching listing data:", e));
-      }
-      
-      if (bookingInfo && bookingInfo.blackoutdate_id) {
-        axios
-          .get(`${API}/blackout/${bookingInfo.blackoutdate_id}`)
-          .then((response) => {
-            setBlackout(response.data);
-          })
-          .catch((error) => {
-            console.error('Error fetching blackout data:', error);
-          });
-      }
-    }, [bookingInfo]);
-
-    const hostId = listing ? listing.host : null;
-    const host = useUserDataById(hostId, API)
-
-    const {
-      first_name ='',
-      last_name = '',
-  } = host || {};
-    
-    const imgListRef = ref(storage, `listings/${id}`);
+  
+    const imgListRef = ref(storage, `listings/${bookingInfo.listing_id}`);
     
     useEffect(() => {
         listAll(imgListRef).then((res) =>
@@ -56,16 +20,16 @@ export default function BookedListing({bookingInfo, allowEdit}) {
                 )
             )
         )
-      }, [id]);
+      }, [bookingInfo.listing_id]);
     
 
-    if (!bookingInfo || !listing) {
+    if (!bookingInfo) {
         return <p>Loading...</p>; // Or any loading indicator
       }
       return (
         <div className="bg-white shadow-md rounded-lg overflow-hidden flex items-center relative w-80 md:w-96 lg:w-104 xl:w-104">
             <div className="absolute top-0 right-0 m-2">
-                { allowEdit ? <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.id} total={bookingInfo.total} listingPrice={listing.price}/> :""}
+                { allowEdit ? <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.id} total={bookingInfo.total} listingPrice={bookingInfo.price}/> :""}
             </div>
       
           {/* Image Section */}
@@ -79,13 +43,13 @@ export default function BookedListing({bookingInfo, allowEdit}) {
       
           {/* Text Section */}
           <div className="p-4 w-2/3">
-            <h3 className="text-lg font-semibold">{listing.size}</h3>
+            <h3 className="text-lg font-semibold">{bookingInfo.size}</h3>
             <h4 className="text-base font-medium">
-              Hosted by: {formatName(first_name)} {formatName(last_name).charAt(0)}.
+              Hosted by: {formatName(bookingInfo.host_first_name)} {formatName(bookingInfo.host_last_name).charAt(0)}.
             </h4>
-            <p className="text-xs">Start Date: {blackout.start_date}</p>
-            <p className="text-xs">End Date: {blackout.end_date}</p>
-            <p>${bookingInfo.total}</p>
+            <p className="text-xs">Start Date: {bookingInfo.start_date}</p>
+            <p className="text-xs">End Date: {bookingInfo.end_date}</p>
+            <p>Total: ${bookingInfo.total}</p>
           </div>
         </div>
       );
