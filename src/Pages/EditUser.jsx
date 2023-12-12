@@ -34,7 +34,7 @@ function EditProfile() {
     // console.log(updateProfile);
     axios
       .put(`${API}/users/${index}`, updateProfile)
-      .then(() => navigate(`/user/${index}`))
+      .then(() => navigate(`/user/profile`))
       .catch((e) => console.warn("catch", e));
   };
 
@@ -46,6 +46,7 @@ function EditProfile() {
   const handleSubmit = (event) => {
     event.preventDefault();
     editProfile(user);
+    // navigate('/user/profile')
     //console.log(user);
   };
   //console.log(user);
