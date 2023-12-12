@@ -12,6 +12,7 @@ import axios from "axios";
 const API = process.env.REACT_APP_API_URL;
 
 export default function EditBooking({ listingId, blackoutId, bookingId, total, listingPrice }) {
+  console.log('listing id :', listingId, 'blackoutId', blackoutId,)
   const [open, setOpen] = useState(false);
   const [datesBooked, setDatesBooked] = useState([]);
   const [dateRange, setDateRange] = useState([
