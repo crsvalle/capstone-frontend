@@ -161,7 +161,7 @@ export default function ListingInfo() {
                 <div className="priceCard rounded-lg p-4  bg-white">
                     <p className="text-lg font-bold">Monthly price: ${listing.price}</p>
                     <p className="text-sm">Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
-                    <Button className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
+                    <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
                         Book Now
                     </Button>
                 </div>
