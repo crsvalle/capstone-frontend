@@ -21,7 +21,7 @@ export default function BookedListing({bookingInfo, allowEdit}) {
       )
     }, [bookingInfo.listing_id]);
   
-
+console.log(bookingInfo)
   if (!bookingInfo) {
       return <p>Loading...</p>; // Or any loading indicator
     }
@@ -30,9 +30,9 @@ export default function BookedListing({bookingInfo, allowEdit}) {
   const formattedEndDate = bookingInfo ? formatDate(bookingInfo.end_date || '') : '';
 
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden flex items-center relative w-80 md:w-96 lg:w-104 xl:w-104">
+    <div className="bg-white shadow-md rounded-lg overflow-hidden flex items-center relative w-80 md:w-96 lg:w-104 xl:w-104 my-2">
         <div className="absolute top-0 right-0 m-2">
-            { allowEdit ? <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.booking_id} total={bookingInfo.total} listingPrice={bookingInfo.price}/> :""}
+            { allowEdit ? <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.booking_id} total={bookingInfo.total} listingPrice={bookingInfo.listing_price}/> :""}
         </div>
   
       {/* Image Section */}

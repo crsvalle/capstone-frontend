@@ -47,9 +47,13 @@ export default function User() {
     <>
       <div className="user__conainer">
         <img
-          src={process.env.PUBLIC_URL + "/imgs/no_image.jpeg"}
+          src="https://images.unsplash.com/photo-1527877083249-88d406b6ac27?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fHdoaXRlJTIwd29tYW58ZW58MHx8MHx8fDA%3D"
           alt="avatar"
         />
+        {/* <img
+          src={process.env.PUBLIC_URL + "/imgs/no_image.jpeg"}
+          alt="avatar"
+        /> */}
         <div className="profile">
 
           <Ratings rating={user.rating} />

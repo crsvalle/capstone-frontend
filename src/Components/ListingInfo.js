@@ -9,6 +9,8 @@ import { Button } from "@material-tailwind/react";
 
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
+
+import { formatDate } from "../utils/formatters";
 import Calendar from "./Calendar";
 
 
@@ -105,8 +107,7 @@ export default function ListingInfo() {
                     {rated !== null && (<Rating value={rated} readonly />)}
                     <h1 className="listingText">Size: {listing.size}</h1>
                     <h2 className="listingText">Hosted by: {host.first_name} {host.last_name}</h2>
-                    <p className="listingText">Address: {listing.address}</p>
-                    <p className="listingText">Posted at: {listing.posted_at}</p>
+                    <p className="listingText">Posted on: {formatDate(listing.posted_at)}</p>
                 </div>
                 <div className="desc">
                     <p>{listing.description}</p>
@@ -121,7 +122,7 @@ export default function ListingInfo() {
                     <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
                 </div>
                 <div className="priceCard">
-                    <p> Daily price: ${listing.price}</p>
+                    <p> Monthly price: ${listing.price}</p>
                     <p> Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
                     <Button className="bookButton" variant="outlined" onClick={handleBooking}>Book</Button>
                 </div>
