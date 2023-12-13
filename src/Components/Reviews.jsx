@@ -24,7 +24,7 @@ export default function Reviews({review}) {
             </div>
             <div className='pt-3'>{review.title}</div>
             <div>{review.body}</div>
-            <hr className='review__hr'/>
+            {/* <hr className='review__hr'/> */}
         </div>
     )
 }
