@@ -34,9 +34,9 @@ export default function Listings({ googleMapsLoader }) {
         <div className="loading-spinner">Loading...</div>
       ) : (
         <div className="listing-card">
-          {listings.map((listing) => (
+          {listings.map((listing, index) => (
             <Listing
-              key={listing.listing_id}
+              key={index}
               listing={listing}
               onMouseEnter={() => setHoveredListingId(listing.listing_id)}
               onMouseLeave={() => setHoveredListingId(null)}
@@ -44,7 +44,7 @@ export default function Listings({ googleMapsLoader }) {
           ))}
         </div>
       )}
-      <GeoLocation hoveredListingId={hoveredListingId} googleMapsLoader={googleMapsLoader} />
+      <GeoLocation listing={listings} hoveredListingId={hoveredListingId} googleMapsLoader={googleMapsLoader} />
     </>
   );
 }

@@ -76,16 +76,6 @@ function Searchbar({ customClass }) {
     setAddress(newAddress);
     navigate(`/listings/${newAddress.zip}`); // navigating to listing w params as zip
     setIsInputFieldNotEmpty(true);
-
-    // Trigger Axios call when the address changes
-    // if (newAddress.zip) {
-    //   axios
-    //   .get(`${API}/listings/search?query=${newAddress.zip}`)
-    //   .then((res) => {
-    //       console.log(res.data);
-    //     })
-    //     .catch((e) => console.warn("catch", e));
-    // }
   };
 
   // init autocomplete
