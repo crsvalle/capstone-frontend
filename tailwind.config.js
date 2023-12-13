@@ -1,9 +1,14 @@
 const withMT = require("@material-tailwind/react/utils/withMT");
- 
+
 module.exports = withMT({
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customBlue: '#025260', 
+        customBlueLight: '#036b7a',
+      },
+    },
   },
   plugins: [],
 });

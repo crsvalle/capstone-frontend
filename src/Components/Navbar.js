@@ -11,6 +11,7 @@ import { formatName } from '../utils/formatters';
 
 
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ProfileMenu from './ProfileMenu';
 
 export default function Navbar() {
   const userInfo = useUserInfo();
@@ -48,13 +49,17 @@ export default function Navbar() {
       {isAuth ? (
         <div className='nav__end'>
           <Link to='/listings/new'>
-            <div className='nav__item'>Create</div>
+            <button className='bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded mr-2'>
+                ＋ Create
+            </button>
           </Link>
-          <Link to='/user/profile'>
-            <AccountCircleOutlinedIcon /> Hello {userName}
+          <ProfileMenu logout={logout} id={userInfo.id}/>
+          {userName}
+          <Link to='/user/profile' className='ml-2 flex items-center text-gray-700'>
+            {/* <span className='text-sm'>{userName}</span> */}
           </Link>
-          <button onClick={logout}> &nbsp;Logout</button>
-        </div>
+          {/* <button onClick={logout} className='ml-2 text-sm'>Logout</button> */}
+      </div>
       ) : (
         <div className='nav__end'>
           <Link to='/about'>
