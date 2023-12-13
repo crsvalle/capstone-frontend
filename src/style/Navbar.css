@@ -28,4 +28,16 @@
     margin-right: 10px; 
     margin-left: 10px;
 }
+
+.nav__logo {
+  width: 50px;
+}
+
+.nav__logo__wrapper {
+  display: flex;
+  align-items: center;
+}
   
+.nav__logo__text {
+  font-size: x-large;
+}
