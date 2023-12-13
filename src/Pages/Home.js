@@ -10,6 +10,7 @@ import ListingReviews from "./ListingReviews";
 
 export default function Home() {
   return (
+    <>
     <div className="home">
       <img src={hero} alt="hero"></img>
       <div className="search__bar" ><Searchbar /></div>
@@ -24,7 +25,8 @@ export default function Home() {
         </div>
       </div>
       <Lists/>
-      <ListingReviews/>
     </div>
+      <ListingReviews/>
+    </>
   )
 }
