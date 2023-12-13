@@ -113,3 +113,25 @@ export const useUserBookingsWithDetails = (userId) => {
 
   return { userBookings, loading, error };
 };
+
+
+export const useAvailability = (listingId) => {
+  const [availability, setAvailability] = useState(null);
+
+  useEffect(() => {
+    const fetchAvailability = async () => {
+      try {
+        if (listingId) {
+          const response = await axios.get(`${API}/listings/${listingId}/availability`);
+          setAvailability(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching availability data:', error);
+      }
+    };
+
+    fetchAvailability();
+  }, [listingId]);
+
+  return availability;
+};
