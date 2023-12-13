@@ -45,7 +45,6 @@ export default function Checkout() {
 
   const { bookingInfo, id, listing, host } = state;
   const [textareaValue, setTextareaValue] = useState('');
-
   const handleTextareaChange = (event) => {
     setTextareaValue(event.target.value);
   };
@@ -106,7 +105,7 @@ export default function Checkout() {
     }
   };
 
-  const totalPrice = bookingInfo && bookingInfo.time ? (listing.price / 30 * bookingInfo.time).toFixed(2) : 0;
+  const totalPrice = bookingInfo && bookingInfo.time ? ((listing.price) / 30 * bookingInfo.time).toFixed(2) : 0;
 
   return (
     <div className="checkout__container">
@@ -140,7 +139,7 @@ export default function Checkout() {
               {bookingInfo && bookingInfo.time ? ` $${totalPrice}` : 'N/A'}
             </div>
             <div className='flex'>
-              <p className='mr-1'>Due Now: ${(totalPrice*.08).toFixed(2)} </p>  
+              <p className='mr-1'>Due Now: ${(totalPrice*.075).toFixed(2)} </p>  
               <HelperIcon title={'Reservation Protection'} body={'Payment is required for confirmed booking.'}/>   
             </div>
             </div>

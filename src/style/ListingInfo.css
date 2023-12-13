@@ -6,18 +6,15 @@
 
 /* 3 parts of the page */
 .left{
-    flex: 0.4;
+    flex: 0.5;
     margin-left: 4px;
 }
 
 .middle{
-    flex: 0.4;
+    flex: 0.5;
     margin-left: 4px;
 }
 
-.right{
-    flex:.2;
-}
 
 /* card that handles the size, address, posted at */
 .listingCard{
@@ -38,18 +35,17 @@
 
 .custom-carousel-container {
     width: 100%; 
-    height: 400px;
+    height: 65%;
     z-index: 1;
   }
 
   .priceCard{
     text-align: center;
-    margin-top: 100px;
-    margin-bottom: 118px;
+    margin-top: 50px;
   }
 
   .bookButton{
-    float: right;
+    margin-top: 10px;
   }
 
   .calendar{

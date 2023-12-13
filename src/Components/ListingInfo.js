@@ -122,13 +122,11 @@ export default function ListingInfo() {
                 </div>
                 <div className="priceCard">
                     <p> Daily price: ${listing.price}</p>
-                    <p> Total price ({time} days): ${listing.price * time}</p>
+                    <p> Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
+                    <Button className="bookButton" variant="outlined" onClick={handleBooking}>Book</Button>
                 </div>
 
-                <Button className="bookButton" variant="outlined" onClick={handleBooking}>Book</Button>
             </div>
-
-            <div className="right">test</div>
         </div>
     )
 }
