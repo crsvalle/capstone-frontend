@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "../style/lists.css";
 
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
+import "../style/lists.css";
 import "../style/Listing.css";
-import { Carousel } from "@material-tailwind/react";
 
 export default function List({ listing }) {
   const [id] = useState(listing.listing_id);
