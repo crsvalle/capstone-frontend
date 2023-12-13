@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Typography } from '@material-tailwind/react';
-import { UserCircleIcon, Cog6ToothIcon, ChevronDownIcon, PowerIcon } from '@heroicons/react/24/solid';
+import { UserCircleIcon, Cog6ToothIcon, ChevronDownIcon, PowerIcon, InboxIcon } from '@heroicons/react/24/solid';
 
 const ProfileMenu = ({ logout, id }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,6 +23,11 @@ const ProfileMenu = ({ logout, id }) => {
       label: 'Edit Profile',
       icon: Cog6ToothIcon,
       path: `/user/${id}/edit`
+    },
+    {
+      label: 'Inbox',
+      icon: InboxIcon,
+      path: "",
     },
     {
       label: 'Sign Out',

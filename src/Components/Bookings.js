@@ -48,7 +48,7 @@ export default function Bookings({userId}) {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Your Bookings</h1>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap mx-11">
         <div className="w-full md:w-1/3 p-2">
           <h2 className="text-lg font-semibold mb-2">Current Bookings</h2>
           {currentBookings.length > 0 ? (
