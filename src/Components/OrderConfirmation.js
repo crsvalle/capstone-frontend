@@ -47,7 +47,7 @@ export default function OrderConfirmation({bookingData}) {
           </div>
           <div className="flex items-center mt-4">
             <a href="/" className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Back to Home</a>
-            <a href="/" className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a>
+            {/* <a href="/" className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a> */}
             {/* Add more actions or buttons here */}
           </div>
         </div>

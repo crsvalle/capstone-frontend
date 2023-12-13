@@ -104,7 +104,6 @@ export default function EditBooking({ listingId, blackoutId, bookingId, total, l
 
     setOpen(false);
   };
-
   const daysDifference = Math.floor((dateRange[0].endDate - dateRange[0].startDate) / (1000 * 60 * 60 * 24));
   const totalPrice = (listingPrice / 30 * daysDifference).toFixed(2);
 
