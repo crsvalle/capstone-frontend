@@ -19,6 +19,7 @@
     /* margin: 25px; */
     padding: 25px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.121);
+    background: rgba(1, 44, 51, 0.149);
 }
 
 .listing__info:hover {

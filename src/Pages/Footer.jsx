@@ -17,9 +17,9 @@ export default function Footer (){
                 </div>
                 <div>
                     <div>Keepsake</div>
-                    <div>Become</div>
+                    <div>Become a Host</div>
                     <div>Carrers</div>
-                    <div>Keepsake</div>
+                    <div>Terms of Service</div>
                 </div>
             </div>
             <hr className='hr__second' />

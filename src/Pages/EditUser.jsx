@@ -5,8 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { InputAdornment } from "@mui/material";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+// import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import HomeIcon from "@mui/icons-material/Home";
@@ -162,10 +161,10 @@ function EditProfile() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <DriveFolderUploadIcon
+                  {/* <DriveFolderUploadIcon
                     className="w-s"
                     style={{ fontSize: "20px" }}
-                  />
+                  /> */}
                 </InputAdornment>
               ),
             }}

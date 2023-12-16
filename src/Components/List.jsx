@@ -27,10 +27,10 @@ export default function List({ listing }) {
     <div className="listing__info">
       <Link to={`/listings/show/${listing.listing_id}`}>
         <div className="m-3">
-          <div className="relative rounded-lg shadow-lg p-3 max- w-40  mx-auto border border-white bg-white">
+          <div className="relative rounded-lg shadow-lg p-3 w-40  mx-auto border border-white bg-white">
             <div className="w-30 bg-white" >
-              <div className=" overflow-hidden rounded-lg">
-                {images.length ? (<img src={images[0]} alt="pic" />) : (<img src={process.env.PUBLIC_URL + '/imgs/no_image.jpeg'} alt="" />)}
+              <div className=" overflow-hidden rounded-lg" style={{ height: "100px" }}>
+                {images.length ? (<img src={images[0]} alt="pic" style={{ height: "100%" }}/>) : (<img src={process.env.PUBLIC_URL + '/imgs/no_image.jpeg'} alt="" />)}
                 
               </div>
             </div>

@@ -2,6 +2,8 @@
     display: flex;
     justify-content: space-evenly;
     padding: 25px 0 25px;
+    background: rgb(1, 44, 51);
+    color: white;
 }
 
 .footer__last {
