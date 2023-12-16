@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { storage } from "../Components/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Typography } from '@material-tailwind/react';
 import { UserCircleIcon, Cog6ToothIcon, ChevronDownIcon, PowerIcon, InboxIcon } from '@heroicons/react/24/solid';
 
+import defaultPhoto from '../Pages/Pic/default-user-photo.jpg';
+
 const ProfileMenu = ({ logout, id }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userImg, setUserImg] = useState('');
+  const imgRef = ref(storage, `users/${id}`);
 
   const closeMenu = () => setIsMenuOpen(false);
+
+  useEffect(() => {
+    listAll(imgRef).then((res) => {
+      if (res.items[0]) {
+        getDownloadURL(res.items[0]).then((url) => setUserImg(url));
+      }
+    })
+  }, [id]);
 
   const handleSignOut = () => {
     logout();
@@ -50,7 +64,7 @@ const ProfileMenu = ({ logout, id }) => {
             size="md"
             alt="User Avatar"
             className="border border-gray-900 p-0.5"
-            src="https://images.unsplash.com/photo-1527877083249-88d406b6ac27?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fHdoaXRlJTIwd29tYW58ZW58MHx8MHx8fDA%3D"
+            src={userImg || defaultPhoto}
           />
           <ChevronDownIcon
             strokeWidth={2.5}

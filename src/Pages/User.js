@@ -10,20 +10,31 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 
 import { useUserInfo } from "../api/fetch";
 import CustomTabs from "../Components/Tabs";
+import { storage } from "../Components/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
 
-import {formatName, formatDate} from '../utils/formatters'
+import {formatName, formatDate} from '../utils/formatters';
+import defaultPhoto from '../Pages/Pic/default-user-photo.jpg';
 
 const API = process.env.REACT_APP_API_URL;
 
 export default function User() {
-  const [user, setUser] = useState([]);
   const { id } = useUserInfo();
+  const [user, setUser] = useState([]);
+  const [userImg, setUserImg] = useState('');
+  const imgRef = ref(storage, `users/${id}`);
 
   useEffect(() => {
     axios
       .get(`${API}/users/${id}`)
       .then((res) => setUser(res.data))
       .catch((e) => console.warn("catch", e));
+
+    listAll(imgRef).then((res) => {
+      if (res.items[0]) {
+        getDownloadURL(res.items[0]).then((url) => setUserImg(url));
+      }
+    })
   }, [id]);
 
   const {
@@ -47,7 +58,7 @@ export default function User() {
     <>
       <div className="user__conainer">
         <img
-          src="https://images.unsplash.com/photo-1527877083249-88d406b6ac27?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fHdoaXRlJTIwd29tYW58ZW58MHx8MHx8fDA%3D"
+          src={userImg || defaultPhoto}
           alt="avatar"
         />
         {/* <img
@@ -72,7 +83,7 @@ export default function User() {
           <Link to={`/user/${id}/edit`}>
             <div className="profile__btn">
               <Button
-                class="bg-white hover:bg-gray-100 text-gray-600 py-2 px-4 border border-gray-400 rounded shadow"
+                className="bg-white hover:bg-gray-100 text-gray-600 py-2 px-4 border border-gray-400 rounded shadow"
                 variant="outlined"
                 size="large">
                 {buttonLabel}

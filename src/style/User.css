@@ -6,6 +6,7 @@
 .user__conainer > img {
     width: 210px;
     height: 210px;
+    object-fit: cover;
     border: 0.1px solid transparent;
     border-radius: 50%;
 }

@@ -10,12 +10,15 @@ import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
 import HomeIcon from "@mui/icons-material/Home";
+import { ref, uploadBytes } from "firebase/storage";
+import { storage } from "../Components/firebase";
 
 const API = process.env.REACT_APP_API_URL;
 
 function EditProfile() {
   const navigate = useNavigate();
   const { index } = useParams();
+  const [errorMsg, setErrorMsg] = useState("");
 
   const [user, setUser] = useState({
     first_name: "",
@@ -38,6 +41,25 @@ function EditProfile() {
       .catch((e) => console.warn("catch", e));
   };
 
+  const uploadImage = (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      setErrorMsg("");
+      return;
+    }
+    if (file.type.split('/')[0] !== 'image') {
+      setErrorMsg("File must be an image!");
+      return;
+    }
+    if (file.size > 5242880) {
+      setErrorMsg("Is exceed the size limit of 5MB!");
+      return;
+    }
+    setErrorMsg("");
+    const imgRef = ref(storage, `users/${user.user_id}/1`);
+    uploadBytes(imgRef, file);
+  }
+
   const handleTextChange = (event) => {
     setUser({ ...user, [event.target.id]: event.target.value });
     // console.log(user);
@@ -52,7 +74,7 @@ function EditProfile() {
   //console.log(user);
   return (
     <>
-      <div className="my-10 flex flex-col w-10">
+      <div className="edit-user my-10 flex flex-col w-10">
         <Box
           component="form"
           onSubmit={handleSubmit}
@@ -135,6 +157,8 @@ function EditProfile() {
             id="image"
             size="small"
             label="Upload Image"
+            type="file"
+            onChange={uploadImage}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -146,9 +170,10 @@ function EditProfile() {
               ),
             }}
           />
+          {errorMsg && <p>{errorMsg}</p>}
           <button
             type="submit"
-            class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-500 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-500 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
             Save
           </button>
         </Box>
