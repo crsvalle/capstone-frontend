@@ -22,18 +22,15 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [mapLoading, setMapLoading] = useState(true);
   const [distance, setDistance] = useState(null);
-  const [locat, setLocat] = useState();
+  const [locat, setLocat] = useState({ lat: 0, lng: 0 });
 
   const { index } = useParams();
+  console.log(index);
 
   const [id, setId] = useState();
   const [images, setImages] = useState([]);
   const imgListRef = ref(storage, `listings/${id}`);
-  // console.log(images[0]);
-  // console.log(id);
-  // console.log(list[0].listing_id);
-  console.log(list);
-
+  
   useEffect(() => {
     listAll(imgListRef).then((res) =>
       res.items.forEach((item) =>
@@ -43,33 +40,6 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
       )
     );
   }, []);
-
-  // const fetchMarkers = async () => {
-  //   try {
-  //     const newMarkers = [];
-
-  //     for (const el of list) {
-  //       const address = `${el.street}, ${el.city}, ${el.state} ${el.zip}`;
-  //       const result = await geocodeAddress(address);
-
-  //       newMarkers.push({
-  //         position: result,
-  //         icon: {
-  //           url: images[0],
-  //         },
-  //         content: `${el.price}`,
-  //         id: el.listing_id,
-  //       });
-  //     }
-
-  //     setMarkers(newMarkers);
-  //     setLocat(newMarkers);                 //center location
-  //     setLoading(false);
-  //     setId(list[0].listing_id);            //for images id 
-  //   } catch (error) {
-  //     console.error("Error fetching markers:", error);
-  //   }
-  // };
 
   const fetchMarkers = async () => {
     try {
@@ -101,7 +71,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
       }
   
       setMarkers(newMarkers);
-      setLocat(newMarkers); // Center location
+      // setLocat(newMarkers); // Center location
       setLoading(false);
       setId(list[0].listing_id); // For images id
     } catch (error) {
@@ -111,6 +81,16 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
   
   
   useEffect(() => {
+    //getting lat and lng of the zipcode passed as param for current location
+  geocodeAddress(index)
+  .then((coordinates) => {
+    setLocat(coordinates);
+    // console.log(`Latitude: ${coordinates.lat}, Longitude: ${coordinates.lng}`);
+  })
+  .catch((error) => {
+    console.error("Error getting coordinates:", error.message);
+  });
+
     setLoading(true);
   
     // Load the Google Maps library dynamically
@@ -182,6 +162,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
     }
   };
 
+  
   //distance calcuator bet current position and marker clicked
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 3959; // Radius of the earth in miles
@@ -208,8 +189,8 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
     //console.log('Clicked Marker ID:', marker.id);
     // Calculate distance between center location and marker location
     const distance = calculateDistance(
-      location.lat,
-      location.lng,
+      locat.lat,
+      locat.lng,
       marker.position.lat,
       marker.position.lng
     );
@@ -226,17 +207,13 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
     }
   };
 
-  //console.log(locat[0].position);
-  //console.log(locat);
-
+  console.log(locat);
   return loading && mapLoading ? (
     <div>Loading ...</div>
   ) : (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={
-        locat && locat.length > 0 ? locat[0].position : { lat: 0, lng: 0 }
-      }
+      center={locat}
       zoom={11}
       options={{
         disableDefaultUI: true, // Disable default map controls
@@ -245,7 +222,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
         fullscreenControl: true,
       }}>
       <Marker
-        position={location}
+        position={locat}
         icon={{
           url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
         }}
