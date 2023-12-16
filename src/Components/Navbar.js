@@ -6,17 +6,16 @@ import logo from '../Pages/Pic/LOGO OVER BRAND COLOR.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { unauthenticateUser } from '../redux/slices/authSlice';
 import { onLogout } from '../api/auth';
-import { useUserInfo } from '../api/fetch';
+import { useUserInfoNav } from '../api/fetch';
 import { formatName } from '../utils/formatters';
 
 
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import ProfileMenu from './ProfileMenu';
 
 export default function Navbar() {
-  const userInfo = useUserInfo();
- 
+  
   const { isAuth } = useSelector((state) => state.auth);
+  const userInfo = useUserInfoNav(isAuth);
 
   const userName = userInfo.first_name && userInfo.last_name ? `${formatName(userInfo.first_name)} ${formatName(userInfo.last_name)}` : '';
 

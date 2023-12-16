@@ -4,6 +4,28 @@ import axios from 'axios';
 const API = process.env.REACT_APP_API_URL;
 
 
+export const useUserInfoNav = (isAuth) => {
+  const [userInfo, setUserInfo] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (isAuth) {
+          const response = await fetchProtectedInfo();
+          const { data } = response;
+          setUserInfo(data.user || {});
+        }
+      } catch (error) {
+        console.error('Error fetching protected info:', error);
+      }
+    };
+
+    fetchData();
+  }, [isAuth]); // <- Dependency on isAuth
+
+  return userInfo;
+};
+
 export const useUserInfo = () => {
   const [userInfo, setUserInfo] = useState({});
 

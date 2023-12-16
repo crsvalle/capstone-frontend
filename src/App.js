@@ -2,28 +2,26 @@
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux'
 
-//PAGES
-import Home from "./Pages/Home";
-import FourOFour from "./Pages/FourOFour";
-import IndexListings from "./Pages/IndexListings";
-import NewListing from "./Pages/NewListing";
-import ShowListing from "./Pages/ShowListing";
-import EditListing from "./Pages/EditListing";
-import SignUp from "./Pages/SignUp";
-import Checkout from "./Pages/Checkout";
-import Footer from "./Pages/Footer";
-import Dashboard from "./Pages/Dashboard";
-import EditUser from "./Pages/EditUser";
-
-
-//COMPONENTS
-import Login from "./Pages/Login";
-import Navbar from "./Components/Navbar";
-
-//STYLE
+import { lazy, Suspense } from 'react';
 import './index.css';
-import User from "./Pages/User";
-import Confirmation from "./Pages/Confirmation";
+
+const Home = lazy(() => import('./Pages/Home'));
+const FourOFour = lazy(() => import('./Pages/FourOFour'));
+const IndexListings = lazy(() => import('./Pages/IndexListings'));
+const NewListing = lazy(() => import('./Pages/NewListing'));
+const ShowListing = lazy(() => import('./Pages/ShowListing'));
+const EditListing = lazy(() => import('./Pages/EditListing'));
+const SignUp = lazy(() => import('./Pages/SignUp'));
+const Checkout = lazy(() => import('./Pages/Checkout'));
+const Footer = lazy(() => import('./Pages/Footer'));
+const Dashboard = lazy(() => import('./Pages/Dashboard'));
+const EditUser = lazy(() => import('./Pages/EditUser'));
+const Login = lazy(() => import('./Pages/Login'));
+const User = lazy(() => import('./Pages/User'));
+const Confirmation = lazy(() => import('./Pages/Confirmation'));
+
+const Navbar = lazy(() => import('./Components/Navbar'));
+
 
 const PrivateRoutes = () =>{
   const { isAuth } = useSelector((state) => state.auth);
@@ -40,6 +38,7 @@ const RestrictedRoutes = () =>{
 function App() {
   return (
     <Router>
+      <Suspense fallback={<div>Loading...</div>} >
       <Navbar />
       <main>
         <Routes>
@@ -70,6 +69,7 @@ function App() {
         </Routes>
       </main>
       <Footer/>
+      </Suspense>
     </Router>
   );
 }
