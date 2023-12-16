@@ -61,6 +61,10 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
         convertToDisabledDates();
     }, [blackoutDates, datesBooked]);
     
+    const today = new Date();
+    today.setHours(0,0,0,0); //set time to 0:0:0:0 to ensure that day gets compared 
+    const nextDay = new Date(today);
+    nextDay.setDate(today.getDate() + 1)
     
 
     return (
@@ -71,7 +75,7 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
                 moveRangeOnFirstSelection={false}
                 ranges={dateRange}
                 showDateDisplay={false}
-                minDate={new Date()}
+                minDate={nextDay}
                 disabledDates={disabledDates}
 
             />
