@@ -77,19 +77,55 @@ function Searchbar({ customClass }) {
     navigate(`/listings/${newAddress.zip}`); // navigating to listing w params as zip
     setIsInputFieldNotEmpty(true);
   };
+// init autocomplete
+const initAutocomplete = () => {
+  if (!searchInput.current || !window.google || !window.google.maps) return;
 
-  // init autocomplete
-  const initAutocomplete = () => {
-    if (!searchInput.current || !window.google || !window.google.maps) return;
+  const autocompleteService = new window.google.maps.places.AutocompleteService();
 
-    const autocomplete = new window.google.maps.places.Autocomplete(
-      searchInput.current
-    );
-    autocomplete.setFields(["address_component", "geometry"]);
-    autocomplete.addListener("place_changed", () =>
-      onChangeAddress(autocomplete)
-    );
-  };
+  // Create the Autocomplete instance
+  const autocomplete = new window.google.maps.places.Autocomplete(
+    searchInput.current
+  );
+
+  // Listen for the "place_changed" event
+  autocomplete.addListener("place_changed", () => {
+    onChangeAddress(autocomplete);
+  });
+
+  // Listen for the "keydown" event to detect Enter key press
+  searchInput.current.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      autocompleteService.getPlacePredictions(
+        { input: searchInput.current.value },
+        (predictions, status) => {
+          if (status === window.google.maps.places.PlacesServiceStatus.OK && predictions) {
+            const firstPrediction = predictions[0];
+            if (firstPrediction) {
+              const request = {
+                placeId: firstPrediction.place_id,
+                fields: ["address_component", "geometry"],
+              };
+
+              const placesService = new window.google.maps.places.PlacesService(
+                document.createElement("div")
+              );
+
+              placesService.getDetails(request, (place, status) => {
+                if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+                  const newAddress = extractAddress(place);
+                  setAddress(newAddress);
+                  navigate(`/listings/${newAddress.zip}`);
+                }
+              });
+            }
+          }
+        }
+      );
+    }
+  });
+};
+
 
   const reverseGeocode = ({ latitude: lat, longitude: lng }) => {
     const url = `${geocodeJson}?key=${apiKey}&latlng=${lat},${lng}`;
