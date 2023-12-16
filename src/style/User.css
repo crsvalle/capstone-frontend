@@ -7,8 +7,9 @@
     width: 210px;
     height: 210px;
     object-fit: cover;
-    border: 0.1px solid transparent;
+    border: 0.1px solid black;
     border-radius: 50%;
+    padding: 3px;
 }
 
 .user__conainer > img:hover {
