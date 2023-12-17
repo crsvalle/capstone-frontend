@@ -1,3 +1,4 @@
+import  "../style/EditListing.css";
 import ListingEdit from "../Components/ListingEdit";
 
 export default function EditListing() {
