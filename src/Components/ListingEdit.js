@@ -3,7 +3,7 @@ import { storage } from './firebase';
 import { ref, listAll, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useParams } from "react-router-dom";
-// import { useUserInfo } from '../api/fetch';
+import { useUserInfo } from '../api/fetch';
 
 let imgID = 0;
 const API = process.env.REACT_APP_API_URL;
@@ -12,7 +12,7 @@ const API = process.env.REACT_APP_API_URL;
 export default function ListingEdit() {
   let { id } = useParams();
   let navigate = useNavigate();
-  // const userInfo = useUserInfo();
+  const userInfo = useUserInfo();
   const fileInputRef = useRef(null);
   const imgListRef = ref(storage, `listings/${id}`);
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
@@ -45,8 +45,6 @@ export default function ListingEdit() {
       .then(
         (res) => {
           res.data.listing_id ? setListing(res.data) : navigate(`/not-found`);
-          // console.log(res.data);
-          // console.log(userInfo.id);
           // if (res.data.listing_id && res.data.host === userInfo.id) {
           //   setListing(res.data);
           // }
@@ -332,9 +330,9 @@ export default function ListingEdit() {
               </div>
             </div>
           </div>
-          <input type="submit" value="SUBMIT"/>
-          <Link to={`/listings/show/${id}`}>
-            <button id='backButton'>BACK</button>
+          <input className='bg-customBlue hover:bg-customBlueLight text-white font-bold' type="submit" value="SUBMIT"/>
+          <Link className='backButton font-bold' to={`/listings/show/${id}`}>
+            <button>BACK</button>
           </Link>
         </div>
       </form>
