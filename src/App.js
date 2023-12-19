@@ -2,8 +2,26 @@
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from "react-router-dom";
 import { useSelector } from 'react-redux'
 
+
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+//PAGES
+import Home from "./Pages/Home";
+import FourOFour from "./Pages/FourOFour";
+import IndexListings from "./Pages/IndexListings";
+import NewListing from "./Pages/NewListing";
+import ShowListing from "./Pages/ShowListing";
+import EditListing from "./Pages/EditListing";
+import SignUp from "./Pages/SignUp";
+import Checkout from "./Pages/Checkout";
+import Footer from "./Pages/Footer";
+import Dashboard from "./Pages/Dashboard";
+import EditUser from "./Pages/EditUser";
+
 import { lazy, Suspense } from 'react';
 import './index.css';
+
 
 const Home = lazy(() => import('./Pages/Home'));
 const FourOFour = lazy(() => import('./Pages/FourOFour'));
@@ -34,9 +52,13 @@ const RestrictedRoutes = () =>{
 
   return <>{!isAuth ? <Outlet /> : <Navigate to={'/user/profile'} />}</>
 }
+// const KEY = process.env.REACT_APP_STRIPE_API_KEY
+const stripePromise = loadStripe('pk_test_51O9Gs7Cc76lpQQjkc6I6oeSL3jvYpPB3oxLFVtZkyl2yUr3kcaCALKCRd4XMutSePlqF4C3s5CyB2zFhV0TIvnEl00n6xcO1e3');
 
 function App() {
   return (
+
+    <Elements stripe={stripePromise}>
     <Router>
       <Suspense fallback={<div>Loading...</div>} >
       <Navbar />
@@ -44,11 +66,13 @@ function App() {
         <Routes>
           <Route path='/' element={<Home />} />
 
-          <Route element={<PrivateRoutes />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/listings/new" element={<NewListing/>}/>
-            <Route path="/listings/:id/edit" element={<EditListing />} />
-          </Route>
+
+            <Route element={<PrivateRoutes />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/listings/new" element={<NewListing/>}/>
+              <Route path="/listings/:id/edit" element={<EditListing />} />
+            </Route>
+
 
           <Route element={<RestrictedRoutes />}>
             <Route path="/register" element={<SignUp />} />
@@ -71,6 +95,8 @@ function App() {
       <Footer/>
       </Suspense>
     </Router>
+</Elements>
+
   );
 }
 
