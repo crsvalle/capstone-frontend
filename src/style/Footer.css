@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-evenly;
     padding: 25px 0 25px;
-    background: rgb(1, 44, 51);
+    /* background: rgb(1, 44, 51); */
     color: white;
 }
 
@@ -31,3 +31,14 @@
     margin-left: 10%;
     margin-right: 10%;
 }
+
+
+@media screen and (max-width: 768px){
+    .footer__last__bottom {
+        flex-direction: column;
+    }
+    .footer__last__bottom__title {
+        padding: 0px;
+    }
+    
+  }
