@@ -163,7 +163,7 @@ const initAutocomplete = () => {
           <input
             ref={searchInput}
             type="text"
-            placeholder="Search location...."
+            placeholder="Search zipcode...."
             onChange={() =>
               setIsInputFieldNotEmpty(!!searchInput.current.value) // Update based on input value
             } 
