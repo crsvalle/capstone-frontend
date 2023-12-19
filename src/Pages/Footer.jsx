@@ -6,9 +6,9 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
 export default function Footer (){
     return (
-        <>
+        <div className="footer__main__wrapper">
             <hr/>
-            <div className="footer__container">
+            <div className="footer__container bg-customBlue">
                 <div>
                     <div>Support</div>
                     <div>Help Center</div>
@@ -36,6 +36,6 @@ export default function Footer (){
                     <MailOutlineIcon className='mx-2'/>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
