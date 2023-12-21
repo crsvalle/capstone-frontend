@@ -3,7 +3,7 @@ import { storage } from './firebase';
 import { ref, listAll, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useParams } from "react-router-dom";
-import { useUserInfo } from '../api/fetch';
+// import { useUserInfo } from '../api/fetch';
 
 let imgID = 0;
 const API = process.env.REACT_APP_API_URL;
@@ -12,7 +12,7 @@ const API = process.env.REACT_APP_API_URL;
 export default function ListingEdit() {
   let { id } = useParams();
   let navigate = useNavigate();
-  const userInfo = useUserInfo();
+  // const userInfo = useUserInfo();
   const fileInputRef = useRef(null);
   const imgListRef = ref(storage, `listings/${id}`);
   const states = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY'];
