@@ -1,28 +1,14 @@
 //DEPENDENCIES
+import './index.css';
+import { lazy, Suspense } from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from "react-router-dom";
-import { useSelector } from 'react-redux'
-
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
+
 //PAGES
-import Home from "./Pages/Home";
-import FourOFour from "./Pages/FourOFour";
-import IndexListings from "./Pages/IndexListings";
-import NewListing from "./Pages/NewListing";
-import ShowListing from "./Pages/ShowListing";
-import EditListing from "./Pages/EditListing";
-import SignUp from "./Pages/SignUp";
-import Checkout from "./Pages/Checkout";
-import Footer from "./Pages/Footer";
-import Dashboard from "./Pages/Dashboard";
-import EditUser from "./Pages/EditUser";
-
-import { lazy, Suspense } from 'react';
-import './index.css';
-
-
 const Home = lazy(() => import('./Pages/Home'));
 const FourOFour = lazy(() => import('./Pages/FourOFour'));
 const IndexListings = lazy(() => import('./Pages/IndexListings'));

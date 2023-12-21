@@ -61,8 +61,8 @@ input[type="submit"] {
 }
 
 .backButton {
-  color: #012c33;
-  border: 1px solid #012c33;
+  color: #04525e;
+  border: 1px solid #04525e;
   padding: 8px 18px;
 }
 
@@ -93,7 +93,7 @@ label {
 
 .card .drag-area {
   background: #f4f3f9;
-  border: 2px dashed #0086fe;
+  border: 2px dashed #04525e;
   border-radius: 5px;
   color: #0086fe;
   font-size: 20px;
@@ -179,4 +179,47 @@ label {
 .card .drag-area .on-drop,
 .card .drag-area.dragover .visible {
   display: none;
+}
+
+@media (max-width: 950px) {
+  .new-listing-form {
+    margin: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  .new-listing {
+    margin-bottom: 20px;
+  }
+  
+  .new-listing h2 {
+    margin-bottom: 20px;
+  }
+
+  .new-listing-form {
+    margin: auto;
+    width: 90%;
+  }
+
+  .address-detail {
+    flex-direction: column;
+  }
+
+  .address {
+    border-bottom: 1px solid #ccc;
+    border-right: none;
+  }
+
+  .section-text {
+    text-align: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .backButton,
+  input[type="submit"] {
+    width: 60%;
+  }
 }
