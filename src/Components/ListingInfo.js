@@ -15,7 +15,7 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { formatDate } from "../utils/formatters";
 import Calendar from "./Calendar";
 
-import { useAvailability  } from "../api/fetch";
+import { useAvailability } from "../api/fetch";
 
 
 const API = process.env.REACT_APP_API_URL;
@@ -44,24 +44,24 @@ export default function ListingInfo() {
 
     useEffect(() => {
         axios
-        .get(`${API}/listings/${index}`)
-        .then((response) =>{
-            setListing((response.data));
-            setRated((response.data.avg_rating));
-            setId(listing.listing_id);
-        })
-        .catch((e) => console.error("catch", e));
+            .get(`${API}/listings/${index}`)
+            .then((response) => {
+                setListing((response.data));
+                setRated((response.data.avg_rating));
+                setId(listing.listing_id);
+            })
+            .catch((e) => console.error("catch", e));
 
         axios
-        .get(`${API}/users/${listing.host}`)
-        .then((response) => {
-            setHost(response.data);
-        })
-        .catch((e) => console.error("catch", e));
+            .get(`${API}/users/${listing.host}`)
+            .then((response) => {
+                setHost(response.data);
+            })
+            .catch((e) => console.error("catch", e));
 
     }, [index, listing.host, listing.listing_id]);
 
-    
+
     useEffect(() => {
         listAll(imgListRef).then((res) =>
             res.items.forEach((item) =>
@@ -74,14 +74,14 @@ export default function ListingInfo() {
 
 
     const start = new Date(dateRange[0].startDate)
-    const end = new Date (dateRange[0].endDate) 
-    let time = Math.round(Math.abs((start - end) / (1000*60*60*24)))
+    const end = new Date(dateRange[0].endDate)
+    let time = Math.round(Math.abs((start - end) / (1000 * 60 * 60 * 24)))
 
     const handleBooking = () => {
         // Extract start and end dates from the dateRange state
         const startDate = dateRange[0].startDate.toISOString();
         const endDate = dateRange[0].endDate.toISOString();
-    
+
         // Store data in localStorage
         localStorage.setItem('bookingData', JSON.stringify({
             index,
@@ -89,7 +89,7 @@ export default function ListingInfo() {
             startDate,
             endDate,
         }));
-    
+
         // Redirect to the checkout page
         navigate('/checkout');
     };
@@ -97,21 +97,21 @@ export default function ListingInfo() {
     return (
         <div className="wholePage">
             <div className="left">
-                    <div className="custom-carousel-container">
-                        <Carousel className="rounded-xl">
-                            {images.map((image, index) => (
-                                <div className="image-container rounded-xl overflow-hidden mb-4" key={index}>
-                                    <div className="pb-9/16"> {/* 16:9 aspect ratio */}
-                                        <img
-                                            src={image}
-                                            alt="Listing"
-                                            className="absolute  w-full h-full object-cover rounded-xl"
-                                        />
-                                    </div>
+                <div className="custom-carousel-container">
+                    <Carousel className="rounded-xl">
+                        {images.map((image, index) => (
+                            <div className="image-container rounded-xl overflow-hidden mb-4" key={index}>
+                                <div className="pb-9/16"> {/* 16:9 aspect ratio */}
+                                    <img
+                                        src={image}
+                                        alt="Listing"
+                                        className="absolute  w-full h-full object-cover rounded-xl"
+                                    />
                                 </div>
-                            ))}
-                        </Carousel>
-                    </div>
+                            </div>
+                        ))}
+                    </Carousel>
+                </div>
                 <div className="listingCard">
                     {rated !== null && (<Rating value={rated} readonly />)}
                     <h1 className="listingText">Size: {listing.size}</h1>
@@ -119,13 +119,13 @@ export default function ListingInfo() {
                     <p className="listingText">Posted on: {formatDate(listing.posted_at)}</p>
                     <p className="listingText mb-5">To see full address, make a reservation</p>
                 </div>
-                
+
                 <div className="desc mb-5">
                     <p>{listing.description}</p>
                 </div>
-                    <div className="mb-5">
-                        <h1 className=" text-xl font-bold">Access Information</h1>
-                        {availability && (
+                <div className="mb-5">
+                    <h1 className=" text-xl font-bold">Access Information</h1>
+                    {availability && (
                         <div className="availabilityInfo">
                             {availability.after_hours && (
                                 <p className="availabilityMessage flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-md my-2">
@@ -148,15 +148,17 @@ export default function ListingInfo() {
                         </div>
                     )}
 
-                    </div>
+                </div>
                 <div>
-                    <Button fullWidth>Contact Owner</Button>
+                    <Button onClick={() => navigate('/experimental', { state: { ownerId: listing.host } })}>
+                        Contact Owner
+                    </Button>
                 </div>
             </div>
 
             <div className="middle">
                 <div className="calendar">
-                    <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
+                    <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />
                 </div>
                 <div className="priceCard rounded-lg p-4  bg-white">
                     <p className="text-lg font-bold">Monthly price: ${listing.price}</p>

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 import { lazy, Suspense } from 'react';
 import './index.css';
+import Inbox from "./Pages/Inbox";
 
 const Home = lazy(() => import('./Pages/Home'));
 const FourOFour = lazy(() => import('./Pages/FourOFour'));
@@ -55,6 +56,7 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Route>
         
+          <Route path="/experimental" element={<Inbox  />} />
           <Route path="/listings/:index" element={<IndexListings />} />
           {/* <Route path="/listings/new" element={<NewListing/>}/> */}
           <Route path="/listings/show/:index" element={<ShowListing />}/>
