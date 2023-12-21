@@ -26,14 +26,14 @@ export default function Footer (){
             <div className="footer__last">
                 <div className="footer__last__bottom">
                     <div className='footer__last__bottom__title'>© KEEPSAKE</div>
-                    <div className='footer__last__bottom__title'>Terms</div>
-                    <div className='footer__last__bottom__title'>Policy</div>
+                    <div className='footer__last__bottom__title footer__sm__text'>Terms</div>
+                    <div className='footer__last__bottom__title footer__sm__text'>Policy</div>
                 </div>
                 <div className="footer__icons">
-                    <FacebookIcon className='mx-2'/>
-                    <InstagramIcon className='mx-2'/>
-                    <TwitterIcon className='mx-2'/>
-                    <MailOutlineIcon className='mx-2'/>
+                    <FacebookIcon className='mx-2 mx-sm-0'/>
+                    <InstagramIcon className='mx-2 mx-sm-0'/>
+                    <TwitterIcon className='mx-2 mx-sm-0'/>
+                    <MailOutlineIcon className='mx-2 mx-sm-0'/>
                 </div>
             </div>
         </div>
