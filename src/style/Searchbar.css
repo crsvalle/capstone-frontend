@@ -81,4 +81,8 @@ clear-button {
     width: 250px;
     height: 40px;
   }
+
+  .nav__searchBar input {
+    width: 70px;
+  }
 }
