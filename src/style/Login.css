@@ -1,38 +1,62 @@
+.login__wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
 .login__box {
-    display: flex;
+  /* display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 75vh;
+    align-items: center; */
+  /* flex: .5; */
+  /* height: 100vh; */
+}
+
+.login__box__main {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.243);
+  /* border-radius: 5px; */
+  box-shadow: 0.2px 1px 5px 0.5px rgba(0, 0, 0, 0.243);
+  padding: 65px;
+  margin: 25px;
+}
+
+.login__box__btn {
+  margin: 20% 25% 15% 25%;
+}
+
+.forgetPass,
+.signUp {
+  font-size: small;
+  text-decoration: underline;
+  padding-right: 25px;
+}
+
+.login__box__footer {
+  display: flex;
+  text-align: center;
+}
+
+.login__box__icon {
+  width: 3px;
+  height: 3px;
+}
+
+.login__pic > img {
+  /* flex: 1; */
+  width: 475px;
+  height: 485px;
+  /* padding-top: 1px; */
+  margin-top: 1px;
+}
+
+@media only screen and (max-width: 768px) {
+  .login__box {
+    height: fit-content;
+    margin-top: 50px;
+    padding-bottom: 40px;
   }
-  
-  .login__box__main {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0, 0, 0, 0.243);
-    border-radius: 5px;
-    box-shadow: 0.2px 1px 5px 0.5px rgba(0, 0, 0, 0.243);
-    padding: 65px;
-    margin: 25px;
+  .login__pic {
+    display: none;
   }
-  
-  .login__box__btn {
-    margin:20% 25% 15% 25%;
-  }
-  
-  .forgetPass, 
-  .signUp {
-    font-size: small;
-    text-decoration: underline;
-    padding-right: 25px;
-  }
-  
-  .login__box__footer {
-    display: flex;
-    text-align: center;
-  }
-  
-  .login__box__icon {
-    width: 3px;
-    height: 3px;
-  }
-  
+}
