@@ -32,13 +32,10 @@ const Input = ({ chatId }) => {
 
       const chatDocSnapshot = await getDoc(chatDocRef);
 
-      // Assuming messages is an object within the chat document
       const messages = chatDocSnapshot.data().messages;
 
-      // Extract the keys (message IDs) from the messages object
       const messageIds = Object.keys(messages);
 
-      // Get the latest message using the message ID
       const latestMessageId = messageIds.reduce((prev, current) =>
         messages[prev].date > messages[current].date ? prev : current
       );

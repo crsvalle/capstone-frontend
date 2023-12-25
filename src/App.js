@@ -56,7 +56,7 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Route>
         
-          <Route path="/experimental" element={<Inbox  />} />
+          <Route path="/inbox" element={<Inbox  />} />
           <Route path="/listings/:index" element={<IndexListings />} />
           {/* <Route path="/listings/new" element={<NewListing/>}/> */}
           <Route path="/listings/show/:index" element={<ShowListing />}/>

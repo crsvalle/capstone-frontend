@@ -20,11 +20,8 @@ const Chats = ({ selectedChat, handleChatSelection }) => {
 
                     if (docSnapshot.exists()) {
                         const chatData = docSnapshot.data();
-                        // Extract necessary chat data and format as needed
                         console.log('Fetched chat data:', chatData);
-
-                        // Update state with the fetched chat data
-                        setUserChats([chatData]); // Assuming you receive an array of chats
+                        setUserChats([chatData]); 
                     } else {
                         console.log('Document not found for current user.');
                     }
@@ -40,20 +37,25 @@ const Chats = ({ selectedChat, handleChatSelection }) => {
     return (
         <div className="chats">
             {userChats.length > 0 &&
-                Object.entries(userChats[0]).sort((a, b) => b[1].date - a[1].date).map((chat) => (
-                    <div
-                    className={`userChat ${selectedChat === chat[1].chatId ? 'selected' : ''}`}
-                        key={chat[0]}
-                        onClick={() => handleChatSelection(chat[1].chatId)}
-                    >
-                        {/* <img src={chat[1].userInfo.photoURL} alt="" /> */}
-                        <div className="userChatInfo">
-                        {/* <span>{data ? data.first_name : 'Loading...'}</span> */}
-                        <ChatUserInfo chatId={chat[1].chatId}/>
-                            <p>{chat[1].lastMessage?.text}</p>
+                Object.entries(userChats[0])
+                    .sort((a, b) => {
+                        const dateA = a[1]?.lastMessage?.date?.seconds || 0; 
+                        const dateB = b[1]?.lastMessage?.date?.seconds || 0;
+
+                        return dateB - dateA; 
+                    })
+                    .map((chat) => (
+                        <div
+                            className={`userChat ${selectedChat === chat[1].chatId ? 'selected' : ''}`}
+                            key={chat[0]}
+                            onClick={() => handleChatSelection(chat[1].chatId)}
+                        >
+                            <div className="userChatInfo">
+                                <ChatUserInfo chatId={chat[1].chatId} />
+                                <p>{chat[1].lastMessage?.text}</p>
+                            </div>
                         </div>
-                    </div>
-                ))
+                    ))
             }
         </div>
 

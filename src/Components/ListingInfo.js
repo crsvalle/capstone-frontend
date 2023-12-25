@@ -150,7 +150,7 @@ export default function ListingInfo() {
 
                 </div>
                 <div>
-                    <Button onClick={() => navigate('/experimental', { state: { ownerId: listing.host } })}>
+                    <Button onClick={() => navigate('/inbox', { state: { ownerId: listing.host } })}>
                         Contact Owner
                     </Button>
                 </div>
