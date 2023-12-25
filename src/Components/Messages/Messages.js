@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { collection, query, where, getDocs, doc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, onSnapshot } from 'firebase/firestore';
 import { useUserInfo } from '../../api/fetch';
 import Message from './Message'
 
@@ -9,29 +9,20 @@ const Messages = ({ selectedChat }) => {
   const currentUser = useUserInfo();
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        if (selectedChat) {
-          const messagesQuery = query(
-            collection(db, 'chats', selectedChat, 'messages')
-          );
-
-          const querySnapshot = await getDocs(messagesQuery);
-          const chatMessages = [];
-
-          querySnapshot.forEach((doc) => {
-            // Collect message data and push it into an array
-            chatMessages.push({ id: doc.id, ...doc.data() });
-          });
-
-          setMessages(chatMessages);
+    if (selectedChat) {
+      const unSub = onSnapshot(doc(db, "chats", selectedChat), (snapshot) => {
+        const data = snapshot.data();
+        if (data && data.messages) {
+          setMessages(data.messages);
+        } else {
+          setMessages([]);
         }
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
-    };
-
-    fetchMessages();
+      });
+  
+      return () => {
+        unSub();
+      };
+    }
   }, [selectedChat]);
 
   return (

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useUserInfo } from '../../api/fetch';
 import { v4 as uuid } from 'uuid';
-import { serverTimestamp, doc, updateDoc, arrayUnion, Timestamp, query, collection, getDocs, orderBy, limit } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, Timestamp, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 
 const Input = ({ chatId }) => {
@@ -30,21 +30,20 @@ const Input = ({ chatId }) => {
         messages: arrayUnion(message),
       });
 
-      const messagesQuery = query(
-        collection(db, 'chats', chatId, 'messages'),
-        limit(1)
+      const chatDocSnapshot = await getDoc(chatDocRef);
+
+      // Assuming messages is an object within the chat document
+      const messages = chatDocSnapshot.data().messages;
+
+      // Extract the keys (message IDs) from the messages object
+      const messageIds = Object.keys(messages);
+
+      // Get the latest message using the message ID
+      const latestMessageId = messageIds.reduce((prev, current) =>
+        messages[prev].date > messages[current].date ? prev : current
       );
 
-
-      const querySnapshot = await getDocs(messagesQuery);
-      console.log('Query Snapshot:', querySnapshot);
-
-      let lastMessage = null;
-
-      querySnapshot.forEach((doc) => {
-        console.log('Message Document Data:', doc.data());
-        lastMessage = doc.data();
-      });
+      const lastMessage = messages[latestMessageId];
 
       const userChatsRef = doc(db, 'userChats', `${currentUser.id}`);
       await updateDoc(userChatsRef, {
@@ -61,7 +60,7 @@ const Input = ({ chatId }) => {
   };
 
   return (
-    <div className="input">
+    <div className="inbox-input">
       <input
         type="text"
         placeholder="Type something..."
