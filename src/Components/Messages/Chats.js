@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import '../../style/chat.css'
 import { collection, query, where, getDoc, doc } from 'firebase/firestore';
-import { useUserInfo } from "../../api/fetch";
+import { useUserInfo, useUserDataById } from "../../api/fetch";
+import ChatUserInfo from "./ChatUserInfo";
 
 
 const Chats = ({ selectedChat, handleChatSelection }) => {
@@ -47,8 +48,8 @@ const Chats = ({ selectedChat, handleChatSelection }) => {
                     >
                         {/* <img src={chat[1].userInfo.photoURL} alt="" /> */}
                         <div className="userChatInfo">
-                            {/* <span>{chat[1].userInfo.displayName}</span> */}
-                            <p>{chat[1].chatId}</p>
+                        {/* <span>{data ? data.first_name : 'Loading...'}</span> */}
+                        <ChatUserInfo chatId={chat[1].chatId}/>
                             <p>{chat[1].lastMessage?.text}</p>
                         </div>
                     </div>
