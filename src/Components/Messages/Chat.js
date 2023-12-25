@@ -1,21 +1,22 @@
-import React from 'react'
-import Messages from './Messages'
-import Input from './Input'
-import { ChatContextProvider } from '../../context/ChatContext';
-import '../../style/chat.css'
 
+import React from 'react';
+import Messages from './Messages';
+import '../../style/chat.css';
+import Input from './Input';
+import { useChatContext } from '../../context/ChatContext';
 
 export default function Chat() {
-    return (
-        <ChatContextProvider> 
-            <div className='chat'>
-                <div className='chatInfo'>
-                    <span>George</span>
-                    <div></div>
-                </div>
-                <Messages />
-                <Input />
-            </div>
-        </ChatContextProvider>
-    )
+    const { selectedChat } = useChatContext();
+    console.log(selectedChat)
+
+  return (
+    <div className='chat'>
+      <div className='chatInfo'>
+        <span>George</span>
+        <div></div>
+      </div>
+      <Messages selectedChat={selectedChat} />
+      <Input chatId={selectedChat}/>
+    </div>
+  );
 }

@@ -1,33 +1,44 @@
-import { doc, onSnapshot } from "firebase/firestore";
-import React, { useContext, useEffect, useState } from "react";
-import { ChatContext } from "../../context/ChatContext";
-import { db } from "../firebase";
-import Message from "./Message";
+import React, { useEffect, useState } from 'react';
+import { db } from '../firebase';
+import { collection, query, where, getDocs, doc } from 'firebase/firestore';
+import { useUserInfo } from '../../api/fetch';
+import Message from './Message'
 
-const Messages = () => {
+const Messages = ({ selectedChat }) => {
   const [messages, setMessages] = useState([]);
-  const { data } = useContext(ChatContext);
+  const currentUser = useUserInfo();
 
   useEffect(() => {
-    const unSub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
-      doc.exists() && setMessages(doc.data().messages);
-    });
+    const fetchMessages = async () => {
+      try {
+        if (selectedChat) {
+          const messagesQuery = query(
+            collection(db, 'chats', selectedChat, 'messages')
+          );
 
-    return () => {
-      unSub();
+          const querySnapshot = await getDocs(messagesQuery);
+          const chatMessages = [];
+
+          querySnapshot.forEach((doc) => {
+            // Collect message data and push it into an array
+            chatMessages.push({ id: doc.id, ...doc.data() });
+          });
+
+          setMessages(chatMessages);
+        }
+      } catch (error) {
+        console.error('Error fetching messages:', error);
+      }
     };
-  }, [data.chatId]);
 
+    fetchMessages();
+  }, [selectedChat]);
 
   return (
     <div className="messages">
-      {data.chatId && messages.length > 0 ? (
-        messages.map((m) => (
-          <Message message={m} key={m.id} />
-        ))
-      ) : (
-        <p>No messages yet</p>
-      )}
+     {messages.map((message) => (
+        <Message key={message.id} message={message} />
+      ))}
     </div>
   );
 };

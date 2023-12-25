@@ -1,100 +1,76 @@
-import React, { useContext, useState } from "react";
-import { useUserInfo } from "../../api/fetch";
-import { ChatContext } from "../../context/ChatContext";
-import {
-    arrayUnion,
-    doc,
-    serverTimestamp,
-    Timestamp,
-    updateDoc,
-} from "firebase/firestore";
-import { db, storage } from "../firebase";
-import { v4 as uuid } from "uuid";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import '../../style/chat.css'
+import React, { useState } from 'react';
+import { useUserInfo } from '../../api/fetch';
+import { v4 as uuid } from 'uuid';
+import { serverTimestamp, doc, updateDoc, arrayUnion, Timestamp, query, collection, getDocs, orderBy, limit } from 'firebase/firestore';
+import { db } from '../firebase';
 
-const Input = () => {
-    const [text, setText] = useState("");
-    const [img, setImg] = useState(null);
-    const currentUser  = useUserInfo();
-    const { data } = useContext(ChatContext);
-    console.log(data)
+const Input = ({ chatId }) => {
+  const currentUser = useUserInfo();
+  const [text, setText] = useState('');
 
-    const handleSend = async () => {
-        try {
-            if (!currentUser || !currentUser.id ) {
-                console.error('Invalid current user or chat ID');
-                return;
-            }
-    
-            const messageData = {
-                id: uuid(), // Generate a unique ID for the message
-                text,
-                senderId: currentUser.id,
-                date: serverTimestamp(), // Timestamp indicating the message sending time
-            };
-    
-            if (img) {
-                // Logic to handle image upload and storage URL
-                // Update messageData with the image URL or any other relevant data
-                messageData.img = 'your_image_url_here';
-            }
-    
-            // Update Firestore document for the chat with the new message
-            // await updateDoc(doc(db, 'chats', chatId), {
-            //     messages: arrayUnion(messageData),
-            // });
-    
-            setText('');
-            setImg(null);
-        } catch (error) {
-            console.error('Message sending error:', error);
-        }
-    };
-
-    const updateChatMessages = async (downloadURL = null) => {
-        try {
-
-            const messageData = {
-                id: uuid(),
-                text,
-                senderId: `${currentUser.id}`,
-                date: Timestamp.now(),
-            };
-
-            if (downloadURL) {
-                messageData.img = downloadURL;
-            }
-
-            await updateDoc(doc(db, "chats", `${data.chatId}`), {
-                messages: arrayUnion(messageData),
-            });
-        } catch (error) {
-            console.error("Error updating chat messages:", error);
-        }
-    };
+  const handleSend = async () => {
+    try {
+      if (!currentUser || !currentUser.id || !chatId || !text) {
+        console.error('Invalid data for sending message');
+        return;
+      }
+      const [userId1, userId2] = chatId.split('-');
+      const otherUserId = userId1 === currentUser.id ? userId1 : userId2;
 
 
-    return (
-        <div className="input">
-            <input
-                type="text"
-                placeholder="Type something..."
-                onChange={(e) => setText(e.target.value)}
-                value={text}
-            />
-            <div className="send">
-                <input
-                    type="file"
-                    style={{ display: "none" }}
-                    id="file"
-                    onChange={(e) => setImg(e.target.files[0])}
-                />
-                <label htmlFor="file"></label>
-                <button onClick={handleSend}>Send</button>
-            </div>
-        </div>
-    );
+      const message = {
+        id: uuid(),
+        text,
+        senderId: `${currentUser.id}`,
+        date: Timestamp.now(),
+      };
+
+      const chatDocRef = doc(db, 'chats', chatId);
+      await updateDoc(chatDocRef, {
+        messages: arrayUnion(message),
+      });
+
+      const messagesQuery = query(
+        collection(db, 'chats', chatId, 'messages'),
+        limit(1)
+      );
+
+
+      const querySnapshot = await getDocs(messagesQuery);
+      console.log('Query Snapshot:', querySnapshot);
+
+      let lastMessage = null;
+
+      querySnapshot.forEach((doc) => {
+        console.log('Message Document Data:', doc.data());
+        lastMessage = doc.data();
+      });
+
+      const userChatsRef = doc(db, 'userChats', `${currentUser.id}`);
+      await updateDoc(userChatsRef, {
+        [otherUserId]: {
+          chatId,
+          lastMessage,
+        },
+      });
+
+      setText('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  };
+
+  return (
+    <div className="input">
+      <input
+        type="text"
+        placeholder="Type something..."
+        onChange={(e) => setText(e.target.value)}
+        value={text}
+      />
+      <button onClick={handleSend}>Send</button>
+    </div>
+  );
 };
 
 export default Input;

@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useUserInfo } from '../../api/fetch'
-import { ChatContext } from "../../context/ChatContext";
 
 const Message = ({ message }) => {
-  const { currentUser } = useUserInfo();
-  const { data } = useContext(ChatContext);
+  const currentUser = useUserInfo();
 
   const ref = useRef();
 
@@ -15,14 +13,14 @@ const Message = ({ message }) => {
   return (
     <div
       ref={ref}
-      className={`message ${message.senderId === currentUser.uid && "owner"}`}
+      className={`message ${message.senderId === currentUser.id && "owner"}`}
     >
       <div className="messageInfo">
         <img
           src={
-            message.senderId === currentUser.uid
+            message.senderId === currentUser.id
               ? currentUser.photoURL
-              : data.user.photoURL
+              : ''
           }
           alt=""
         />

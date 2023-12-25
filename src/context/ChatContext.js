@@ -1,36 +1,22 @@
-import React, { createContext, useReducer } from "react";
-import { useUserInfo } from "../api/fetch"; // Import your custom authentication hook
+import React, { createContext, useContext, useState } from 'react';
 
-export const ChatContext = createContext();
+const ChatContext = createContext(null);
 
-export const ChatContextProvider = ({ children }) => {
-  const currentUser = useUserInfo(); // Retrieve user information using your custom hook
-  const INITIAL_STATE = {
-    chatId: "null",
-    user: {},
+export const useChatContext = () => {
+  const context = useContext(ChatContext);
+  if (!context) {
+    throw new Error('useChatContext must be used within a ChatProvider');
+  }
+  return context;
+};
+
+export const ChatProvider = ({ children }) => {
+  const [selectedChat, setSelectedChat] = useState(null);
+
+  const value = {
+    selectedChat,
+    setSelectedChat,
   };
 
-  const chatReducer = (state, action) => {
-    switch (action.type) {
-      case "CHANGE_USER":
-        return {
-          user: action.payload,
-          chatId:
-            currentUser.id > action.payload.id
-              ? currentUser.id + action.payload.id
-              : action.payload.id + currentUser.id,
-        };
-
-      default:
-        return state;
-    }
-  };
-
-  const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
-
-  return (
-    <ChatContext.Provider value={{ data: state, dispatch }}>
-      {children}
-    </ChatContext.Provider>
-  );
+  return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>;
 };

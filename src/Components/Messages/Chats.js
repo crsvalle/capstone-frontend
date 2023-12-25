@@ -5,7 +5,8 @@ import '../../style/chat.css'
 import { collection, query, where, getDoc, doc } from 'firebase/firestore';
 import { useUserInfo } from "../../api/fetch";
 
-const Chats = () => {
+
+const Chats = ({ selectedChat, handleChatSelection }) => {
     const [userChats, setUserChats] = useState([]);
     const currentUser = useUserInfo();
 
@@ -40,9 +41,9 @@ const Chats = () => {
             {userChats.length > 0 &&
                 Object.entries(userChats[0]).sort((a, b) => b[1].date - a[1].date).map((chat) => (
                     <div
-                        className="userChat"
+                    className={`userChat ${selectedChat === chat[1].chatId ? 'selected' : ''}`}
                         key={chat[0]}
-                        // onClick={() => handleSelect(chat[1].userInfo)}
+                        onClick={() => handleChatSelection(chat[1].chatId)}
                     >
                         {/* <img src={chat[1].userInfo.photoURL} alt="" /> */}
                         <div className="userChatInfo">
