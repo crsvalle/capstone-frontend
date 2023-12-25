@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useReducer } from "react";
 import { useUserInfo } from "../api/fetch"; // Import your custom authentication hook
 
 export const ChatContext = createContext();

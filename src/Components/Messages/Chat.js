@@ -1,13 +1,13 @@
 import React from 'react'
 import Messages from './Messages'
-import '../../style/chat.css'
 import Input from './Input'
 import { ChatContextProvider } from '../../context/ChatContext';
+import '../../style/chat.css'
 
 
 export default function Chat() {
     return (
-        <ChatContextProvider> {/* Wrap your Messages component with ChatContextProvider */}
+        <ChatContextProvider> 
             <div className='chat'>
                 <div className='chatInfo'>
                     <span>George</span>

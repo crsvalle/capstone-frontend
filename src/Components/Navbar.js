@@ -23,11 +23,11 @@ export default function Navbar() {
   const location = useLocation();
 
   const logout = async () => {
-    localStorage.setItem('isAuth', JSON.stringify(false));
-    window.location.reload();
+  
     try {
       await onLogout();
       dispatch(unauthenticateUser());
+      localStorage.setItem('isAuth', JSON.stringify(false));
     } catch (error) {
       console.log(error.response);
     }

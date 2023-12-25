@@ -1,95 +1,82 @@
-    import { useEffect } from "react"
-    import {
-        setDoc,
-        doc,
-        updateDoc,
-        serverTimestamp,
-        getDoc,
-    } from "firebase/firestore";
-    import { db } from '../firebase'
-    import { useLocation } from "react-router-dom";
-    import { useUserInfoNav, useUserDataById } from "../../api/fetch";
-    import { useSelector } from "react-redux";
+
+import { collection, doc, setDoc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase'; 
+import { useLocation } from 'react-router-dom';
+import { useUserInfo } from '../../api/fetch';
 
 
-    const API = process.env.REACT_APP_API_URL;
+const initiateChat = async (currentUser, otherUser) => {
+    try {
 
-    export default function ChatSearch() {
-        const { isAuth } = useSelector((state) => state.auth);
+        console.log(currentUser, otherUser)
+        const chatId = `${currentUser}-${otherUser}`;
 
-        const currentUser = useUserInfoNav(isAuth)
-        const location = useLocation();
-        const { ownerId } = location.state || {};
-        const userData = useUserDataById(ownerId, API)
-        const user = userData || {}
+        const chatRef = doc(db, 'chats', chatId);
+        await setDoc(chatRef, {
+            chatId,
+            users: [currentUser, otherUser], 
+            messages: [],
+        });
 
-
-        const handleSearch = () => {
-
-        };
-
-        const handleKey = e => {
-            e.code === "Enter" && handleSearch();
-        }
-
-        const setUserIdInFirestore = async (userId) => {
-            const userDocRef = doc(db, 'users', `${userId}`); // Assuming 'users' collection exists
-            await setDoc(userDocRef, { userId }); // Set the 'userId' field in the 'users' collection
-        };
+        await updateUserChats(currentUser, otherUser, chatId);
+        await updateUserChats(otherUser, currentUser, chatId);
 
 
-        const handleSelect = async () => {
-            const combinedId = currentUser.id > ownerId ? `${currentUser.id}` + `${ownerId}` : `${ownerId}` + `${currentUser.id}`;
-
-            try {
-                const res = await getDoc(doc(db, "chats", `${combinedId}`));
-                console.log('test', res.data());
-                if (!res.exists()) {
-                    //create a chat in chats collection
-                    await setDoc(doc(db, "chats", `${combinedId}`), { messages: [] });
-
-                    //create user chats
-                    await updateDoc(doc(db, "userChats", `${currentUser.uid}`), {
-                        [`${combinedId}` + ".userInfo"]: {
-                            uid: `${user.id}`,
-                            displayName: user.first_name + user.last_name,
-                            photoURL: "",
-                        },
-                        [`${combinedId}` + ".date"]: serverTimestamp(),
-                    });
-
-                    await updateDoc(doc(db, "userChats", `${user.id}`), {
-                        [`${combinedId}` + ".userInfo"]: {
-                            uid: `${currentUser.id}`,
-                            displayName: currentUser.first_name + currentUser.last_name,
-                            photoURL: '',
-                        },
-                        [`${combinedId}` + ".date"]: serverTimestamp(),
-                    });
-                    if (currentUser) {
-                        // Set the user's unique ID in Firestore
-                        await setUserIdInFirestore(currentUser.id);
-                    }
-                }
-            } catch (err) { console.error('Error in handleSelect:', err); }
-        }
-
-        useEffect(() => {
-            if (currentUser) {
-                handleSelect(); // Automatically trigger the handleSelect function when ownerId changes
-            }
-
-        }, [currentUser]);
-
-        return (
-            <div className="border-b-2 py-4 px-2">
-                <input
-                    type="text"
-                    placeholder="search chat"
-                    className="py-2 px-2 border-2 border-gray-200 rounded-2xl w-full"
-                    onKeyDown={handleKey}
-                // onChange={e => setUsername(e.target.value)}
-                />
-            </div>
-        )
+    } catch (error) {
+        console.error('Error initiating chat:', error);
     }
+};
+
+const updateUserChats = async (user, otherUser, chatId) => {
+    const userChatsRef = doc(db, 'userChats', String(user));
+    const userChatsSnapshot = await getDoc(userChatsRef);
+
+    if (userChatsSnapshot.exists()) {
+        const updatedChats = {
+            ...userChatsSnapshot.data(),
+            [String(otherUser)]: {
+                chatId,
+                lastMessage: null,
+            },
+        };
+
+        await setDoc(userChatsRef, updatedChats);
+    } else {
+    
+        const initialChats = {
+            [String(otherUser)]: {
+                chatId,
+                lastMessage: null,
+            },
+        };
+
+        await setDoc(userChatsRef, initialChats);
+    }
+};
+
+
+const ChatSearch = () => {
+    const location = useLocation();
+    let otherUser = location.state.ownerId || null;
+    let currentUser = useUserInfo();
+    otherUser = String(otherUser)
+    currentUser = String(currentUser.id)
+
+    const handleChatInitiation = () => {
+        if (otherUser) {
+            initiateChat(currentUser, otherUser);
+        } else {
+            console.error('Other user ID not found.');
+        }
+    };
+
+    return (
+        <div className="border-b-2 py-4 px-2">
+            <button onClick={handleChatInitiation}>Initiate Chat</button>
+
+        </div>
+    )
+};
+
+export default ChatSearch;
+

@@ -11,6 +11,7 @@ import {
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import '../../style/chat.css'
 
 const Input = () => {
     const [text, setText] = useState("");
@@ -21,50 +22,33 @@ const Input = () => {
 
     const handleSend = async () => {
         try {
-            if (!currentUser || !currentUser.id) {
-                console.error('Invalid current user data:', `${currentUser}`);
+            if (!currentUser || !currentUser.id ) {
+                console.error('Invalid current user or chat ID');
                 return;
             }
+    
+            const messageData = {
+                id: uuid(), // Generate a unique ID for the message
+                text,
+                senderId: currentUser.id,
+                date: serverTimestamp(), // Timestamp indicating the message sending time
+            };
+    
             if (img) {
-                const storageRef = ref(storage, uuid());
-                const uploadTask = uploadBytesResumable(storageRef, img);
-
-                uploadTask.on(
-                    "state_changed",
-                    null,
-                    (error) => {
-                        // Handle error
-                        console.error("Upload error:", error);
-                    },
-                    () => {
-                        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                            await updateChatMessages(downloadURL);
-                        });
-                    }
-                );
-            } else {
-                await updateChatMessages();
+                // Logic to handle image upload and storage URL
+                // Update messageData with the image URL or any other relevant data
+                messageData.img = 'your_image_url_here';
             }
-
-            // Update user chats with last message and date
-            await updateDoc(doc(db, "userChats", `${currentUser.id}`), {
-                [data.chatId + ".lastMessage"]: {
-                    text,
-                },
-                [data.chatId + ".date"]: serverTimestamp(),
-            });
-
-            await updateDoc(doc(db, "userChats", `${data.user.id}`), {
-                [data.chatId + ".lastMessage"]: {
-                    text,
-                },
-                [data.chatId + ".date"]: serverTimestamp(),
-            });
-
-            setText("");
+    
+            // Update Firestore document for the chat with the new message
+            // await updateDoc(doc(db, 'chats', chatId), {
+            //     messages: arrayUnion(messageData),
+            // });
+    
+            setText('');
             setImg(null);
         } catch (error) {
-            console.error("Message sending error:", error);
+            console.error('Message sending error:', error);
         }
     };
 

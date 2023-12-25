@@ -1,19 +1,60 @@
-import '../../style/chat.css'
 
-export default function Chats() {
+import React, { useEffect, useState } from "react";
+import { db } from "../firebase";
+import '../../style/chat.css'
+import { collection, query, where, getDoc, doc } from 'firebase/firestore';
+import { useUserInfo } from "../../api/fetch";
+
+const Chats = () => {
+    const [userChats, setUserChats] = useState([]);
+    const currentUser = useUserInfo();
+
+    useEffect(() => {
+        const fetchUserChats = async () => {
+            try {
+                if (currentUser && currentUser.id) {
+                    const chatDocRef = doc(db, 'userChats', `${currentUser.id}`);
+                    const docSnapshot = await getDoc(chatDocRef);
+
+                    if (docSnapshot.exists()) {
+                        const chatData = docSnapshot.data();
+                        // Extract necessary chat data and format as needed
+                        console.log('Fetched chat data:', chatData);
+
+                        // Update state with the fetched chat data
+                        setUserChats([chatData]); // Assuming you receive an array of chats
+                    } else {
+                        console.log('Document not found for current user.');
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching user chats:', error);
+            }
+        };
+
+        fetchUserChats();
+    }, [currentUser]);
+
     return (
         <div className="chats">
-            <div className="userChat">
-                <img 
-                  src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
-                />
-                <div className="userChatInfo">
-                    <span>George</span>
-                    <p>hello</p>
-                </div>
-            </div>
-
+            {userChats.length > 0 &&
+                Object.entries(userChats[0]).sort((a, b) => b[1].date - a[1].date).map((chat) => (
+                    <div
+                        className="userChat"
+                        key={chat[0]}
+                        // onClick={() => handleSelect(chat[1].userInfo)}
+                    >
+                        {/* <img src={chat[1].userInfo.photoURL} alt="" /> */}
+                        <div className="userChatInfo">
+                            {/* <span>{chat[1].userInfo.displayName}</span> */}
+                            <p>{chat[1].chatId}</p>
+                            <p>{chat[1].lastMessage?.text}</p>
+                        </div>
+                    </div>
+                ))
+            }
         </div>
-    )
-    }
+
+    );
+};
+export default Chats;
