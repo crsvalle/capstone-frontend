@@ -47,17 +47,16 @@ export default function Navbar() {
       {!isHomePage && <Search customClass='nav__searchBar' />} 
       {isAuth ? (
         <div className='nav__end'>
-          <Link to='/listings/new'>
+          {/* <Link to='/listings/new'>
             <button className='bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded mr-2'>
                 ＋ Create
             </button>
-          </Link>
+          </Link> */}
           <ProfileMenu logout={logout} id={userInfo.id}/>
           {userName}
           <Link to='/user/profile' className='ml-2 flex items-center text-gray-700'>
-            {/* <span className='text-sm'>{userName}</span> */}
           </Link>
-          {/* <button onClick={logout} className='ml-2 text-sm'>Logout</button> */}
+        
       </div>
       ) : (
         <div className='nav__end'>
