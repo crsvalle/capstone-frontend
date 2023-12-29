@@ -84,8 +84,8 @@ function ListingReviews() {
         </div>
         <div className="home__review__side__text">
           <p className="changeColor">What</p>
-          <p className="changeColor">our</p>
-          <p className="changeColor2">users</p>
+          <p className="changeColor2">our</p>
+          <p className="changeColor">users</p>
           <p className="changeColor2">say</p>
         </div>
         <div className={`home__review__card${showReviewCard ? " show" : ""}`}>
