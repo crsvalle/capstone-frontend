@@ -80,30 +80,41 @@
 
 .changeColor {
   color: rgb(1, 44, 51);
-  animation: colorChange 2s infinite;
-}
-
-.changeColor2 {
-  color: #ffb35c; /* Initial color for the second group */
-  animation: colorChange2 2s infinite;
+  animation: colorChange 4s infinite;
 }
 
 @keyframes colorChange {
-  0%,
-  100% {
+  0%, 100% {
+    color: #ffb35c;
+  }
+  25% {
     color: rgb(1, 44, 51);
   }
   50% {
     color: #ffb35c;
   }
+  75% {
+    color: rgb(1, 44, 51);
+  }
 }
+
+.changeColor2 {
+  color: #ffb35c; 
+  animation: colorChange2 4s infinite; 
+}
+
 @keyframes colorChange2 {
-  0%,
-  100% {
-    color: rgb(1, 44, 51);;
+  0%, 100% {
+    color: #ffb35c;
+  }
+  25% {
+    color: rgb(1, 44, 51);
   }
   50% {
-    color: #ffb35c
+    color: #ffb35c;
+  }
+  75% {
+    color: rgb(1, 44, 51);
   }
 }
 
