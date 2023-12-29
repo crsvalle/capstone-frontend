@@ -72,11 +72,13 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
             <DateRange
                 editableDateInputs={true}
                 onChange={handleDateRangeChange}
+                months={2}
                 moveRangeOnFirstSelection={false}
                 ranges={dateRange}
                 showDateDisplay={false}
                 minDate={nextDay}
                 disabledDates={disabledDates}
+                direction="horizontal"
 
             />
         </div>
