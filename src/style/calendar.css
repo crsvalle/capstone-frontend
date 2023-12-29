@@ -28,10 +28,10 @@ margin: 0 -9px;
  */
 
 
- .rounded-wrapper {
+ /* .rounded-wrapper {
     border-radius: 8px; 
     overflow: hidden; 
-}
+} */
 
 .rounded-wrapper .rounded-date-range {
     border-radius: 8px; 

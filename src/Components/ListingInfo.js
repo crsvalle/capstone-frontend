@@ -103,7 +103,7 @@ export default function ListingInfo() {
                 </div>
             </div>
             <div className="images">
-                <FeaturedImageGallery initialImages={images} />
+                <FeaturedImageGallery initialImages={images} price={listing.price} />
             </div>
             <div className="details section mb-40  b-grey ">
                 <h3>SPACE description</h3>
@@ -141,6 +141,11 @@ export default function ListingInfo() {
             </div>
             <div className="questions section b-grey">
                 <h3>questions?</h3>
+                <Button className=" bg-customBlue my-3" onClick={() => navigate('/inbox', { state: { ownerId: listing.host } })}>
+                    Contact Owner
+                </Button>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>   
             </div>
             <div className="calendar section b-grey">
                 <h3>CALENDAR</h3>

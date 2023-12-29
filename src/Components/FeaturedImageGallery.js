@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function FeaturedImageGallery({ initialImages }) {
+export function FeaturedImageGallery({ initialImages, price }) {
     const [images, setImages] = useState(initialImages);
     const [active, setActive] = useState('');
 
@@ -15,12 +15,16 @@ export function FeaturedImageGallery({ initialImages }) {
 
     return (
         <div className="grid gap-4 md:gap-2 lg:gap-4">
-            <div>
+            <div className="image-container">
                 <img
                     className=" rounded-lg object-cover object-center md:max-h-[380px]"
                     src={active}
                     alt=""
-                />
+                    />
+                    <div className="top-right-text">
+                        <h5>${price}</h5>
+                        <p>per month</p>
+                    </div>
             </div>
 
 
