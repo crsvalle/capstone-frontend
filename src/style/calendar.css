@@ -1,4 +1,4 @@
-
+/* 
 .rdrCalendarWrapper {
     width: 500px; 
 }
@@ -25,4 +25,15 @@ margin: 0 -9px;
 .rdrDayNumber{
     top:0px
 }
+ */
 
+
+ /* .rounded-wrapper {
+    border-radius: 8px; 
+    overflow: hidden; 
+} */
+
+.rounded-wrapper .rounded-date-range {
+    border-radius: 8px; 
+    overflow: hidden; 
+}

@@ -1,63 +1,114 @@
-.wholePage{
-    display: flex;
-    flex-direction: row;
-    margin-top: 10px;
+.wholePage {
+  display: flex;
+  flex-direction: column;
+  width: 75vw;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 20px 20px;
+  background-color: #F7F7F7;
+
 }
 
-/* 3 parts of the page */
-.left{
-    flex: 0.5;
-    margin-left: 4px;
-}
-
-.middle{
-    flex: 0.5;
-    margin-left: 4px;
-}
-
-
-/* card that handles the size, address, posted at */
-.listingCard{
-    border-bottom: 1px solid black;
-    margin-top: 10px;
-}
-
-.listingText{
-    margin: 2px;
-}
-
-.desc{
-
-    margin-bottom: 10px;
-    padding: 1px;
-}
-
-
-  .priceCard{
-    text-align: center;
-    margin-top: 50px;
-  }
-
-  .bookButton{
-    margin-top: 10px;
-  }
-
-  .calendar{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  /* CSS */
 .image-container {
-  width: 500; /* Set your preferred width */
-  height: 500px; /* Set your preferred height */
+  position: relative;
+  display: inline-block;
 }
 
-.image-container img {
+.top-right-text {
+  position: absolute;
+  top: 10px;
+  right: 1px;
+  background-color: #CEA348;
+  padding: 10px 10px 5px;
+  font-size: 25px;
+  font-weight: 600;
+  text-align: center;
+  color: white;
+}
+.top-right-text p{
+  font-size: 15px;
+}
+.top-right-text h4{
+  font-size: 18px;
+}
+
+.header,
+.images,
+.details,
+.access-info,
+.questions,
+.calendar {
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+.b-grey {
+  border-top: 1px solid #E5E5E5;
+}
+
+.images {
+  padding-bottom: 40px;
+}
+
+.header h2 {
+  font-size: 30px;
+  line-height: 40px;
+}
+
+.header p {
+  color: #5d5d5d;
+  font-size: 14px;
+}
+
+.images img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
+  max-width: 100%;
 }
 
+.mb-40 {
+  margin-bottom: 40px !important;
+}
 
+.section {
+  padding-top: 40px;
+}
+
+.section p {
+  margin-top: 15px;
+  margin-bottom: -10px;
+  color: #5d5d5d;
+}
+
+.section h3 {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin: 0 0 30px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.section h2:first-child:after,
+.section h3:first-child:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 60px;
+  height: 2px;
+  background: #025260;
+}
+
+.section h3:first-child:after {
+  bottom: -10px;
+  background-color: #CEA348;
+}
+
+.bookButton {
+  width: 400px;
+  white-space: nowrap;
+  margin: auto;
+}

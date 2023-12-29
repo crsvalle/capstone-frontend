@@ -7,6 +7,7 @@ import useBlackoutDates from '../api/blackoutdates'; // Import the custom hook
 
 
 export default function Calendar({ dateRange, setDateRange, listingId, datesBooked }) {
+    console.log(listingId)
 
     const { blackoutDates } = useBlackoutDates(listingId); // Using the custom hook
 
@@ -68,15 +69,18 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
     
 
     return (
-        <div className="">
+        <div className="rounded-wrapper">
             <DateRange
+            className="rounded-date-range"
                 editableDateInputs={true}
                 onChange={handleDateRangeChange}
+                months={2}
                 moveRangeOnFirstSelection={false}
                 ranges={dateRange}
                 showDateDisplay={false}
                 minDate={nextDay}
                 disabledDates={disabledDates}
+                direction="horizontal"
 
             />
         </div>
