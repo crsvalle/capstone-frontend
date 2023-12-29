@@ -1,19 +1,21 @@
+
 .wholePage {
   display: flex;
   flex-direction: column;
   height: calc(250vh - 30px);
-  width: 80vw;
+  width: 75vw;
   margin: 0 auto;
   margin-bottom: 30px;
-  border: 1px solid black;
   padding: 20px 20px;
+  background-color: #F7F7F7;
 
 }
 
+.header,
 .images,
 .details,
 .access-info,
-.calendar {
+.calendar{
   width: 70%;
   margin: 0 auto;
 }
@@ -27,12 +29,12 @@
   padding-bottom: 40px;
 }
 
-.images h2{
+.header h2{
   font-size: 30px;
   line-height: 40px;
 }
 
-.images p{
+.header p{
   color: #5d5d5d;
   font-size: 14px;
 }
@@ -81,3 +83,8 @@
   background-color: #CEA348;
 }
 
+.bookButton{
+  width: 400px;
+  white-space: nowrap;
+  margin: auto;
+}

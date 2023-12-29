@@ -72,7 +72,6 @@ export default function ListingInfo() {
         )
     }, [id]);
 
-
     const start = new Date(dateRange[0].startDate)
     const end = new Date(dateRange[0].endDate)
     let time = Math.round(Math.abs((start - end) / (1000 * 60 * 60 * 24)))
@@ -96,19 +95,47 @@ export default function ListingInfo() {
 
     return (
         <div className="wholePage">
-            <div className="images">
+            <div className="header">
                 <h2>{listing.size}</h2>
-                <p className=" mb-2">{listing.city}, {listing.state}</p>
+                <div className="flex justify-between px-1">
+                    <p className=" mb-2">{listing.city}, {listing.state}</p>
+                    <p>Hosted by: {host.first_name}</p>
+                </div>
+            </div>
+            <div className="images">
                 <FeaturedImageGallery initialImages={images} />
             </div>
             <div className="details section mb-40  b-grey ">
                 <h3>SPACE description</h3>
+                <p className="disclaimer">Full address available after booking</p>
                 <p>{listing.description} </p>
                 <p>&nbsp;</p>
                 {/* <p>&nbsp;</p> */}
             </div>
             <div className="access-info section  b-grey">
                 <h3>ACCESS INFORMATION</h3>
+                {availability && (
+                    <div className="availabilityInfo">
+                        {availability.after_hours && (
+                            <p className="availabilityMessage flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-md my-2">
+                                <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                                This facility allows for access after 9pm
+                            </p>
+                        )}
+                        {availability.appointment_needed && (
+                            <p className="availabilityMessage flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-md my-2">
+                                <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                                This facility requires appointment before entering
+                            </p>
+                        )}
+                        {availability.private && (
+                            <p className="availabilityMessage flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-md my-2">
+                                <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                                Exclusive access via individual security codes.
+                            </p>
+                        )}
+                    </div>
+                )}
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
             </div>
@@ -119,6 +146,9 @@ export default function ListingInfo() {
                 </div>
                 <p>&nbsp;</p>
             </div>
+            <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
+                Book Now
+            </Button>
         </div>
     )
     // {availability && (
@@ -145,7 +175,3 @@ export default function ListingInfo() {
     // )}
     // <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
 }
-
-// <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
-//     Book Now
-// </Button>

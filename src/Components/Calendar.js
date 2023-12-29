@@ -7,6 +7,7 @@ import useBlackoutDates from '../api/blackoutdates'; // Import the custom hook
 
 
 export default function Calendar({ dateRange, setDateRange, listingId, datesBooked }) {
+    console.log(listingId)
 
     const { blackoutDates } = useBlackoutDates(listingId); // Using the custom hook
 
