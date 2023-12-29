@@ -2,7 +2,7 @@
 .wholePage {
   display: flex;
   flex-direction: column;
-  height: calc(250vh - 30px);
+  height: calc(275vh - 30px);
   width: 75vw;
   margin: 0 auto;
   margin-bottom: 30px;
@@ -15,8 +15,9 @@
 .images,
 .details,
 .access-info,
+.questions,
 .calendar{
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
 }
 

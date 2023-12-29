@@ -139,7 +139,10 @@ export default function ListingInfo() {
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
             </div>
-            <div className="calendar section  b-grey">
+            <div className="questions section b-grey">
+                <h3>questions?</h3>
+            </div>
+            <div className="calendar section b-grey">
                 <h3>CALENDAR</h3>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />

@@ -69,8 +69,9 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
     
 
     return (
-        <div className="">
+        <div className="rounded-wrapper">
             <DateRange
+            className="rounded-date-range"
                 editableDateInputs={true}
                 onChange={handleDateRangeChange}
                 months={2}
