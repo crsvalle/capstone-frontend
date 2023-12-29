@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import pic from "../Pages/Pic/bing.png"
+import "../style/EditUser.css"
 
 import { TextField } from "@mui/material";
 import { InputAdornment } from "@mui/material";
@@ -72,8 +74,8 @@ function EditProfile() {
   };
   //console.log(user);
   return (
-    <>
-      <div className="edit-user my-10 flex flex-col w-10">
+    <div className="edit__user">
+      <div className="my-10 flex flex-col w-10">
         <Box
           component="form"
           onSubmit={handleSubmit}
@@ -177,7 +179,8 @@ function EditProfile() {
           </button>
         </Box>
       </div>
-    </>
+      <div className="user__edit__img"><img src={pic} alt="image" /></div>
+    </div>
   );
 }
 
