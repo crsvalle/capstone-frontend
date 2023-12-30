@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import pic from "../Pages/Pic/bing.png"
+import pic from "../Pages/Pic/garage1.jpeg"
 import "../style/EditUser.css"
 
 import { TextField } from "@mui/material";
@@ -75,8 +75,9 @@ function EditProfile() {
   //console.log(user);
   return (
     <div className="edit__user">
-      <div className="my-10 flex flex-col w-10">
+      <div className=" form mt-7 w-10">
         <Box
+        className="flex-col"
           component="form"
           onSubmit={handleSubmit}
           sx={{
@@ -174,12 +175,13 @@ function EditProfile() {
           {errorMsg && <p>{errorMsg}</p>}
           <button
             type="submit"
-            className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-500 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+            className="edit__user__btn"
+          >
             Save
           </button>
         </Box>
       </div>
-      <div className="user__edit__img"><img src={pic} alt="image" /></div>
+      <div className="user__edit__img"><img src={pic} alt="garage" /></div>
     </div>
   );
 }

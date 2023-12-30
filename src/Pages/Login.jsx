@@ -75,7 +75,7 @@ export default function Login() {
           />
           <Typography style={{ color: "red" }}>{error}</Typography>
           <div className="login__box__btn">
-            <Button variant="outlined" size="large" type="submit">
+            <Button variant="outlined" size="large" type="submit" sx={{ backgroundColor: "bg-customBlue" }}>
               LOGIN
             </Button>
           </div>

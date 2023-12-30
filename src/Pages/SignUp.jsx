@@ -144,7 +144,7 @@ export default function SignUp () {
           <Typography  style={{ color: 'green', marginY: 1 }}>
             {success}
           </Typography>
-                <input type="submit" value="Submit" />
+                <input className="bg-customBlue" type="submit" value="Submit" />
                 {loading && <p>Loading...</p>}
             </form>
         </div>
