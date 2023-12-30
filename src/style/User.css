@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     margin: 25px;
+    background-color: rgba(239, 243, 229, 0.628);
+    height: 100vh;
   }
   
   .user__block {
@@ -39,7 +41,7 @@
     top: 70px;
     border: 5px solid white;
     border-radius: 10px;
-    background-color: rgb(244, 244, 244);
+    background-color: white;
   }
   
   .hello {

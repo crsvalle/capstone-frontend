@@ -1,24 +1,44 @@
 .edit__user {
-    display: flex;
-   justify-content: space-around;
+  display: flex;
+  /* justify-content: space-around; */
+  background-color: rgba(239, 243, 229, 0.628);
 }
 
 .user__edit__img {
-    width: 450px;
-    padding-top: 13px;
+  flex: 1.5;
+  /* width: max-content; */
+  height: 100%;
+  margin: 15px;
 }
 
+.form {
+  flex: 1;
+  padding-left: 100px;
+}
 
+.edit__user__btn {
+  border: 1px solid rgba(0, 0, 0, 0.435);
+  border-radius: 5px;
+  width: 265.5px;
+  height: 40px;
+  background-color: rgb(179, 182, 179);
+  color: white;
+}
+
+.edit__user__btn:hover {
+  background-color: rgb(226, 228, 226);
+}
 
 @media screen and (max-width: 768px) {
-    .edit__user {
-        justify-content:flex-start;
-        margin-left: 50px;
-        padding-top: 25px;
-    }
+  .user__edit__img {
+    display: none;
+  }
 
-    .user__edit__img {
-        display: none;
-    }
+  .form {
+    padding: 50px;
+  }
 
+  .edit__user__btn {
+    margin-top: 25px;
+  }
 }
