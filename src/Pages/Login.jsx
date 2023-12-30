@@ -1,7 +1,6 @@
 import "../style/Login.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import pic from "./Pic/handTruck.png";
 
 import { useDispatch } from "react-redux";
@@ -75,9 +74,9 @@ export default function Login() {
           />
           <Typography style={{ color: "red" }}>{error}</Typography>
           <div className="login__box__btn">
-            <Button variant="outlined" size="large" type="submit" sx={{ backgroundColor: "bg-customBlue" }}>
+          <button className="bg-customBlue hover:bg-customBlueLight text-white py-2 px-4 rounded mr-2">
               LOGIN
-            </Button>
+            </button>
           </div>
           <div className="login__box__footer">
             <div className="forgetPass">Forgot Password?</div>

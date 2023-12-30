@@ -175,13 +175,13 @@ function EditProfile() {
           {errorMsg && <p>{errorMsg}</p>}
           <button
             type="submit"
-            className="edit__user__btn"
+            className="edit__user__btn bg-customBlue hover:bg-customBlueLight text-white py-2 px-4 rounded mr-2"
           >
             Save
           </button>
         </Box>
       </div>
-      <div className="user__edit__img"><img src={pic} alt="garage" /></div>
+      <div className="user__edit__img"><img className="img" src={pic} alt="garage" /></div>
     </div>
   );
 }

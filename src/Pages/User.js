@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 import "../style/User.css";
 import Ratings from "../Components/Ratings";
-import Button from "@mui/material/Button";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
 import { useUserInfo } from "../api/fetch";
 import CustomTabs from "../Components/Tabs";
@@ -105,15 +105,12 @@ export default function User() {
         </div>
         <Link to={`/user/${id}/edit`}>
           <div className="profile__btn">
-            <Button
-              className="bg-white hover:bg-gray-100 text-gray-600 py-2 px-4 border border-gray-400 rounded shadow"
-              variant="outlined"
-              size="large">
+            <button className="bg-customBlue hover:bg-customBlueLight text-white py-2 px-4 rounded mr-2">
               {buttonLabel}
-            </Button>
+            </button>
           </div>
         </Link>
-        <div className="message">message</div>
+        <div className="message"><ModeCommentIcon/> message</div>
       </div>
       <div className="reviews">reviews for</div>
       <div className="reviews__posted">reviews posted</div>
