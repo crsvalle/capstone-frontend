@@ -1,12 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import '../style/ListingInfo.css';
+import { useParams, useNavigate, Link } from "react-router-dom";
 
-import { Rating } from "@material-tailwind/react";
+import '../style/ListingInfo.css';
 import { Carousel } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
+import { EditIcon} from '../style/icons'
 
 
 import { storage } from "./firebase";
@@ -15,7 +14,7 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { formatDate } from "../utils/formatters";
 import Calendar from "./Calendar";
 
-import { useAvailability } from "../api/fetch";
+import { useAvailability, useUserInfo } from "../api/fetch";
 import { FeaturedImageGallery } from "./FeaturedImageGallery";
 
 
@@ -31,6 +30,8 @@ export default function ListingInfo() {
     const [id, setId] = useState('');
     const navigate = useNavigate();
     const availability = useAvailability(index);
+    const userInfo = useUserInfo();
+    console.log(userInfo)
 
     const [images, setImages] = useState([]);
     const imgListRef = ref(storage, `listings/${id}`);
@@ -147,10 +148,20 @@ export default function ListingInfo() {
     return (
         <div className="wholePage" style={{ maxWidth: '1000px' }}>
             <div className="header">
-                <h2>{listing.size}</h2>
+                <div className="flex items-center justify-between px-1">
+                    <h2>{listing.size}</h2>
+                    {host.id === userInfo.id ?  
+                        <Link to={`/listings/${id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <span className=' text-logoGold' role="img" aria-label="Edit" style={{ fontSize: '1.75rem' }}>
+                                <EditIcon/>
+                            </span>
+                        </Link> : ''
+                    }
+                </div>
+
                 <div className="flex justify-between px-1">
                     <p className=" mb-2">{listing.city}, {listing.state}</p>
-                    
+
                 </div>
             </div>
             <div className="images">
