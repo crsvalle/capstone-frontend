@@ -5,7 +5,7 @@
   margin: 0 auto;
   margin-bottom: 30px;
   padding: 20px 20px;
-  background-color: #F7F7F7;
+  /* background-color: #F7F7F7; */
 
 }
 
@@ -21,7 +21,7 @@
   background-color: #CEA348;
   padding: 10px 10px 5px;
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 600px;
   text-align: center;
   color: white;
 }
@@ -38,7 +38,7 @@
 .access-info,
 .questions,
 .calendar {
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
 }
 
@@ -108,7 +108,32 @@
 }
 
 .bookButton {
-  width: 400px;
-  white-space: nowrap;
+  width: 200px;
+
   margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+  .wholePage {
+    width: 100vw;
+  }
+  .top-right-text p{
+    font-size: 12px;
+  }
+  .top-right-text h4{
+    font-size: 15px;
+  }
+
+  .section h3 {
+    font-size: 15px;
+  }
+  .section p {
+    font-size: 12px;
+  }
+  .header h2 {
+    font-size: 20px;
+  }
+  .header p {
+    font-size: 12px;
+  }
 }

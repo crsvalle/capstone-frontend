@@ -7,7 +7,7 @@ import useBlackoutDates from '../api/blackoutdates'; // Import the custom hook
 
 
 export default function Calendar({ dateRange, setDateRange, listingId, datesBooked }) {
-    console.log(listingId)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const { blackoutDates } = useBlackoutDates(listingId); // Using the custom hook
 
@@ -24,12 +24,12 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
                 const endDate = new Date(range.end_date);
                 const dates = [];
                 let currentDate = new Date(startDate);
-        
+
                 while (currentDate <= endDate) {
                     dates.push(new Date(currentDate));
                     currentDate.setDate(currentDate.getDate() + 1);
                 }
-        
+
                 return dates;
             });
 
@@ -40,48 +40,57 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
                 const bookedEndDate = new Date(datesBooked.end_date);
                 const bookedDates = [];
                 let currentBookedDate = new Date(bookedStartDate);
-        
+
                 while (currentBookedDate <= bookedEndDate) {
                     bookedDates.push(new Date(currentBookedDate));
                     currentBookedDate.setDate(currentBookedDate.getDate() + 1);
                 }
-        
+
                 const uniqueDates = [...new Set([...convertedDates, ...bookedDates])];
                 uniqueDatesWithoutBooked = uniqueDates.filter(date => {
                     const currentDate = new Date(date);
                     const startDate = new Date(datesBooked.start_date);
                     const endDate = new Date(datesBooked.end_date);
-                
+
                     return !(currentDate >= startDate && currentDate <= endDate);
                 });
             }
 
             setDisabledDates(uniqueDatesWithoutBooked);
         };
-        
+
         convertToDisabledDates();
+        
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+
     }, [blackoutDates, datesBooked]);
-    
+
     const today = new Date();
-    today.setHours(0,0,0,0); //set time to 0:0:0:0 to ensure that day gets compared 
+    today.setHours(0, 0, 0, 0); //set time to 0:0:0:0 to ensure that day gets compared 
     const nextDay = new Date(today);
     nextDay.setDate(today.getDate() + 1)
-    
+
 
     return (
         <div className="rounded-wrapper">
             <DateRange
-            className="rounded-date-range"
+                className="rounded-date-range"
                 editableDateInputs={true}
                 onChange={handleDateRangeChange}
-                months={2}
+                months={windowWidth <= 950 ? 1 : 2} 
                 moveRangeOnFirstSelection={false}
                 ranges={dateRange}
                 showDateDisplay={false}
                 minDate={nextDay}
                 disabledDates={disabledDates}
                 direction="horizontal"
-
             />
         </div>
     );
