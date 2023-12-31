@@ -112,3 +112,18 @@
 
   margin: auto;
 }
+
+@media screen and (max-width: 600px) {
+  .section h3 {
+    font-size: 15px;
+  }
+  .section p {
+    font-size: 12px;
+  }
+  .header h2 {
+    font-size: 20px;
+  }
+  .header p {
+    font-size: 12px;
+  }
+}

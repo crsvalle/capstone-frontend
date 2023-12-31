@@ -105,6 +105,30 @@ export default function ListingInfo() {
         navigate('/checkout');
     };
 
+    const renderImages = () => {
+        if (images.length > 1) {
+            return (
+                <Carousel>
+                    {images.map((image, index) => (
+                        <img
+                            src={image}
+                            key={index}
+                            alt="Listing"
+                            className="h-full w-full object-cover"
+                        />
+                    ))}
+                </Carousel>
+            );
+        } else {
+            return (
+                <img
+                    src={images[0]}
+                    alt="empty"
+                />
+            );
+        }
+    };
+
     return (
         <div className="wholePage">
             <div className="header">
@@ -116,26 +140,13 @@ export default function ListingInfo() {
             </div>
             <div className="images">
                 {windowWidth <= 900 ? (
-                    <Carousel>
-                        {images.length ?
-                            images.map((image, index) =>
-                                <img
-                                    src={image}
-                                    key={index}
-                                    alt="Listing"
-                                    className="h-full w-full object-cover"
-                                />
-                            ) : <img
-                                src={process.env.PUBLIC_URL + '/imgs/no_image.jpeg'}
-                                alt="empty"
-                            />
-                        }
-                    </Carousel>
+                    renderImages()
                 ) : (
                     <div className="images">
                         <FeaturedImageGallery initialImages={images} price={listing.price} />
                     </div>
-                )}            </div>
+                )}
+            </div>
             <div className="details section mb-40  b-grey ">
                 <h3>SPACE description</h3>
                 <p className="disclaimer">Full address available after booking</p>
