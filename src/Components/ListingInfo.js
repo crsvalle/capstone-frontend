@@ -150,7 +150,7 @@ export default function ListingInfo() {
                 <h2>{listing.size}</h2>
                 <div className="flex justify-between px-1">
                     <p className=" mb-2">{listing.city}, {listing.state}</p>
-                    <p>Hosted by: {host.first_name}</p>
+                    <h4>{host.first_name} {host.last_name}</h4>
                 </div>
             </div>
             <div className="images">
@@ -206,17 +206,17 @@ export default function ListingInfo() {
             </div>
             <div className="calendar section b-grey">
                 <h3>CALENDAR</h3>
-
-
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />
                 </div>
 
                 <p>&nbsp;</p>
             </div>
-            <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
-                Book Now
-            </Button>
+            <div className="bookBtn">
+                <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
+                    Book Now
+                </Button>
+            </div>
         </div>
     )
 }

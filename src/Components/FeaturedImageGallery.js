@@ -27,9 +27,9 @@ export function FeaturedImageGallery({ initialImages, price }) {
             </div>
 
 
-            <div className= "grid grid-cols-5 gap-4">
+            <div className= "bottom-grid">
                 {images.map((image, index) => (
-                    <div key={index} className="">
+                    <div key={index} className="image-container-bottom">
                         <img
                             onClick={() => setActive(image)}
                             src={image}
