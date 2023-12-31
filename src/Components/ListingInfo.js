@@ -145,26 +145,26 @@ export default function ListingInfo() {
     };
 
     return (
-        <div className="wholePage" style={{ maxWidth: '1000px'}}>
+        <div className="wholePage" style={{ maxWidth: '1000px' }}>
             <div className="header">
                 <h2>{listing.size}</h2>
                 <div className="flex justify-between px-1">
                     <p className=" mb-2">{listing.city}, {listing.state}</p>
-                    <h4>{host.first_name} {host.last_name}</h4>
+                    
                 </div>
             </div>
             <div className="images">
-                {windowWidth <= 800 ? (
+                {windowWidth <= 600 ? (
                     renderImages()
                 ) : (
-                    <div className=""> 
+                    <div className="">
                         <FeaturedImageGallery initialImages={images} price={listing.price} />
                     </div>
                 )}
             </div>
             <div className="details section mb-40  b-grey ">
                 <h3>SPACE description</h3>
-                <p className="disclaimer">Full address available after booking</p>
+
                 <p>{listing.description} </p>
                 <p>&nbsp;</p>
                 {/* <p>&nbsp;</p> */}
@@ -174,33 +174,32 @@ export default function ListingInfo() {
                 {availability && (
                     <div className="availabilityInfo">
                         {availability.after_hours && (
-                            <p className="availabilityMessage flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-md my-2">
-                                <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                            <li>
                                 This facility allows for access after 9pm
-                            </p>
+                            </li>
                         )}
                         {availability.appointment_needed && (
-                            <p className="availabilityMessage flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-md my-2">
-                                <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                            <li>
                                 This facility requires appointment before entering
-                            </p>
+                            </li>
                         )}
                         {availability.private && (
-                            <p className="availabilityMessage flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-md my-2">
-                                <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                            <li>
                                 Exclusive access via individual security codes.
-                            </p>
+                            </li>
                         )}
                     </div>
                 )}
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
             </div>
-            <div className="questions section b-grey">
-                <h3>questions?</h3>
-                <Button className=" bg-customBlue my-3" onClick={() => navigate('/inbox', { state: { ownerId: listing.host } })}>
-                    Contact Owner
-                </Button>
+            <div className="overview section b-grey">
+                <h3>overview</h3>
+                <p><strong>size</strong>: {listing.size}</p>
+                <p><strong>Price</strong>: ${listing.price} per month</p>
+                <p><strong>Hosted by</strong>:{(host.last_name && host.last_name.length > 0) ? ` ${host.first_name} ${host.last_name[0]}.` : ''}</p>
+                <p><strong>Located around</strong>: {listing.zip} {listing.city}, {listing.state}</p>
+                <p className="disclaimer"><strong>Full address available after booking</strong></p>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>
             </div>
@@ -209,14 +208,34 @@ export default function ListingInfo() {
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />
                 </div>
-
-                <p>&nbsp;</p>
             </div>
-            <div className="bookBtn">
-                <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
+            <div className="bookBtn section">
+                <p> Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
+                <Button onClick={handleBooking} className="bookButton mb-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
                     Book Now
                 </Button>
+                <p>&nbsp;</p>
             </div>
+            <div className="questions section b-grey">
+                <h3>questions?</h3>
+                <p>
+                    If you want to{' '}
+                    <a
+                        href="/inbox"
+                        className="text-blue-500 underline"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate('/inbox', { state: { ownerId: listing.host } });
+                        }}
+                    >
+                        contact the owner
+                    </a>{' '}
+                    directly, feel free to reach out. If there is something not right about the listing,{' '}
+                    <a href="mailto:keepsake@gmail.com" className="text-blue-500 underline">contact us</a>.
+                </p>
+
+            </div>
+
         </div>
     )
 }
