@@ -165,7 +165,7 @@ export default function ListingInfo() {
                     </p>
                     <p>
                         <strong className="flex items-center">
-                            <Star className='text-logoGold' /> {rated}/5
+                            <Star /> {rated}/5
                         </strong>
                     </p>
 
@@ -213,7 +213,9 @@ export default function ListingInfo() {
             </div>
             <div className="overview section b-grey">
                 <h3>overview</h3>
-                <p>Rated {rated}</p>
+                <p className="flex items-center">
+                    <strong>Rated</strong>: <Star /> {rated}/5
+                </p>
                 <p><strong>size</strong>: {listing.size}</p>
                 <p><strong>Price</strong>: ${listing.price} per month</p>
                 <p><strong>Hosted by</strong>:{(host.last_name && host.last_name.length > 0) ? ` ${host.first_name} ${host.last_name[0]}.` : ''}</p>
