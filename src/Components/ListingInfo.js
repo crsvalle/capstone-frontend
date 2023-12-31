@@ -108,23 +108,38 @@ export default function ListingInfo() {
     const renderImages = () => {
         if (images.length > 1) {
             return (
-                <Carousel>
-                    {images.map((image, index) => (
-                        <img
-                            src={image}
-                            key={index}
-                            alt="Listing"
-                            className="h-full w-full object-cover"
-                        />
-                    ))}
-                </Carousel>
+                <>
+                    <Carousel >
+                        {images.map((image, index) => (
+                            <div key={index} className="relative">
+                                <img
+                                    src={image}
+                                    alt="Listing"
+                                    className="h-full w-full object-cover rounded-lg"
+                                />
+                                <div className="top-right-text">
+                                    <h5>${listing.price}</h5>
+                                    <p>per month</p>
+                                </div>
+                            </div>
+                        ))}
+                    </Carousel>
+                </>
             );
         } else {
             return (
-                <img
-                    src={images[0]}
-                    alt="empty"
-                />
+                <div className="relative">
+                    <img
+                        src={images[0]}
+                        alt="empty"
+                        className="h-full w-full object-cover rounded-lg"
+                    />
+                    <div className="top-right-text">
+                        <h5>${listing.price}</h5>
+                        <p>per month</p>
+                    </div>
+                </div>
+
             );
         }
     };
@@ -139,7 +154,7 @@ export default function ListingInfo() {
                 </div>
             </div>
             <div className="images">
-                {windowWidth <= 900 ? (
+                {windowWidth <= 800 ? (
                     renderImages()
                 ) : (
                     <div className="images">

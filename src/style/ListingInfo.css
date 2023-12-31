@@ -21,7 +21,7 @@
   background-color: #CEA348;
   padding: 10px 10px 5px;
   font-size: 25px;
-  font-weight: 600;
+  font-weight: 600px;
   text-align: center;
   color: white;
 }
@@ -114,6 +114,16 @@
 }
 
 @media screen and (max-width: 600px) {
+  .wholePage {
+    width: 100vw;
+  }
+  .top-right-text p{
+    font-size: 12px;
+  }
+  .top-right-text h4{
+    font-size: 15px;
+  }
+
   .section h3 {
     font-size: 15px;
   }
