@@ -14,7 +14,7 @@
   top: 10px;
   right: 1px;
   background-color: #CEA348;
-  padding: 10px 10px 5px;
+  padding: 10px 25px 5px;
   font-size: 25px;
   font-weight: 600px;
   text-align: center;
@@ -31,6 +31,7 @@
 .images,
 .details,
 .access-info,
+.overview,
 .questions,
 .calendar{
   width: 90%;
@@ -99,6 +100,7 @@
   margin-top: 15px;
   margin-bottom: -10px;
   color: #5d5d5d;
+  font-size: 14px;
 }
 
 .section h3 {
@@ -109,6 +111,13 @@
   margin: 0 0 30px;
   text-transform: uppercase;
   position: relative;
+}
+.section li{
+  color:#5d5d5d;
+  font-size: 14px;
+  -webkit-column-count: 2;
+  -moz-column-count: 2;
+    column-count: 2;
 }
 
 .section h2:first-child:after,
@@ -125,20 +134,30 @@
   bottom: -10px;
   background-color: #CEA348;
 }
+.overview strong{
+  text-transform: uppercase;
+  font-size: 100%;
+  zoom:1;
+}
 
 .bookButton {
   width: 200px;
 }
-.bookBtn{
+.bookBtn {
   width: 90%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-top: -40px;
+}
+
+.bookBtn p {
+  margin-bottom: 10px;
+  
 }
 
 @media screen and (max-width: 600px) {
-  /* .wholePage {
-    width: 100vw;
-  } */
   .top-right-text p{
     font-size: 12px;
   }
