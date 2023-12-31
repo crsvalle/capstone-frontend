@@ -145,7 +145,7 @@ export default function ListingInfo() {
     };
 
     return (
-        <div className="wholePage">
+        <div className="wholePage" style={{ maxWidth: '1000px'}}>
             <div className="header">
                 <h2>{listing.size}</h2>
                 <div className="flex justify-between px-1">
@@ -157,7 +157,9 @@ export default function ListingInfo() {
                 {windowWidth <= 800 ? (
                     renderImages()
                 ) : (
-                    <FeaturedImageGallery initialImages={images} price={listing.price} />
+                    <div className=""> 
+                        <FeaturedImageGallery initialImages={images} price={listing.price} />
+                    </div>
                 )}
             </div>
             <div className="details section mb-40  b-grey ">
