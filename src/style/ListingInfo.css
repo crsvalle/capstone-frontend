@@ -86,6 +86,9 @@
   color: #5d5d5d;
   font-size: 14px;
 }
+.header strong{
+  letter-spacing: 2px;
+}
 
 
 .mb-40 {

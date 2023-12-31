@@ -5,7 +5,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import '../style/ListingInfo.css';
 import { Carousel } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { EditIcon } from '../style/icons'
+import { EditIcon, Star } from '../style/icons'
 
 
 import { storage } from "./firebase";
@@ -31,7 +31,7 @@ export default function ListingInfo() {
     const navigate = useNavigate();
     const availability = useAvailability(index);
     const userInfo = useUserInfo();
-    console.log(userInfo)
+
 
     const [images, setImages] = useState([]);
     const imgListRef = ref(storage, `listings/${id}`);
@@ -160,7 +160,14 @@ export default function ListingInfo() {
                 </div>
 
                 <div className="flex justify-between px-1">
-                    <p className=" mb-2">{listing.city}, {listing.state}</p>
+                    <p className="mb-2">
+                        {listing.city}, {listing.state}{' '}
+                    </p>
+                    <p>
+                        <strong className="flex items-center">
+                            <Star className='text-logoGold' /> {rated}/5
+                        </strong>
+                    </p>
 
                 </div>
             </div>
@@ -206,6 +213,7 @@ export default function ListingInfo() {
             </div>
             <div className="overview section b-grey">
                 <h3>overview</h3>
+                <p>Rated {rated}</p>
                 <p><strong>size</strong>: {listing.size}</p>
                 <p><strong>Price</strong>: ${listing.price} per month</p>
                 <p><strong>Hosted by</strong>:{(host.last_name && host.last_name.length > 0) ? ` ${host.first_name} ${host.last_name[0]}.` : ''}</p>
