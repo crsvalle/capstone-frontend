@@ -5,7 +5,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import '../style/ListingInfo.css';
 import { Carousel } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { EditIcon} from '../style/icons'
+import { EditIcon } from '../style/icons'
 
 
 import { storage } from "./firebase";
@@ -150,10 +150,10 @@ export default function ListingInfo() {
             <div className="header">
                 <div className="flex items-center justify-between px-1">
                     <h2>{listing.size}</h2>
-                    {host.id === userInfo.id ?  
+                    {host.id && userInfo.id && host.id === userInfo.id ?
                         <Link to={`/listings/${id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }}>
                             <span className=' text-logoGold' role="img" aria-label="Edit" style={{ fontSize: '1.75rem' }}>
-                                <EditIcon/>
+                                <EditIcon />
                             </span>
                         </Link> : ''
                     }
