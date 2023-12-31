@@ -23,6 +23,7 @@ const API = process.env.REACT_APP_API_URL;
 
 
 export default function ListingInfo() {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const { index } = useParams();
     const [listing, setListing] = useState([]);
     const [host, setHost] = useState([]);
@@ -72,16 +73,27 @@ export default function ListingInfo() {
         )
     }, [id]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const start = new Date(dateRange[0].startDate)
     const end = new Date(dateRange[0].endDate)
     let time = Math.round(Math.abs((start - end) / (1000 * 60 * 60 * 24)))
 
     const handleBooking = () => {
-        // Extract start and end dates from the dateRange state
+
         const startDate = dateRange[0].startDate.toISOString();
         const endDate = dateRange[0].endDate.toISOString();
 
-        // Store data in localStorage
         localStorage.setItem('bookingData', JSON.stringify({
             index,
             time,
@@ -89,7 +101,7 @@ export default function ListingInfo() {
             endDate,
         }));
 
-        // Redirect to the checkout page
+
         navigate('/checkout');
     };
 
@@ -103,8 +115,27 @@ export default function ListingInfo() {
                 </div>
             </div>
             <div className="images">
-                <FeaturedImageGallery initialImages={images} price={listing.price} />
-            </div>
+                {windowWidth <= 900 ? (
+                    <Carousel>
+                        {images.length ?
+                            images.map((image, index) =>
+                                <img
+                                    src={image}
+                                    key={index}
+                                    alt="Listing"
+                                    className="h-full w-full object-cover"
+                                />
+                            ) : <img
+                                src={process.env.PUBLIC_URL + '/imgs/no_image.jpeg'}
+                                alt="empty"
+                            />
+                        }
+                    </Carousel>
+                ) : (
+                    <div className="images">
+                        <FeaturedImageGallery initialImages={images} price={listing.price} />
+                    </div>
+                )}            </div>
             <div className="details section mb-40  b-grey ">
                 <h3>SPACE description</h3>
                 <p className="disclaimer">Full address available after booking</p>
@@ -145,13 +176,16 @@ export default function ListingInfo() {
                     Contact Owner
                 </Button>
                 <p>&nbsp;</p>
-                <p>&nbsp;</p>   
+                <p>&nbsp;</p>
             </div>
             <div className="calendar section b-grey">
                 <h3>CALENDAR</h3>
+
+
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />
                 </div>
+
                 <p>&nbsp;</p>
             </div>
             <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
@@ -159,27 +193,28 @@ export default function ListingInfo() {
             </Button>
         </div>
     )
-    // {availability && (
-    // <div className="availabilityInfo">
-    //     {availability.after_hours && (
-    //         <p className="availabilityMessage flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-md my-2">
-    //             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
-    //             This facility allows for access after 9pm
-    //         </p>
-    //     )}
-    //     {availability.appointment_needed && (
-    //         <p className="availabilityMessage flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-md my-2">
-    //             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
-    //             This facility requires appointment before entering
-    //         </p>
-    //     )}
-    //     {availability.private && (
-    //         <p className="availabilityMessage flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-md my-2">
-    //             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
-    //             Exclusive access via individual security codes.
-    //         </p>
-    //     )}
-    // </div>
-    // )}
-    // <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
 }
+
+// {availability && (
+// <div className="availabilityInfo">
+//     {availability.after_hours && (
+//         <p className="availabilityMessage flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-md my-2">
+//             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+//             This facility allows for access after 9pm
+//         </p>
+//     )}
+//     {availability.appointment_needed && (
+//         <p className="availabilityMessage flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-md my-2">
+//             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+//             This facility requires appointment before entering
+//         </p>
+//     )}
+//     {availability.private && (
+//         <p className="availabilityMessage flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-md my-2">
+//             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+//             Exclusive access via individual security codes.
+//         </p>
+//     )}
+// </div>
+// )}
+// <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
