@@ -1,12 +1,36 @@
 .wholePage {
   display: flex;
   flex-direction: column;
-    width: 100vw;
+  width: 100vw;
   margin: 0 auto;
   margin-bottom: 30px;
   padding: 20px 20px;
   /* background-color: #F7F7F7; */
 
+}
+.header,
+.details,
+.access-info,
+.overview,
+.questions,
+.calendar {
+  width: 90%;
+  margin: 0 auto;
+}
+
+
+.images {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.header strong {
+  letter-spacing: 2px;
+}
+
+
+.b-grey {
+  border-top: 1px solid #E5E5E5;
 }
 
 .top-right-text {
@@ -20,52 +44,42 @@
   text-align: center;
   color: white;
 }
-.top-right-text p{
+
+.top-right-text p {
   font-size: 15px;
 }
-.top-right-text h4{
+
+.top-right-text h4 {
   font-size: 18px;
-}
-
-.header,
-.images,
-.details,
-.access-info,
-.overview,
-.questions,
-.calendar{
-  width: 90%;
-  margin: 0 auto;
-}
-.header strong{
-  letter-spacing: 2px;
-}
-
-
-.b-grey {
-  border-top: 1px solid #E5E5E5;
 }
 
 .images {
   padding-top: 10px;
   padding-bottom: 20px;
 }
+
 .image-container {
-  width: 100%;  
+  position: relative;
+  max-height: 600px;
+  max-width: 600px;
+  overflow: hidden;
 }
+
 .image-container img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
+
 .image-container-bottom {
-  width: 100px; /* Or your desired width */
-  height: 100px; /* Or your desired height */
+  width: 100px;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
-  
+
 }
 
 .image-container-bottom img {
@@ -73,6 +87,7 @@
   max-height: 100%;
   object-fit: cover;
 }
+
 .bottom-grid {
   display: flex;
   flex-wrap: wrap;
@@ -116,12 +131,13 @@
   text-transform: uppercase;
   position: relative;
 }
-.section li{
-  color:#5d5d5d;
+
+.section li {
+  color: #5d5d5d;
   font-size: 14px;
   -webkit-column-count: 2;
   -moz-column-count: 2;
-    column-count: 2;
+  column-count: 2;
 }
 
 .section h2:first-child:after,
@@ -138,15 +154,17 @@
   bottom: -10px;
   background-color: #CEA348;
 }
-.overview strong{
+
+.overview strong {
   text-transform: uppercase;
   font-size: 100%;
-  zoom:1;
+  zoom: 1;
 }
 
 .bookButton {
   width: 200px;
 }
+
 .bookBtn {
   width: 90%;
   display: flex;
@@ -158,26 +176,37 @@
 
 .bookBtn p {
   margin-bottom: 10px;
-  
+
 }
 
 @media screen and (max-width: 600px) {
-  .top-right-text p{
+
+  .header,
+  .images {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .top-right-text p {
     font-size: 12px;
   }
-  .top-right-text h4{
+
+  .top-right-text h4 {
     font-size: 15px;
   }
 
   .section h3 {
     font-size: 15px;
   }
+
   .section p {
     font-size: 12px;
   }
+
   .header h2 {
     font-size: 20px;
   }
+
   .header p {
     font-size: 12px;
   }
