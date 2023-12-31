@@ -157,9 +157,7 @@ export default function ListingInfo() {
                 {windowWidth <= 800 ? (
                     renderImages()
                 ) : (
-                    <div className="images">
-                        <FeaturedImageGallery initialImages={images} price={listing.price} />
-                    </div>
+                    <FeaturedImageGallery initialImages={images} price={listing.price} />
                 )}
             </div>
             <div className="details section mb-40  b-grey ">
@@ -220,27 +218,3 @@ export default function ListingInfo() {
         </div>
     )
 }
-
-// {availability && (
-// <div className="availabilityInfo">
-//     {availability.after_hours && (
-//         <p className="availabilityMessage flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-md my-2">
-//             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
-//             This facility allows for access after 9pm
-//         </p>
-//     )}
-//     {availability.appointment_needed && (
-//         <p className="availabilityMessage flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-md my-2">
-//             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
-//             This facility requires appointment before entering
-//         </p>
-//     )}
-//     {availability.private && (
-//         <p className="availabilityMessage flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-md my-2">
-//             <ExclamationCircleIcon className="h-4 w-4 mr-2" />
-//             Exclusive access via individual security codes.
-//         </p>
-//     )}
-// </div>
-// )}
-// <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
