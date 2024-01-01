@@ -1,0 +1,170 @@
+.selected {
+  background-color: #f0f0f0; 
+}
+.inbox-page {
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inbox-page .inbox-container {
+  border: 1px solid white;
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.box-bottom{
+  height:  100%;
+}
+
+.chat {
+  height: 100%;
+}
+
+.chat .chatInfo {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px;
+  color: black;
+  background-color: aliceblue;
+}
+
+.chat .chatInfo span{
+  font-weight: bolder;
+  font-size: 26px;
+}
+
+.userChat {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: black;
+  cursor: pointer;
+}
+
+.userChat:hover {
+  background-color: grey;
+}
+
+.userChat img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.userChat .userChatInfo span {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.userChat .userChatInfo p {
+  font-size: 14px;
+  color: lightgray;
+}
+
+.messages {
+  background-color: lightcyan;
+  padding: 10px;
+  box-sizing: border-box;
+  height: calc(100% - 160px);
+  overflow: scroll;
+}
+
+.message {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.message .messageInfo {
+  display: flex;
+  flex-direction: column;
+  color: gray;
+  font-weight: 300;
+}
+
+.message .messageInfo img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.message .messageContent {
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.message .messageContent p {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 0px 10px 10px 10px;
+  max-width: max-content;
+}
+
+.message .messageContent img {
+  width: 50%;
+}
+
+.message.owner {
+  flex-direction: row-reverse;
+}
+
+.message.owner .messageContent {
+  align-items: flex-end;
+}
+
+.message.owner .messageContent p {
+  background-color: #8da4f1;
+  color: white;
+  border-radius: 10px 0px 10px 10px;
+}
+
+.inbox-input {
+  height: 50px;
+  background-color: white;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inbox-input input {
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #2f2d52;
+  font-size: 18px;
+}
+
+.inbox-input input::placeholder {
+  color: lightgray;
+}
+
+.inbox-input .send {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inbox-input .send img {
+  height: 24px;
+  cursor: pointer;
+}
+
+.inbox-input button {
+  border: none;
+  padding: 10px 15px ;
+  color: white;
+  background-color: #8da4f1;
+  cursor: pointer;
+}

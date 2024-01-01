@@ -14,6 +14,7 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { formatDate } from "../utils/formatters";
 import Calendar from "./Calendar";
 
+
 import { useAvailability, useUserInfo } from "../api/fetch";
 import { FeaturedImageGallery } from "./FeaturedImageGallery";
 
@@ -102,7 +103,6 @@ export default function ListingInfo() {
             endDate,
         }));
 
-
         navigate('/checkout');
     };
 
@@ -125,6 +125,7 @@ export default function ListingInfo() {
                             </div>
                         ))}
                     </Carousel>
+
                 </>
             );
         } else {
@@ -156,21 +157,9 @@ export default function ListingInfo() {
                                 <EditIcon />
                             </span>
                         </Link> : ''
-                    }
-                </div>
-
-                <div className="flex justify-between px-1">
-                    <p className="mb-2">
-                        {listing.city}, {listing.state}{' '}
-                    </p>
-                    <p>
-                        <strong className="flex items-center">
-                            <Star /> {rated}/5
-                        </strong>
-                    </p>
-
-                </div>
+                    }     
             </div>
+
             <div className="images">
                 {windowWidth <= 600 ? (
                     renderImages()
@@ -182,7 +171,6 @@ export default function ListingInfo() {
             </div>
             <div className="details section mb-40  b-grey ">
                 <h3>SPACE description</h3>
-
                 <p>{listing.description} </p>
                 <p>&nbsp;</p>
                 {/* <p>&nbsp;</p> */}

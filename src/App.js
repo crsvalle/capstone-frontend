@@ -4,6 +4,9 @@ import { lazy, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from "react-router-dom";
 
+
+import Inbox from "./Pages/Inbox";
+
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -65,6 +68,7 @@ function App() {
             <Route path="/login" element={<Login />} />
           </Route>
         
+          <Route path="/inbox" element={<Inbox  />} />
           <Route path="/listings/:index" element={<IndexListings />} />
           {/* <Route path="/listings/new" element={<NewListing/>}/> */}
           <Route path="/listings/show/:index" element={<ShowListing />}/>

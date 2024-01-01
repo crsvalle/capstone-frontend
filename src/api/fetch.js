@@ -89,7 +89,7 @@ export const useListingInfo = (listingId, API) => {
   return listing;
 };
 
-export const useUserDataById  = (id, API) => {
+export const useUserDataById  = (id) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -157,3 +157,5 @@ export const useAvailability = (listingId) => {
 
   return availability;
 };
+
+

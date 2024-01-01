@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { storage } from "../Components/firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Typography } from '@material-tailwind/react';
-import { UserCircleIcon, Cog6ToothIcon, ChevronDownIcon, PowerIcon, InboxIcon } from '@heroicons/react/24/solid';
+import { UserCircleIcon, Cog6ToothIcon, ChevronDownIcon, PowerIcon, InboxIcon, PlusIcon } from '@heroicons/react/24/solid';
 
 import defaultPhoto from '../Pages/Pic/default-user-photo.jpg';
 
@@ -41,7 +41,12 @@ const ProfileMenu = ({ logout, id }) => {
     {
       label: 'Inbox',
       icon: InboxIcon,
-      path: "",
+      path: "/inbox",
+    },
+    {
+      label: 'Create a Listing', // New label 'Create'
+      icon: PlusIcon, // PlusIcon for the 'Create' item
+      path: "/listings/new", // Path for 'Create' item
     },
     {
       label: 'Sign Out',
