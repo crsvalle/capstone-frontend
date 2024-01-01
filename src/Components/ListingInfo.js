@@ -159,6 +159,17 @@ export default function ListingInfo() {
                         </Link> : ''
                     }
                 </div>
+                <div className="flex justify-between px-1">
+                    <p className="mb-2">
+                        {listing.city}, {listing.state}{' '}
+                    </p>
+                    <p>
+                        <strong className="flex items-center">
+                            <Star /> {rated}/5
+                        </strong>
+                    </p>
+
+                </div>
 
                 <div className="images">
                     {windowWidth <= 600 ? (
