@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../firebase';
-import { collection, query, where, getDocs, doc, onSnapshot } from 'firebase/firestore';
-import { useUserInfo } from '../../api/fetch';
+import { doc, onSnapshot } from 'firebase/firestore';
 import Message from './Message'
 
 const Messages = ({ selectedChat }) => {
   const [messages, setMessages] = useState([]);
-  const currentUser = useUserInfo();
 
   useEffect(() => {
     if (selectedChat) {

@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../firebase";
 import '../../style/chat.css'
-import { collection, query, where, getDoc, doc } from 'firebase/firestore';
-import { useUserInfo, useUserDataById } from "../../api/fetch";
+import {  getDoc, doc } from 'firebase/firestore';
+import { useUserInfo } from "../../api/fetch";
 import ChatUserInfo from "./ChatUserInfo";
 
 
