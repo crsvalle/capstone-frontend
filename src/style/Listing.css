@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+.listing{
+  padding: 2px;
+}
+
 .content-card {
   display: flex;
   flex-direction: row !important;
@@ -32,6 +36,7 @@
 
 .access-text {
   font-size: 12px;
+  line-height: 1.2;
 }
 
 .price-text {
@@ -67,7 +72,6 @@
 
   .access-text {
     font-size: 9px;
-    line-height: 1.2;
   }
 
   .price-text {
