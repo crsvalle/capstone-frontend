@@ -11,8 +11,8 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 const API = process.env.REACT_APP_API_URL;
 
 const containerStyle = {
-  width: "525px",
-  height: "400px",
+  width: "100%",
+  height: "100vh",
 };
 
 const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
