@@ -11,8 +11,8 @@ import { ref, listAll, getDownloadURL } from "firebase/storage";
 const API = process.env.REACT_APP_API_URL;
 
 const containerStyle = {
-  width: "525px",
-  height: "400px",
+  width: "100%",
+  height: "100vh",
 };
 
 const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
@@ -30,7 +30,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
   const [id, setId] = useState();
   const [images, setImages] = useState([]);
   const imgListRef = ref(storage, `listings/${id}`);
-  
+
   useEffect(() => {
     listAll(imgListRef).then((res) =>
       res.items.forEach((item) =>
@@ -44,22 +44,22 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
   const fetchMarkers = async () => {
     try {
       const newMarkers = [];
-  
+
       for (const el of list) {
         const address = `${el.street}, ${el.city}, ${el.state} ${el.zip}`;
         const result = await geocodeAddress(address);
-  
+
         // Adjust the path to the images in Firebase Storage based on the listing_id
         const imgListRef = ref(storage, `listings/${el.listing_id}`);
-        
+
         // Fetch the list of images for the current listing_id
         const imgList = await listAll(imgListRef);
-  
+
         // Use the first image URL if available; otherwise, provide a default URL
         const imageForListing = imgList.items.length > 0
           ? await getDownloadURL(imgList.items[0])
           : process.env.PUBLIC_URL + '/imgs/no_image.jpeg';
-  
+
         newMarkers.push({
           position: result,
           icon: {
@@ -69,7 +69,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
           id: el.listing_id,
         });
       }
-  
+
       setMarkers(newMarkers);
       // setLocat(newMarkers); // Center location
       setLoading(false);
@@ -78,21 +78,21 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
       console.error("Error fetching markers:", error);
     }
   };
-  
-  
+
+
   useEffect(() => {
     //getting lat and lng of the zipcode passed as param for current location
-  geocodeAddress(index)
-  .then((coordinates) => {
-    setLocat(coordinates);
-    // console.log(`Latitude: ${coordinates.lat}, Longitude: ${coordinates.lng}`);
-  })
-  .catch((error) => {
-    console.error("Error getting coordinates:", error.message);
-  });
+    geocodeAddress(index)
+      .then((coordinates) => {
+        setLocat(coordinates);
+        // console.log(`Latitude: ${coordinates.lat}, Longitude: ${coordinates.lng}`);
+      })
+      .catch((error) => {
+        console.error("Error getting coordinates:", error.message);
+      });
 
     setLoading(true);
-  
+
     // Load the Google Maps library dynamically
     googleMapsLoader.load().then(() => {
       // Fetch listings after the library is loaded
@@ -110,8 +110,8 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
         .finally(() => setLoading(false));
     });
   }, [googleMapsLoader, index]);
-  
-  
+
+
   useEffect(() => {
     if (list && list.length > 0) {
       console.log("List is:", list);
@@ -162,7 +162,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
     }
   };
 
-  
+
   //distance calcuator bet current position and marker clicked
   const calculateDistance = (lat1, lon1, lat2, lon2) => {
     const R = 3959; // Radius of the earth in miles
@@ -172,9 +172,9 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     const distance = R * c; // Distance in miles
@@ -211,61 +211,63 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
   return loading && mapLoading ? (
     <div>Loading ...</div>
   ) : (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={locat}
-      zoom={11}
-      options={{
-        disableDefaultUI: true, // Disable default map controls
-        zoomControl: true,
-        scaleControl: true,
-        fullscreenControl: true,
-      }}>
-      <Marker
-        position={locat}
-        icon={{
-          url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-        }}
-      />
-      {markers.map((marker, index) => (
+    <div className="map-container">
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={locat}
+        zoom={11}
+        options={{
+          disableDefaultUI: true, // Disable default map controls
+          zoomControl: true,
+          scaleControl: true,
+          fullscreenControl: true,
+        }}>
         <Marker
-          key={index}
-          position={marker.position}
+          position={locat}
           icon={{
-            url: marker.icon.url,
-            scaledSize: {
-              width: hoveredListingId === marker.id ? 60 : 30,
-              height: hoveredListingId === marker.id ? 60 : 30,
-            },
+            url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
           }}
-          onClick={() => handleMarkerClick(marker)}
         />
-      ))}
-      {selectedMarker && (
-        <InfoWindow
-          position={selectedMarker.position}
-          onCloseClick={handleInfoWindowClose}
-          className="map__marker">
-          <div className="map__marker">
-            <Link to={`/listings/show/${selectedMarker.id}`}>
-              <img
-                className="map__marker__img"
-                src={selectedMarker.icon.url}
-                alt="Marker Icon"
-                style={{ width: "40px", height: "40px" }}
-              />
-              <p className="map__marker__p">${selectedMarker.content}</p>
-              {distance && (
-                <p className="map__marker__distance">
-                  Distance: <br />
-                  {distance} Miles
-                </p>
-              )}
-            </Link>
-          </div>
-        </InfoWindow>
-      )}
-    </GoogleMap>
+        {markers.map((marker, index) => (
+          <Marker
+            key={index}
+            position={marker.position}
+            icon={{
+              url: marker.icon.url,
+              scaledSize: {
+                width: hoveredListingId === marker.id ? 60 : 30,
+                height: hoveredListingId === marker.id ? 60 : 30,
+              },
+            }}
+            onClick={() => handleMarkerClick(marker)}
+          />
+        ))}
+        {selectedMarker && (
+          <InfoWindow
+            position={selectedMarker.position}
+            onCloseClick={handleInfoWindowClose}
+            className="map__marker">
+            <div className="map__marker">
+              <Link to={`/listings/show/${selectedMarker.id}`}>
+                <img
+                  className="map__marker__img"
+                  src={selectedMarker.icon.url}
+                  alt="Marker Icon"
+                  style={{ width: "40px", height: "40px" }}
+                />
+                <p className="map__marker__p">${selectedMarker.content}</p>
+                {distance && (
+                  <p className="map__marker__distance">
+                    Distance: <br />
+                    {distance} Miles
+                  </p>
+                )}
+              </Link>
+            </div>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    </div>
   );
 };
 

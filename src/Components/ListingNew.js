@@ -275,9 +275,9 @@ export default function ListingNew() {
               </div>
             </div>
           </div>
-          <input type="submit" value="SUBMIT"/>
-          <Link to={`/listings`}>
-            <button id='backButton'>BACK</button>
+          <input className='bg-customBlue hover:bg-customBlueLight text-white font-bold' type="submit" value="SUBMIT"/>
+          <Link className='backButton font-bold' to={`/`}>
+            <button>BACK</button>
           </Link>
         </div>
       </form>

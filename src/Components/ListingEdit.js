@@ -45,8 +45,6 @@ export default function ListingEdit() {
       .then(
         (res) => {
           res.data.listing_id ? setListing(res.data) : navigate(`/not-found`);
-          // console.log(res.data);
-          // console.log(userInfo.id);
           // if (res.data.listing_id && res.data.host === userInfo.id) {
           //   setListing(res.data);
           // }
@@ -332,9 +330,9 @@ export default function ListingEdit() {
               </div>
             </div>
           </div>
-          <input type="submit" value="SUBMIT"/>
-          <Link to={`/listings/show/${id}`}>
-            <button id='backButton'>BACK</button>
+          <input className='bg-customBlue hover:bg-customBlueLight text-white font-bold' type="submit" value="SUBMIT"/>
+          <Link className='backButton font-bold' to={`/listings/show/${id}`}>
+            <button>BACK</button>
           </Link>
         </div>
       </form>

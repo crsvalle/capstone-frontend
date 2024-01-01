@@ -7,6 +7,7 @@ module.exports = withMT({
       colors: {
         customBlue: '#025260', 
         customBlueLight: '#036b7a',
+        logoGold: '#CEA348'
       },
     },
   },
