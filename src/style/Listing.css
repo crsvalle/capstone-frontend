@@ -1,6 +1,95 @@
 .text-truncate {
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Number of lines to show */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.content-card {
+  display: flex;
+  flex-direction: row !important;
+  width: 100%;
+}
+
+.rating-text {
+  font-size: 16px;
+}
+
+.city-text {
+  font-size: 15px;
+  text-transform: capitalize;
+}
+
+.size-text {
+  font-size: 20px;
+  font-weight: 900;
+
+}
+
+.desc-text {
+  font-size: 14px;
+}
+
+.access-text {
+  font-size: 12px;
+}
+
+.price-text {
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.content-card-box {
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .content-card-box {
+    width: 100%;
+    margin: 0;
   }
+
+  .rating-text {
+    font-size: 13px;
+  }
+
+  .city-text {
+    font-size: 12px;
+  }
+
+  .size-text {
+    font-size: 17px;
+  }
+
+  .desc-text {
+    font-size: 11px;
+  }
+
+  .access-text {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .price-text {
+    font-size: 15px;
+  }
+
+}
+
+@media screen and (min-width: 701px) and (max-width: 1000px) {
+  .content-card {
+    flex-direction: column !important;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+  }
+  .text-box{
+    padding-right: 60px;
+  }
+
+  .content-card>* {
+    width: 100%;
+    margin: 0 auto;
+
+  }
+
+}
