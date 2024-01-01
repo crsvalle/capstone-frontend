@@ -11,7 +11,7 @@ import { EditIcon, Star } from '../style/icons'
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
-import { formatDate } from "../utils/formatters";
+// import { formatDate } from "../utils/formatters";
 import Calendar from "./Calendar";
 
 
@@ -157,94 +157,94 @@ export default function ListingInfo() {
                                 <EditIcon />
                             </span>
                         </Link> : ''
-                    }     
-            </div>
+                    }
+                </div>
 
-            <div className="images">
-                {windowWidth <= 600 ? (
-                    renderImages()
-                ) : (
-                    <div className="">
-                        <FeaturedImageGallery initialImages={images} price={listing.price} />
+                <div className="images">
+                    {windowWidth <= 600 ? (
+                        renderImages()
+                    ) : (
+                        <div className="">
+                            <FeaturedImageGallery initialImages={images} price={listing.price} />
+                        </div>
+                    )}
+                </div>
+                <div className="details section mb-40  b-grey ">
+                    <h3>SPACE description</h3>
+                    <p>{listing.description} </p>
+                    <p>&nbsp;</p>
+                    {/* <p>&nbsp;</p> */}
+                </div>
+                <div className="access-info section  b-grey">
+                    <h3>ACCESS INFORMATION</h3>
+                    {availability && (
+                        <div className="availabilityInfo">
+                            {availability.after_hours && (
+                                <li>
+                                    This facility allows for access after 9pm
+                                </li>
+                            )}
+                            {availability.appointment_needed && (
+                                <li>
+                                    This facility requires appointment before entering
+                                </li>
+                            )}
+                            {availability.private && (
+                                <li>
+                                    Exclusive access via individual security codes.
+                                </li>
+                            )}
+                        </div>
+                    )}
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                </div>
+                <div className="overview section b-grey">
+                    <h3>overview</h3>
+                    <p className="flex items-center">
+                        <strong>Rated</strong>: <Star /> {rated}/5
+                    </p>
+                    <p><strong>size</strong>: {listing.size}</p>
+                    <p><strong>Price</strong>: ${listing.price} per month</p>
+                    <p><strong>Hosted by</strong>:{(host.last_name && host.last_name.length > 0) ? ` ${host.first_name} ${host.last_name[0]}.` : ''}</p>
+                    <p><strong>Located around</strong>: {listing.zip} {listing.city}, {listing.state}</p>
+                    <p className="disclaimer"><strong>Full address available after booking</strong></p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                </div>
+                <div className="calendar section b-grey">
+                    <h3>CALENDAR</h3>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />
                     </div>
-                )}
-            </div>
-            <div className="details section mb-40  b-grey ">
-                <h3>SPACE description</h3>
-                <p>{listing.description} </p>
-                <p>&nbsp;</p>
-                {/* <p>&nbsp;</p> */}
-            </div>
-            <div className="access-info section  b-grey">
-                <h3>ACCESS INFORMATION</h3>
-                {availability && (
-                    <div className="availabilityInfo">
-                        {availability.after_hours && (
-                            <li>
-                                This facility allows for access after 9pm
-                            </li>
-                        )}
-                        {availability.appointment_needed && (
-                            <li>
-                                This facility requires appointment before entering
-                            </li>
-                        )}
-                        {availability.private && (
-                            <li>
-                                Exclusive access via individual security codes.
-                            </li>
-                        )}
-                    </div>
-                )}
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </div>
-            <div className="overview section b-grey">
-                <h3>overview</h3>
-                <p className="flex items-center">
-                    <strong>Rated</strong>: <Star /> {rated}/5
-                </p>
-                <p><strong>size</strong>: {listing.size}</p>
-                <p><strong>Price</strong>: ${listing.price} per month</p>
-                <p><strong>Hosted by</strong>:{(host.last_name && host.last_name.length > 0) ? ` ${host.first_name} ${host.last_name[0]}.` : ''}</p>
-                <p><strong>Located around</strong>: {listing.zip} {listing.city}, {listing.state}</p>
-                <p className="disclaimer"><strong>Full address available after booking</strong></p>
-                <p>&nbsp;</p>
-                <p>&nbsp;</p>
-            </div>
-            <div className="calendar section b-grey">
-                <h3>CALENDAR</h3>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />
+                </div>
+                <div className="bookBtn section">
+                    <p> Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
+                    <Button onClick={handleBooking} className="bookButton mb-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
+                        Book Now
+                    </Button>
+                    <p>&nbsp;</p>
+                </div>
+                <div className="questions section b-grey">
+                    <h3>questions?</h3>
+                    <p>
+                        If you want to{' '}
+                        <a
+                            href="/inbox"
+                            className="text-blue-500 underline"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigate('/inbox', { state: { ownerId: listing.host } });
+                            }}
+                        >
+                            contact the owner
+                        </a>{' '}
+                        directly, feel free to reach out. If there is something not right about the listing,{' '}
+                        <a href="mailto:keepsake@gmail.com" className="text-blue-500 underline">contact us</a>.
+                    </p>
+
                 </div>
             </div>
-            <div className="bookBtn section">
-                <p> Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
-                <Button onClick={handleBooking} className="bookButton mb-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
-                    Book Now
-                </Button>
-                <p>&nbsp;</p>
-            </div>
-            <div className="questions section b-grey">
-                <h3>questions?</h3>
-                <p>
-                    If you want to{' '}
-                    <a
-                        href="/inbox"
-                        className="text-blue-500 underline"
-                        onClick={(e) => {
-                            e.preventDefault();
-                            navigate('/inbox', { state: { ownerId: listing.host } });
-                        }}
-                    >
-                        contact the owner
-                    </a>{' '}
-                    directly, feel free to reach out. If there is something not right about the listing,{' '}
-                    <a href="mailto:keepsake@gmail.com" className="text-blue-500 underline">contact us</a>.
-                </p>
-
-            </div>
-
         </div>
     )
 }

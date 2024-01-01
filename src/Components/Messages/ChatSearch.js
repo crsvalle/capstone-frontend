@@ -3,7 +3,7 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useLocation } from 'react-router-dom';
 import { useUserInfo } from '../../api/fetch';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useChatContext } from '../../context/ChatContext';
 
 
