@@ -1,8 +1,36 @@
 .whole-page {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal columns */
-    gap: 20px; /* Gap between columns */
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+
+.listing-card {
+  grid-row: 2;
+}
+
+.geo-location {
+  grid-row: 1;
+}
+
+@media (min-width: 700px) {
+  .whole-page {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
   }
+
+  .listing-card {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .geo-location {
+    grid-column: 2;
+    grid-row: 1;
+    width: 50%;
+  }
+}
+
 
 .indexListings__searchbar {
     width: 800px;

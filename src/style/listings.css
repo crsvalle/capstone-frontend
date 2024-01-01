@@ -1,4 +1,11 @@
 .listing-card{
-    height: 90vh; /* Set the maximum height as per your design */
+    height: 100vh;
     overflow-y: auto; 
+}
+
+
+@media (min-width: 700px) {
+.listing-card{
+    overflow-y: hidden;
+}
 }
