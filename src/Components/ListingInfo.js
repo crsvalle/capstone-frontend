@@ -33,6 +33,12 @@ export default function ListingInfo() {
     const availability = useAvailability(index);
     const userInfo = useUserInfo();
 
+    const [disabledDates, setDisabledDates] = useState([]);
+
+    const handleDisabledDatesChange = (dates) => {
+        setDisabledDates(dates);
+    };
+
 
     const [images, setImages] = useState([]);
     const imgListRef = ref(storage, `listings/${id}`);
@@ -92,18 +98,40 @@ export default function ListingInfo() {
     let time = Math.round(Math.abs((start - end) / (1000 * 60 * 60 * 24)))
 
     const handleBooking = () => {
+        const currentDate = new Date()
+        const startDate = dateRange[0].startDate;
+        const endDate = dateRange[0].endDate;
 
-        const startDate = dateRange[0].startDate.toISOString();
-        const endDate = dateRange[0].endDate.toISOString();
+        // Assuming the disabledDates array is calculated and provided by the Calendar component
+        const isDatesDisabled = disabledDates.some(
+            date => date >= startDate && date <= endDate
+        );
 
-        localStorage.setItem('bookingData', JSON.stringify({
-            index,
-            time,
-            startDate,
-            endDate,
-        }));
+        if (isDatesDisabled) {
+            // Notify the user that selected dates are not available for booking
+            alert('Selected dates are not available for booking. Please choose other dates.');
+            return; // Prevent further booking action
+        }
 
-        navigate('/checkout');
+        if (
+            dateRange[0].startDate.getDate() === currentDate.getDate() &&
+            dateRange[0].startDate.getMonth() === currentDate.getMonth() &&
+            dateRange[0].startDate.getFullYear() === currentDate.getFullYear()
+        ) {
+            alert('Cannot book for the current date.');
+        } else {
+            const startDate = dateRange[0].startDate.toISOString();
+            const endDate = dateRange[0].endDate.toISOString();
+
+            localStorage.setItem('bookingData', JSON.stringify({
+                index,
+                time,
+                startDate,
+                endDate,
+            }));
+
+            navigate('/checkout');
+        }
     };
 
     const renderImages = () => {
@@ -226,7 +254,7 @@ export default function ListingInfo() {
                 <div className="calendar section b-grey">
                     <h3>CALENDAR</h3>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} />
+                        <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} onDisabledDatesChange={handleDisabledDatesChange} />
                     </div>
                 </div>
                 <div className="bookBtn section">

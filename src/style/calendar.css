@@ -37,3 +37,13 @@ margin: 0 -9px;
     border-radius: 8px; 
     overflow: hidden; 
 }
+
+.rdrMonthAndYearPickers select{
+    font-size: 12px !important;
+}
+.rdrDayNumber span{
+    font-size: 12px !important;
+}
+.rdrWeekDay{
+    font-size: 12px !important;
+}

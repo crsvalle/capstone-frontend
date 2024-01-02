@@ -30,16 +30,16 @@ const Confirmation = lazy(() => import('./Pages/Confirmation'));
 const Navbar = lazy(() => import('./Components/Navbar'));
 
 
-const PrivateRoutes = () =>{
+const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
 
-  return <>{isAuth ? <Outlet /> : <Navigate to={'/login'} />}</>
+  return <>{isAuth ? <Outlet /> : <Navigate to={'/login'} replace />}</>
 }
 
-const RestrictedRoutes = () =>{
+const RestrictedRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
 
-  return <>{!isAuth ? <Outlet /> : <Navigate to={'/user/profile'} />}</>
+  return <>{!isAuth ? <Outlet /> : <Navigate to={'/user/profile'} replace />}</>
 }
 // const KEY = process.env.REACT_APP_STRIPE_API_KEY
 const stripePromise = loadStripe('pk_test_51O9Gs7Cc76lpQQjkc6I6oeSL3jvYpPB3oxLFVtZkyl2yUr3kcaCALKCRd4XMutSePlqF4C3s5CyB2zFhV0TIvnEl00n6xcO1e3');
@@ -48,44 +48,44 @@ function App() {
   return (
 
     <Elements stripe={stripePromise}>
-    <Router>
-      <Suspense fallback={<div>Loading...</div>} >
-      <Navbar />
-      <main>
-        <Routes>
-          <Route path='/' element={<Home />} />
+      <Router>
+        <Suspense fallback={<div>Loading...</div>} >
+          <Navbar />
+          <main>
+            <Routes>
+              <Route path='/' element={<Home />} />
 
 
-            <Route element={<PrivateRoutes />}>
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/listings/new" element={<NewListing/>}/>
-              <Route path="/listings/:id/edit" element={<EditListing />} />
-            </Route>
+              <Route element={<PrivateRoutes />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/listings/new" element={<NewListing />} />
+                <Route path="/listings/:id/edit" element={<EditListing />} />
+                <Route path="/inbox" element={<Inbox />} />
+              </Route>
 
 
-          <Route element={<RestrictedRoutes />}>
-            <Route path="/register" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-          </Route>
-        
-          <Route path="/inbox" element={<Inbox  />} />
-          <Route path="/listings/:index" element={<IndexListings />} />
-          {/* <Route path="/listings/new" element={<NewListing/>}/> */}
-          <Route path="/listings/show/:index" element={<ShowListing />}/>
-          {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
-          <Route path="/confirmation/" element={ <Confirmation />}  />
-          <Route path="/user/profile" element={<User />} />
-          <Route path="/user/:index/edit" element={<EditUser/>} />
-          <Route path="/register" element={<SignUp/>} />
-          <Route path="/login" element={<Login/>} />
-          <Route path="/checkout" element={<Checkout/>} />
-          <Route path='*' element={<FourOFour />}/>
-        </Routes>
-      </main>
-      <Footer/>
-      </Suspense>
-    </Router>
-</Elements>
+              <Route element={<RestrictedRoutes />}>
+                <Route path="/register" element={<SignUp />} />
+                <Route path="/login" element={<Login />} />
+              </Route>
+
+              <Route path="/listings/:index" element={<IndexListings />} />
+              {/* <Route path="/listings/new" element={<NewListing/>}/> */}
+              <Route path="/listings/show/:index" element={<ShowListing />} />
+              {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
+              <Route path="/confirmation/" element={<Confirmation />} />
+              <Route path="/user/profile" element={<User />} />
+              <Route path="/user/:index/edit" element={<EditUser />} />
+              <Route path="/register" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path='*' element={<FourOFour />} />
+            </Routes>
+          </main>
+          <Footer />
+        </Suspense>
+      </Router>
+    </Elements>
 
   );
 }
