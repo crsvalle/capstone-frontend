@@ -6,7 +6,7 @@ import '../style/calendar.css'
 import useBlackoutDates from '../api/blackoutdates'; // Import the custom hook
 
 
-export default function Calendar({ dateRange, setDateRange, listingId, datesBooked, onDisabledDatesChange }) {
+export default function Calendar({ dateRange, setDateRange, listingId, datesBooked, onDisabledDatesChange = () => {} }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const { blackoutDates } = useBlackoutDates(listingId); // Using the custom hook
