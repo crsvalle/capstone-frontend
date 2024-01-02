@@ -6,7 +6,7 @@ import '../style/calendar.css'
 import useBlackoutDates from '../api/blackoutdates'; // Import the custom hook
 
 
-export default function Calendar({ dateRange, setDateRange, listingId, datesBooked }) {
+export default function Calendar({ dateRange, setDateRange, listingId, datesBooked, onDisabledDatesChange }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const { blackoutDates } = useBlackoutDates(listingId); // Using the custom hook
@@ -60,6 +60,7 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
         };
 
         convertToDisabledDates();
+        onDisabledDatesChange(disabledDates);
         
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
@@ -70,7 +71,8 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
             window.removeEventListener('resize', handleResize);
         };
 
-    }, [blackoutDates, datesBooked]);
+
+    }, [blackoutDates, datesBooked, disabledDates, onDisabledDatesChange]);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); //set time to 0:0:0:0 to ensure that day gets compared 
