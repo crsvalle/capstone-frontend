@@ -33,13 +33,13 @@ const Navbar = lazy(() => import('./Components/Navbar'));
 const PrivateRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
 
-  return <>{isAuth ? <Outlet /> : <Navigate to={'/login'} />}</>
+  return <>{isAuth ? <Outlet /> : <Navigate to={'/login'} replace />}</>
 }
 
 const RestrictedRoutes = () => {
   const { isAuth } = useSelector((state) => state.auth);
 
-  return <>{!isAuth ? <Outlet /> : <Navigate to={'/user/profile'} />}</>
+  return <>{!isAuth ? <Outlet /> : <Navigate to={'/user/profile'} replace />}</>
 }
 // const KEY = process.env.REACT_APP_STRIPE_API_KEY
 const stripePromise = loadStripe('pk_test_51O9Gs7Cc76lpQQjkc6I6oeSL3jvYpPB3oxLFVtZkyl2yUr3kcaCALKCRd4XMutSePlqF4C3s5CyB2zFhV0TIvnEl00n6xcO1e3');
