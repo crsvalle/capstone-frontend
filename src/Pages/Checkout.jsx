@@ -18,6 +18,7 @@ import { useUserInfo } from "../api/fetch";
 // import { useBookingContext } from "../Components/bookingDataReducer/BookingContext";
 
 const API = process.env.REACT_APP_API_URL;
+const CLIENT = process.env.REACT_APP_CLIENT_URL;
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -113,7 +114,7 @@ export default function Checkout() {
             return axios.post(`${API}/bookings`, booking);
           })
           .then((response) => {
-            navigate("/confirmation", { state: { bookingData: response.data } });
+            //navigate("/confirmation", { state: { bookingData: response.data } });
             //navigate("/confirmation");
             // if (response.data) {
             //   setBookingData({
@@ -144,8 +145,8 @@ export default function Checkout() {
             quantity: 1,
           },
         ],
-        success_url: "http://localhost:3000/confirmation",
-        cancel_url: "http://localhost:3000/checkout",
+        success_url: `${CLIENT}/confirmation`,
+        cancel_url: `${CLIENT}/checkout`,
       });
       const { sessionId } = res.data;
       const { error } = await stripe.redirectToCheckout({

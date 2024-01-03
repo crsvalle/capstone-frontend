@@ -4,10 +4,10 @@
 
 body{
 
-    font-family: 'Londrina Outline', sans-serif;
+    /* font-family: 'Londrina Outline', sans-serif;
     font-family: 'Noto Sans', sans-serif;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Playfair Display', serif; */
 
     -webkit-font-smoothing: antialiased!important;
-    line-height: 25px;
+    /* line-height: 25px; */
 }

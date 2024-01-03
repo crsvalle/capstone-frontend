@@ -38,14 +38,11 @@ const PrivateRoutes = () => {
   return <>{isAuth ? <Outlet /> : <Navigate to={'/login'} replace />}</>
 }
 
-
-const RestrictedRoutes = () => {
-  const { isAuth } = useSelector((state) => state.auth);
-
-
 const KEY = process.env.REACT_APP_STRIPE_API_KEY
 const stripePromise = loadStripe(KEY);
 
+const RestrictedRoutes = () => {
+  const { isAuth } = useSelector((state) => state.auth);
   return <>{!isAuth ? <Outlet /> : <Navigate to={'/user/profile'} replace />}</>
 }
 
