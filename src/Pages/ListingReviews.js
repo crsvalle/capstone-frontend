@@ -69,7 +69,7 @@ function ListingReviews() {
 
   return (
     <>
-      <div className="home__review">
+      <div className="home__review bg-customCreamyButterLight">
         {/* <div>Total Reviews: {reviews.length}</div>  */}
         {/* <div className="home__review__star__wraper">
                 <div className="home__review__star__count"><Ratings rating={5}/> <span>{ratingsCount[5]}</span></div>   

@@ -54,9 +54,6 @@ input[type="submit"] {
 .form__btn {
   margin: 25px 0 0 135px;
 }
-input[type="submit"]:hover {
-  background-color: #0056b3;
-}
 
 
 @media screen and (max-width: 768px) {

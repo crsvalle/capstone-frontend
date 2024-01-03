@@ -146,7 +146,7 @@ export default function SignUp () {
                 <Typography  style={{ color: 'green', marginY: 1 }}>
                     {success}
                 </Typography>
-                <input className="form__btn bg-customBlue" type="submit" value="Submit" />
+                <input className="form__btn bg-customBlue hover:bg-customBlueLight" type="submit" value="Submit" />
                 {loading && <p>Loading...</p>}
             </form>
             <div className="form__pic"><img className="form__img" src={pic} alt="" /></div>

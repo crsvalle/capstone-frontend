@@ -1,22 +1,14 @@
 .review__container {
   padding: 15px;
-  /* border: 1px solid black; */
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
-    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  backdrop-filter: blur(30px);
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 4px 6px,
+    rgba(255, 255, 255, 0.2) 0px 6px 15px;
   margin: 5px;
   margin-bottom: 125px;
   width: 150px;
   height: 175px;
-  background: linear-gradient(
-    to bottom,
-    rgb(1, 44, 51) 0%,
-    rgba(1, 44, 51, 0.468) 100%
-  );
-
+  /* background: rgba(255, 255, 255, 0.1); */
 }
 
 .review__container__profile__pic {
@@ -27,7 +19,7 @@
 
 .home__review {
   padding: 50px;
-  margin-bottom: 100px;
+  padding-bottom: 150px;
 }
 
 /* .home__review__star__count {
@@ -48,26 +40,26 @@
 .home__review__card {
   display: flex;
   position: relative;
-  top: 80px; /* Adjust the top position as needed */
-  left: 100%; /* Initial position off-screen to the right */
+  top: 80px;
+  left: 100%;
   width: 600px;
-  transform: translateX(-50%); /* Center horizontally */
-  transition: left 2.5s ease-in-out, transform 2.5s ease-in-out; /* Apply transition to smooth the movement */
+  transform: translateX(-50%);
+  transition: left 2.5s ease-in-out, transform 2.5s ease-in-out;
 }
 
 .home__review__card.show {
-  left: 65%; /* Move to the visible position (midway) */
-  transform: translateX(-50%); /* Reset the transform for centering */
+  left: 65%;
+  transform: translateX(-50%);
 }
 
 .review__title {
   font-size: small;
   font-weight: bold;
-  color: white;
+  color: rgb(125, 117, 117);
 }
 .review__body {
   font-size: x-small;
-  color: white;
+  color: rgb(125, 117, 117);
 }
 
 .home__review__side__text {
@@ -84,7 +76,8 @@
 }
 
 @keyframes colorChange {
-  0%, 100% {
+  0%,
+  100% {
     color: #ffb35c;
   }
   25% {
@@ -99,12 +92,13 @@
 }
 
 .changeColor2 {
-  color: #ffb35c; 
-  animation: colorChange2 4s infinite; 
+  color: #ffb35c;
+  animation: colorChange2 4s infinite;
 }
 
 @keyframes colorChange2 {
-  0%, 100% {
+  0%,
+  100% {
     color: #ffb35c;
   }
   25% {
@@ -119,8 +113,8 @@
 }
 
 .home__review__side__text p {
-  margin: 0; /* Remove default margin for paragraphs */
-  line-height: 1; /* Adjust line height for tight spacing */
+  margin: 0;
+  line-height: 1;
   letter-spacing: 4px;
 }
 
@@ -175,9 +169,8 @@
   .home__review__side__text {
     padding-left: 0px;
   }
-.quotation {
-  top: -170px;
-  left: -10px;
-}
-
+  .quotation {
+    top: -170px;
+    left: -10px;
+  }
 }

@@ -10,7 +10,7 @@ import ListingReviews from "./ListingReviews";
 export default function Home() {
   return (
     <>
-      <div className="home">
+      <div className="home bg-customCreamyButterLight">
         <img src={hero} alt="hero"></img>
         <div className="search__bar">
           <Searchbar />

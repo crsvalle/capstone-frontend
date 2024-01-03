@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import List from "./List";
 import axios from "axios";
 
-import "../style/listings.css";
+import "../style/lists.css";
 
 const API = process.env.REACT_APP_API_URL;
 
@@ -12,7 +13,7 @@ export default function Lists() {
 
   useEffect(() => {
     axios
-    .get(`${API}/listings`)  
+      .get(`${API}/listings`)
       .then((response) => {
         setListings(response.data);
         //console.log(response.data);
@@ -29,13 +30,16 @@ export default function Lists() {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <div className="listing">
-          {listings.slice(0,10).map((listing) => (
-            <List
-              key={listing.listing_id}
-              listing={listing}
-            />
+        <div className="listing bg-customCreamyButter">
+          {listings.slice(0, 5).map((listing) => (
+            <List key={listing.listing_id} listing={listing} />
           ))}
+          <Link to="/register">
+            <div className="listing__home__text">
+              Become a host, sign up here.
+            </div>
+          <div className="listing__home__more">See more...</div>
+          </Link>
         </div>
       )}
     </>
