@@ -2,13 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Reviews from "../Components/Reviews";
 import "../style/review.css";
-import Ratings from "../Components/Ratings";
-import garage from "../Pages/Pic/garage.jpeg";
+// import Ratings from "../Components/Ratings";
 
 const API = process.env.REACT_APP_API_URL;
 
 function ListingReviews() {
   const [reviews, setReviews] = useState([]);
+  const [showReviewCard, setShowReviewCard] = useState(false);
 
   useEffect(() => {
     axios
@@ -17,6 +17,26 @@ function ListingReviews() {
       .catch((e) => console.warn("catch", e));
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+
+      // Adjust the threshold as needed based on when you want the effect to trigger
+      if (scrollTop > 950) {
+        setShowReviewCard(true);
+      } else {
+        setShowReviewCard(false);
+      }
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   // const countRatings = () => {
   //     let ratingCounts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
 
@@ -49,8 +69,7 @@ function ListingReviews() {
 
   return (
     <>
-      <div className="home__review__text mx-20 my-6"><span>What</span> our users say?</div>
-      <div className="home__review">
+      <div className="home__review bg-customCreamyButterLight">
         {/* <div>Total Reviews: {reviews.length}</div>  */}
         {/* <div className="home__review__star__wraper">
                 <div className="home__review__star__count"><Ratings rating={5}/> <span>{ratingsCount[5]}</span></div>   
@@ -59,13 +78,22 @@ function ListingReviews() {
                 <div className="home__review__star__count"><Ratings rating={2}/> <span>{ratingsCount[2]}</span></div>   
                 <div className="home__review__star__count"><Ratings rating={1}/> <span>{ratingsCount[1]}</span></div>    
             </div>   */}
-        <img className="garage" src={garage}></img>
-        <div className="home__review__card">
+        <div className="garage-slideshow">
+          {/* <img src={garage1} alt="Garage 1" />
+          <img src={garage3} alt="Garage 3" /> */}
+        </div>
+        <div className="home__review__side__text">
+          <p className="changeColor">What</p>
+          <p className="changeColor2">our</p>
+          <p className="changeColor">users</p>
+          <p className="changeColor2">say</p>
+        </div>
+        <div className={`home__review__card${showReviewCard ? " show" : ""}`}>
+          <div className="quotation">‟</div>
           {reviews.slice(0, 4).map((review) => (
             <Reviews key={review.id} review={review} />
           ))}
         </div>
-        {/* <div>Read More...</div> */}
       </div>
     </>
   );

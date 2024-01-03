@@ -1,38 +1,56 @@
-.login__box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 75vh;
-  }
-  
+.login__wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  background-color: rgba(239, 243, 229, 0.628);
+
+}
+
+.login__box__main {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid rgba(0, 0, 0, 0.243); */
+  /* border-radius: 5px; */
+  /* box-shadow: 0.2px 1px 5px 0.5px rgba(0, 0, 0, 0.243); */
+  padding: 65px;
+  margin: 25px;
+}
+
+.login__box__btn {
+  margin: 20% 25% 15% 25%;
+}
+
+.forgetPass,
+.signUp {
+  font-size: small;
+  text-decoration: underline;
+}
+
+.login__box__footer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.login__box__icon {
+  width: 3px;
+  height: 3px;
+}
+
+.login__pic > img {
+  /* flex: 1; */
+  width: 475px;
+  height: 485px;
+  /* padding-top: 1px; */
+  margin-top: 1px;
+}
+
+@media only screen and (max-width: 768px) {
   .login__box__main {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(0, 0, 0, 0.243);
-    border-radius: 5px;
-    box-shadow: 0.2px 1px 5px 0.5px rgba(0, 0, 0, 0.243);
-    padding: 65px;
-    margin: 25px;
+    margin: 0;
+    padding-bottom: 120px;
   }
-  
-  .login__box__btn {
-    margin:20% 25% 15% 25%;
+
+  .login__pic {
+    display: none;
   }
-  
-  .forgetPass, 
-  .signUp {
-    font-size: small;
-    text-decoration: underline;
-    padding-right: 25px;
-  }
-  
-  .login__box__footer {
-    display: flex;
-    text-align: center;
-  }
-  
-  .login__box__icon {
-    width: 3px;
-    height: 3px;
-  }
-  
+}

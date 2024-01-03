@@ -22,8 +22,8 @@ export default function Reviews({review}) {
                 <Avatar src={user.image} alt='pic' sx={{ width: 30, height: 30 }} />
                 <Ratings rating={review.rating}/>
             </div>
-            <div className='pt-3'>{review.title}</div>
-            <div>{review.body}</div>
+            <div className='review__title pt-3'>{review.title}</div>
+            <div className='review__body'>{review.body}</div>
             {/* <hr className='review__hr'/> */}
         </div>
     )

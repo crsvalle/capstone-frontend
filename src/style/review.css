@@ -1,34 +1,25 @@
 .review__container {
   padding: 15px;
-  /* border: 1px solid black; */
   border-radius: 5px;
-  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
-    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+  backdrop-filter: blur(30px);
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 4px 6px,
+    rgba(255, 255, 255, 0.2) 0px 6px 15px;
   margin: 5px;
+  margin-bottom: 125px;
   width: 150px;
-  background-color: rgba(233, 233, 233, 0.846);
+  height: 175px;
+  /* background: rgba(255, 255, 255, 0.1); */
 }
 
 .review__container__profile__pic {
   display: flex;
-  /* align-items: center; */
   width: 110px;
   justify-content: space-between;
 }
 
-/* .review__hr {
-    padding-top: 25px;
-    margin-top: 15px;
-} */
-
-/* listingReviews */
-
 .home__review {
   padding: 50px;
-  margin-bottom: 100px;
+  padding-bottom: 150px;
 }
 
 /* .home__review__star__count {
@@ -49,18 +40,115 @@
 .home__review__card {
   display: flex;
   position: relative;
-  top: 40px;
-  left: 400px;
-  /* border: 1px solid black; */
+  top: 80px;
+  left: 100%;
   width: 600px;
+  transform: translateX(-50%);
+  transition: left 2.5s ease-in-out, transform 2.5s ease-in-out;
 }
 
-.garage {
-  width: 600px;
-  margin-left: 0;
+.home__review__card.show {
+  left: 65%;
+  transform: translateX(-50%);
+}
+
+.review__title {
+  font-size: small;
+  font-weight: bold;
+  color: rgb(125, 117, 117);
+}
+.review__body {
+  font-size: x-small;
+  color: rgb(125, 117, 117);
+}
+
+.home__review__side__text {
+  padding-left: 50px;
+  padding-top: 40px;
+  font-family: "Alfa Slab One", serif;
+  font-size: 5em;
   position: absolute;
-  margin-left: 50px;
-  border-radius: 5px;
+}
+
+.changeColor {
+  color: rgb(1, 44, 51);
+  animation: colorChange 4s infinite;
+}
+
+@keyframes colorChange {
+  0%,
+  100% {
+    color: #ffb35c;
+  }
+  25% {
+    color: rgb(1, 44, 51);
+  }
+  50% {
+    color: #ffb35c;
+  }
+  75% {
+    color: rgb(1, 44, 51);
+  }
+}
+
+.changeColor2 {
+  color: #ffb35c;
+  animation: colorChange2 4s infinite;
+}
+
+@keyframes colorChange2 {
+  0%,
+  100% {
+    color: #ffb35c;
+  }
+  25% {
+    color: rgb(1, 44, 51);
+  }
+  50% {
+    color: #ffb35c;
+  }
+  75% {
+    color: rgb(1, 44, 51);
+  }
+}
+
+.home__review__side__text p {
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 4px;
+}
+
+.home__review__side__text:hover {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
+
+.quotation {
+  font-size: 12em;
+  position: absolute;
+  top: -125px;
+  left: -80px;
+  z-index: -3;
+  color: rgb(1, 44, 51);
 }
 
 /* memo---try bubble talk box  */
@@ -74,5 +162,15 @@
   }
   .home__review {
     display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .home__review__side__text {
+    padding-left: 0px;
+  }
+  .quotation {
+    top: -170px;
+    left: -10px;
   }
 }

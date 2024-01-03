@@ -3,6 +3,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import { Link } from 'react-router-dom';
 
 export default function Footer (){
     return (
@@ -16,7 +17,7 @@ export default function Footer (){
                     <div>Report</div>
                 </div>
                 <div>
-                    <div>Keepsake</div>
+                <Link to="/"><div>Keepsake</div></Link>
                     <div>Become a Host</div>
                     <div>Carrers</div>
                     <div>Terms of Service</div>
@@ -25,15 +26,15 @@ export default function Footer (){
             <hr className='hr__second' />
             <div className="footer__last">
                 <div className="footer__last__bottom">
-                    <div className='footer__last__bottom__title'>© KEEPSAKE</div>
-                    <div className='footer__last__bottom__title'>Terms</div>
-                    <div className='footer__last__bottom__title'>Policy</div>
+                    <Link to="/"><div className='footer__last__bottom__title'>© KEEPSAKE</div></Link>
+                    <div className='footer__last__bottom__title footer__sm__text'>Terms</div>
+                    <div className='footer__last__bottom__title footer__sm__text'>Policy</div>
                 </div>
                 <div className="footer__icons">
-                    <FacebookIcon className='mx-2'/>
-                    <InstagramIcon className='mx-2'/>
-                    <TwitterIcon className='mx-2'/>
-                    <MailOutlineIcon className='mx-2'/>
+                    <FacebookIcon className='mx-2 mx-sm-0'/>
+                    <InstagramIcon className='mx-2 mx-sm-0'/>
+                    <TwitterIcon className='mx-2 mx-sm-0'/>
+                    <MailOutlineIcon className='mx-2 mx-sm-0'/>
                 </div>
             </div>
         </div>

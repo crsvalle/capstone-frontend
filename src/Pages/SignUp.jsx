@@ -1,8 +1,10 @@
-import "../style/SignUp.css"
 import {  useState } from "react"
 import { onRegistration } from '../api/auth'
 import { Typography } from  "@material-tailwind/react";
 import { useNavigate } from "react-router-dom";
+
+import "../style/SignUp.css"
+import pic from "../Pages/Pic/lot.jpeg"
 
 export default function SignUp () {
     const [values, setValues] = useState({
@@ -138,15 +140,16 @@ export default function SignUp () {
                         /></td>
                     </tr>
                 </table>
-          <Typography style={{ color: 'red', marginY: 1 }}>
-            {error}
-          </Typography>
-          <Typography  style={{ color: 'green', marginY: 1 }}>
-            {success}
-          </Typography>
-                <input type="submit" value="Submit" />
+                <Typography style={{ color: 'red', marginY: 1 }}>
+                    {error}
+                </Typography>
+                <Typography  style={{ color: 'green', marginY: 1 }}>
+                    {success}
+                </Typography>
+                <input className="form__btn bg-customBlue hover:bg-customBlueLight" type="submit" value="Submit" />
                 {loading && <p>Loading...</p>}
             </form>
+            <div className="form__pic"><img className="form__img" src={pic} alt="" /></div>
         </div>
         
     )

@@ -1,0 +1,39 @@
+.edit__user {
+  display: flex;
+  /* justify-content: space-around; */
+  background-color: rgba(239, 243, 229, 0.628);
+}
+
+.user__edit__img {
+  flex: 1.5;
+  /* width: max-content; */
+  height: 100%;
+  margin: 20px;
+}
+.img {
+  border-radius: 5px;
+}
+
+.form {
+  flex: 1;
+  padding-left: 100px;
+}
+
+.edit__user__btn {
+  width: 265.5px;
+  height: 40px;
+}
+
+@media screen and (max-width: 768px) {
+  .user__edit__img {
+    display: none;
+  }
+
+  .form {
+    padding: 50px;
+  }
+
+  .edit__user__btn {
+    margin-top: 25px;
+  }
+}

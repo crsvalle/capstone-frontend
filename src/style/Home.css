@@ -1,20 +1,8 @@
-/* .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    z-index: -2;
-  } */
-
 .home > img {
-  /* top: 0; */
   position: relative;
-  /* z-index: -3; */
-  /* filter: hue-rotate(18deg); */
   width: 100%;
 }
-
+/* SEARCHBAR IN HOMEPAGE */
 .search__bar {
   position: absolute;
   top: 60%;
@@ -22,28 +10,67 @@
   transform: translate(-50%, -50%);
 }
 
-.home__img__wrapper {
+/* WORDS & PIC */
+.home__img {
+  position: relative;
+  /* padding-top: 50px; */
+  /* background-color: rgba(239, 243, 229, 0.628); */
+}
+
+.home__img__text__wrapper {
   display: flex;
   justify-content: space-between;
-  margin: 0 80px 80px 50px;
+  align-items: center;
+  margin: 50px 80px 50px 80px;
+  color: rgb(1, 44, 51);
 }
 
 .home__img__text1 {
-  font-size: x-large;
-  padding-top: 80px;
-  padding-right: 50px;
-  /* text-shadow: 1px 1px 2px rgba(158, 193, 150, 0.681); */
+  font-size: medium;
+  font-family: "Alfa Slab One", serif;
 }
+.one {
+  /* padding-top: 50px; */
+  font-size: 3em;
+  font-family: "Alfa Slab One", serif;
+}
+.first {
+  font-size: 3em;
+  position: absolute;
+  top: 0%;
+  left: 90px;
+}
+.second {
+  font-size: 2em;
+  position: absolute;
+  top: 8%;
+  left: 240px;
+}
+.span {
+  font-size: 7em;
+  position: absolute;
+  top: 5%;
+  left: 100px;
+}
+.two {
+  padding-top: 170px;
+  padding-left: 25px;
+}
+
+.three {
+  padding-left: 25px;
+}
+
 .home__img__text2 {
-  font-size: x-large;
-  padding-top: 70px;
-  padding-left: 50px;
+  padding-left: 80px;
+  font-size: 3em;
+  font-family: "Alfa Slab One", serif;
+  line-height: 1;
 }
 
 .home__img__china {
   width: 300px;
   height: 200px;
-  margin-top: 50px;
   border-radius: 5px;
 }
 
@@ -53,7 +80,27 @@
   border-radius: 5px;
 }
 
-/* For mobile phones: */
+.home__list__header {
+  font-weight: 500;
+  font-size:large;
+  color: rgba(0, 0, 0, 0.537);
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  letter-spacing: 4px;
+  animation: slideLeftToRight 10s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes slideLeftToRight {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 @media screen and (max-width: 768px) {
   .home > img {
     width: 100%;
@@ -61,11 +108,18 @@
 
   .search__bar {
     top: 25%;
+    left: 5%;
   }
+
+  .home__img__text__wrapper {
+    margin: 10px;
+    padding-bottom: 15px;
+  }
+
   .home__img__china,
   .home__img__packing {
-    width: 150px;
-    height: 100px;
+    width: 180px;
+    height: 120px;
     margin-right: 10px;
     margin-left: 10px;
   }
@@ -75,13 +129,64 @@
   }
   .home__img__text1 {
     font-size: small;
-    padding: 20px 10px 10px 25px;
+    padding: 20px 10px 10px 10px;
+  }
+
+  .first {
+    font-size: 1.5em;
+    top: 2%;
+    left: 0px;
+  }
+  .second {
+    font-size: 1.5em;
+    top: 14%;
+    left: 0;
+  }
+  .span {
+    font-size: xx-large;
+    top: 24%;
+    left: 0px;
   }
   .home__img__text2 {
-    font-size: small;
-    padding: 20px 0 0 10px;
+    font-size: 1em;
+    padding: 60px 0 0 10px;
+    margin-top: 20px;
+  }
+  /* .home__img__wrapper {
+    margin: 0 15px 20px 15px;
+  } */
+  /* .one {
+    padding-top: 25px;
+  }
+  .one > span {
+    font-size: 2.5em;
+    padding-top: 10px;
+  } */
+  .two,
+  .three {
+    display: none;
+  }
+  .home__list__header {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .search__bar {
+    top: 25%;
+    left: 50%;
+  }
+  .one > span {
+    font-size: 2em;
+    padding-top: 45px;
+  }
+  .home__img__text2 {
+    padding-top: 0;
   }
   .home__img__wrapper {
-    margin: 0 15px 20px 15px;
+    margin-bottom: 50px;
+  }
+  .home__img__packing {
+    margin-top: 15px;
   }
 }

@@ -38,7 +38,7 @@
 }
 
 .search button:hover {
-  color: rgba(255, 0, 0, 0.753);
+  color: rgba(1, 44, 51, 0.796);
 }
 
 .search input {
@@ -80,5 +80,9 @@ clear-button {
   .search input {
     width: 250px;
     height: 40px;
+  }
+
+  .nav__searchBar input {
+    width: 70px;
   }
 }
