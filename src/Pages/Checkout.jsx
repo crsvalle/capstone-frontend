@@ -113,7 +113,7 @@ export default function Checkout() {
             return axios.post(`${API}/bookings`, booking);
           })
           .then((response) => {
-            // navigate("/confirmation", { state: { bookingData: response.data } });
+            navigate("/confirmation", { state: { bookingData: response.data } });
             //navigate("/confirmation");
             // if (response.data) {
             //   setBookingData({

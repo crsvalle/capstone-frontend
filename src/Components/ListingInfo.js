@@ -1,27 +1,29 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import '../style/ListingInfo.css';
+import { useParams, useNavigate, Link } from "react-router-dom";
 
-import { Rating } from "@material-tailwind/react";
+import '../style/ListingInfo.css';
 import { Carousel } from "@material-tailwind/react";
 import { Button } from "@material-tailwind/react";
-import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
+import { EditIcon, Star } from '../style/icons'
 
 
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
-import { formatDate } from "../utils/formatters";
+// import { formatDate } from "../utils/formatters";
 import Calendar from "./Calendar";
 
-import { useAvailability  } from "../api/fetch";
+
+import { useAvailability, useUserInfo } from "../api/fetch";
+import { FeaturedImageGallery } from "./FeaturedImageGallery";
 
 
 const API = process.env.REACT_APP_API_URL;
 
 
 export default function ListingInfo() {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const { index } = useParams();
     const [listing, setListing] = useState([]);
     const [host, setHost] = useState([]);
@@ -29,7 +31,14 @@ export default function ListingInfo() {
     const [id, setId] = useState('');
     const navigate = useNavigate();
     const availability = useAvailability(index);
-    console.log(availability)
+    const userInfo = useUserInfo();
+
+    const [disabledDates, setDisabledDates] = useState([]);
+
+    const handleDisabledDatesChange = (dates) => {
+        setDisabledDates(dates);
+    };
+
 
     const [images, setImages] = useState([]);
     const imgListRef = ref(storage, `listings/${id}`);
@@ -44,24 +53,24 @@ export default function ListingInfo() {
 
     useEffect(() => {
         axios
-        .get(`${API}/listings/${index}`)
-        .then((response) =>{
-            setListing((response.data));
-            setRated((response.data.avg_rating));
-            setId(listing.listing_id);
-        })
-        .catch((e) => console.error("catch", e));
+            .get(`${API}/listings/${index}`)
+            .then((response) => {
+                setListing((response.data));
+                setRated((response.data.avg_rating));
+                setId(listing.listing_id);
+            })
+            .catch((e) => console.error("catch", e));
 
         axios
-        .get(`${API}/users/${listing.host}`)
-        .then((response) => {
-            setHost(response.data);
-        })
-        .catch((e) => console.error("catch", e));
+            .get(`${API}/users/${listing.host}`)
+            .then((response) => {
+                setHost(response.data);
+            })
+            .catch((e) => console.error("catch", e));
 
     }, [index, listing.host, listing.listing_id]);
 
-    
+
     useEffect(() => {
         listAll(imgListRef).then((res) =>
             res.items.forEach((item) =>
@@ -72,100 +81,208 @@ export default function ListingInfo() {
         )
     }, [id]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const start = new Date(dateRange[0].startDate)
-    const end = new Date (dateRange[0].endDate) 
-    let time = Math.round(Math.abs((start - end) / (1000*60*60*24)))
+    const end = new Date(dateRange[0].endDate)
+    let time = Math.round(Math.abs((start - end) / (1000 * 60 * 60 * 24)))
 
     const handleBooking = () => {
-        // Extract start and end dates from the dateRange state
-        const startDate = dateRange[0].startDate.toISOString();
-        const endDate = dateRange[0].endDate.toISOString();
-    
-        // Store data in localStorage
-        localStorage.setItem('bookingData', JSON.stringify({
-            index,
-            time,
-            startDate,
-            endDate,
-        }));
-    
-        // Redirect to the checkout page
-        navigate('/checkout');
+        const currentDate = new Date()
+        const startDate = dateRange[0].startDate;
+        const endDate = dateRange[0].endDate;
+
+        // Assuming the disabledDates array is calculated and provided by the Calendar component
+        const isDatesDisabled = disabledDates.some(
+            date => date >= startDate && date <= endDate
+        );
+
+        if (isDatesDisabled) {
+            // Notify the user that selected dates are not available for booking
+            alert('Selected dates are not available for booking. Please choose other dates.');
+            return; // Prevent further booking action
+        }
+
+        if (
+            dateRange[0].startDate.getDate() === currentDate.getDate() &&
+            dateRange[0].startDate.getMonth() === currentDate.getMonth() &&
+            dateRange[0].startDate.getFullYear() === currentDate.getFullYear()
+        ) {
+            alert('Cannot book for the current date.');
+        } else {
+            const startDate = dateRange[0].startDate.toISOString();
+            const endDate = dateRange[0].endDate.toISOString();
+
+            localStorage.setItem('bookingData', JSON.stringify({
+                index,
+                time,
+                startDate,
+                endDate,
+            }));
+
+            navigate('/checkout');
+        }
+    };
+
+    const renderImages = () => {
+        if (images.length > 1) {
+            return (
+                <>
+                    <Carousel >
+                        {images.map((image, index) => (
+                            <div key={index} className="relative">
+                                <img
+                                    src={image}
+                                    alt="Listing"
+                                    className="h-full w-full object-cover rounded-lg"
+                                />
+                                <div className="top-right-text">
+                                    <h5>${listing.price}</h5>
+                                    <p>per month</p>
+                                </div>
+                            </div>
+                        ))}
+                    </Carousel>
+
+                </>
+            );
+        } else {
+            return (
+                <div className="relative">
+                    <img
+                        src={images[0]}
+                        alt="empty"
+                        className="h-full w-full object-cover rounded-lg"
+                    />
+                    <div className="top-right-text">
+                        <h5>${listing.price}</h5>
+                        <p>per month</p>
+                    </div>
+                </div>
+
+            );
+        }
     };
 
     return (
-        <div className="wholePage">
-            <div className="left">
-                    <div className="custom-carousel-container">
-                        <Carousel className="rounded-xl">
-                            {images.map((image, index) => (
-                                <div className="image-container rounded-xl overflow-hidden mb-4" key={index}>
-                                    <div className="pb-9/16"> {/* 16:9 aspect ratio */}
-                                        <img
-                                            src={image}
-                                            alt="Listing"
-                                            className="absolute  w-full h-full object-cover rounded-xl"
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </Carousel>
-                    </div>
-                <div className="listingCard">
-                    {rated !== null && (<Rating value={rated} readonly />)}
-                    <h1 className="listingText">Size: {listing.size}</h1>
-                    <h2 className="listingText">Hosted by: {host.first_name} {host.last_name}</h2>
-                    <p className="listingText">Posted on: {formatDate(listing.posted_at)}</p>
-                    <p className="listingText mb-5">To see full address, make a reservation</p>
+        <div className="wholePage" style={{ maxWidth: '1000px' }}>
+            <div className="header">
+                <div className="flex items-center justify-between px-1">
+                    <h2>{listing.size}</h2>
+                    {host.id && userInfo.id && host.id === userInfo.id ?
+                        <Link to={`/listings/${id}/edit`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <span className=' text-logoGold' role="img" aria-label="Edit" style={{ fontSize: '1.75rem' }}>
+                                <EditIcon />
+                            </span>
+                        </Link> : ''
+                    }
                 </div>
-                
-                <div className="desc mb-5">
-                    <p>{listing.description}</p>
+                <div className="flex justify-between px-1">
+                    <p className="mb-2">
+                        {listing.city}, {listing.state}{' '}
+                    </p>
+                    <p>
+                        <strong className="flex items-center">
+                            <Star /> {rated}/5
+                        </strong>
+                    </p>
+
                 </div>
-                    <div className="mb-5">
-                        <h1 className=" text-xl font-bold">Access Information</h1>
-                        {availability && (
+
+                <div className="images">
+                    {windowWidth <= 600 ? (
+                        renderImages()
+                    ) : (
+                        <div className="">
+                            <FeaturedImageGallery initialImages={images} price={listing.price} />
+                        </div>
+                    )}
+                </div>
+                <div className="details section mb-40  b-grey ">
+                    <h3>SPACE description</h3>
+                    <p>{listing.description} </p>
+                    <p>&nbsp;</p>
+                    {/* <p>&nbsp;</p> */}
+                </div>
+                <div className="access-info section  b-grey">
+                    <h3>ACCESS INFORMATION</h3>
+                    {availability && (
                         <div className="availabilityInfo">
                             {availability.after_hours && (
-                                <p className="availabilityMessage flex items-center bg-purple-100 text-purple-800 px-4 py-2 rounded-md my-2">
-                                    <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                                <li>
                                     This facility allows for access after 9pm
-                                </p>
+                                </li>
                             )}
                             {availability.appointment_needed && (
-                                <p className="availabilityMessage flex items-center bg-blue-100 text-blue-800 px-4 py-2 rounded-md my-2">
-                                    <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                                <li>
                                     This facility requires appointment before entering
-                                </p>
+                                </li>
                             )}
                             {availability.private && (
-                                <p className="availabilityMessage flex items-center bg-green-100 text-green-800 px-4 py-2 rounded-md my-2">
-                                    <ExclamationCircleIcon className="h-4 w-4 mr-2" />
+                                <li>
                                     Exclusive access via individual security codes.
-                                </p>
+                                </li>
                             )}
                         </div>
                     )}
-
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                </div>
+                <div className="overview section b-grey">
+                    <h3>overview</h3>
+                    <p className="flex items-center">
+                        <strong>Rated</strong>: <Star /> {rated}/5
+                    </p>
+                    <p><strong>size</strong>: {listing.size}</p>
+                    <p><strong>Price</strong>: ${listing.price} per month</p>
+                    <p><strong>Hosted by</strong>:{(host.last_name && host.last_name.length > 0) ? ` ${host.first_name} ${host.last_name[0]}.` : ''}</p>
+                    <p><strong>Located around</strong>: {listing.zip} {listing.city}, {listing.state}</p>
+                    <p className="disclaimer"><strong>Full address available after booking</strong></p>
+                    <p>&nbsp;</p>
+                    <p>&nbsp;</p>
+                </div>
+                <div className="calendar section b-grey">
+                    <h3>CALENDAR</h3>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index} onDisabledDatesChange={handleDisabledDatesChange} />
                     </div>
-                <div>
-                    <Button fullWidth>Contact Owner</Button>
                 </div>
-            </div>
-
-            <div className="middle">
-                <div className="calendar">
-                    <Calendar dateRange={dateRange} setDateRange={setDateRange} listingId={index}/>
-                </div>
-                <div className="priceCard rounded-lg p-4  bg-white">
-                    <p className="text-lg font-bold">Monthly price: ${listing.price}</p>
-                    <p className="text-sm">Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
-                    <Button onClick={handleBooking} className="bookButton mt-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
+                <div className="bookBtn section">
+                    <p> Total price ({time} days): ${((listing.price / 30) * time).toFixed(2)}</p>
+                    <Button onClick={handleBooking} className="bookButton mb-4 bg-customBlue hover:bg-customBlueLight text-white font-bold py-2 px-4 rounded">
                         Book Now
                     </Button>
+                    <p>&nbsp;</p>
                 </div>
+                <div className="questions section b-grey">
+                    <h3>questions?</h3>
+                    <p>
+                        If you want to{' '}
+                        <a
+                            href="/inbox"
+                            className="text-blue-500 underline"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                navigate('/inbox', { state: { ownerId: listing.host } });
+                            }}
+                        >
+                            contact the owner
+                        </a>{' '}
+                        directly, feel free to reach out. If there is something not right about the listing,{' '}
+                        <a href="mailto:keepsake@gmail.com" className="text-blue-500 underline">contact us</a>.
+                    </p>
 
+                </div>
             </div>
         </div>
     )
