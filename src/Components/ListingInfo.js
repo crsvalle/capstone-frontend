@@ -80,19 +80,21 @@ export default function ListingInfo() {
             )
         )
     }, [id]);
-
+    
+    
     useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
         };
-
+        
         window.addEventListener('resize', handleResize);
-
+        
         return () => {
             window.removeEventListener('resize', handleResize);
         };
     }, []);
-
+    
+    console.log(windowWidth )
     const start = new Date(dateRange[0].startDate)
     const end = new Date(dateRange[0].endDate)
     let time = Math.round(Math.abs((start - end) / (1000 * 60 * 60 * 24)))

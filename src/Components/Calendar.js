@@ -72,7 +72,7 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
         };
 
 
-    }, [blackoutDates, datesBooked, disabledDates, onDisabledDatesChange]);
+    }, [blackoutDates, datesBooked]);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0); //set time to 0:0:0:0 to ensure that day gets compared 
