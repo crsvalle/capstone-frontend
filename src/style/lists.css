@@ -41,6 +41,8 @@
 
 .listing__home__more {
   cursor: pointer;
+  font-size: .4em;
+  padding-top: 30px;
   text-decoration: underline;
   color: rgba(0, 0, 0, 0.575);
 }

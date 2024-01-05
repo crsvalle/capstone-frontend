@@ -37,8 +37,8 @@ export default function Lists() {
           <Link to="/register">
             <div className="listing__home__text">
               Become a host, sign up here.
+              <div className="listing__home__more">See more...</div>
             </div>
-          <div className="listing__home__more">See more...</div>
           </Link>
         </div>
       )}
