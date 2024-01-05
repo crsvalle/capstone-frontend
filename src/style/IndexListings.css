@@ -38,3 +38,22 @@
     padding:10px 0 10px 30%;
 }
 
+
+
+@media (min-width: 1650px) {
+  .whole-page {
+    grid-template-columns: 1fr 1.5fr; /* Adjust column widths */
+  }
+
+  .listing-card {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%; /* Adjust the width of listing cards */
+  }
+
+  .geo-location {
+    grid-column: 2;
+    grid-row: 1;
+    width: 100%; /* Make geolocation fill the entire row */
+  }
+}
