@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { storage } from "../Components/firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Typography } from '@material-tailwind/react';
@@ -11,6 +11,8 @@ const ProfileMenu = ({ logout, id }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userImg, setUserImg] = useState('');
   const imgRef = ref(storage, `users/${id}`);
+
+  const navigate = useNavigate();
 
   const closeMenu = () => setIsMenuOpen(false);
 
@@ -25,6 +27,7 @@ const ProfileMenu = ({ logout, id }) => {
   const handleSignOut = () => {
     logout();
     closeMenu();
+    navigate('/')
   };
 
   const profileMenuItems = [
