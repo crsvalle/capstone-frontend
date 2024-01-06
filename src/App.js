@@ -10,6 +10,7 @@ import Inbox from "./Pages/Inbox";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import About from './Pages/About';
 
 
 //PAGES
@@ -85,6 +86,7 @@ function App() {
               <Route path="/user/:index/edit" element={<EditUser />} />
               <Route path="/register" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/about" element={<About />} />
               <Route path="/checkout" element={<Checkout />} />
 
               <Route path='*' element={<FourOFour />} />
