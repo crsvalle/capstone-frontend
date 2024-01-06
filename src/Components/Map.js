@@ -219,6 +219,7 @@ const Map = ({ location, hoveredListingId, googleMapsLoader }) => {
         options={{
           disableDefaultUI: true, // Disable default map controls
           zoomControl: true,
+          maxZoom:15,
           scaleControl: true,
           fullscreenControl: true,
         }}>
