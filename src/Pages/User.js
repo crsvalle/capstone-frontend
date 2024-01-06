@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import "../style/User.css";
+import icon from "../Pages/Pic/icon-chat.png";
 import Ratings from "../Components/Ratings";
 import VerifiedIcon from "@mui/icons-material/Verified";
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
 
 import { useUserInfo } from "../api/fetch";
 import CustomTabs from "../Components/Tabs";
@@ -69,37 +69,51 @@ export default function User() {
         /> */}
         <div className="profile">
           <Ratings rating={user.rating} />
-          <div className="label">Name:</div>
-          <div className="value">
-            {first_name && last_name
-              ? `${formatName(first_name)} ${formatName(last_name)}`
-              : "N/A"}
+          <div className="user__field">
+            <div className="label">Name:</div>
+            <div className="value">
+              {first_name && last_name
+                ? `${formatName(first_name)} ${formatName(last_name)}`
+                : "N/A"}
+            </div>
           </div>
-          <hr />
-          <div className="label">Role: </div>
-          <div>{role || "N/A"}</div>
-          <hr />
-          <div className="label">Address: </div>
-          <div>{address || "N/A"}</div>
-          <hr />
-          <div className="label">Phone: </div>
-          <div>{phone || "N/A"}</div>
-          <hr />
-          <div className="label">Email: </div>
-          <div>{email || "N/A"}</div>
-          <hr />
-          <div className="label">Verified:</div>
-          <div>
-            {is_verified ? (
-              <VerifiedIcon color="success" size="small" />
-            ) : (
-              "N/A"
-            )}
+          <hr className="user__hr" />
+          <div className="user__field">
+            <div className="label">Role: </div>
+            <div>{role || "N/A"}</div>
           </div>
-          <hr />
-          <div className="label">Member since: </div>
-          <div>{formatDate(created_at)}</div>
-          <hr />
+          <hr className="user__hr"/>
+          <div className="user__field">
+            <div className="label">Address: </div>
+            <div>{address || "N/A"}</div>
+          </div>
+          <hr className="user__hr" />
+          <div className="user__field">
+            <div className="label">Phone: </div>
+            <div>{phone || "N/A"}</div>
+          </div>
+          <hr className="user__hr" />
+          <div className="user__field">
+            <div className="label">Email: </div>
+            <div>{email || "N/A"}</div>
+          </div>
+          <hr className="user__hr" />
+          <div className="user__field">
+            <div className="label">Verified:</div>
+            <div>
+              {is_verified ? (
+                <VerifiedIcon color="success" size="small" />
+              ) : (
+                "N/A"
+              )}
+            </div>
+          </div>
+          <hr className="user__hr" />
+          <div className="user__field">
+            <div className="label">Member since: </div>
+            <div>{formatDate(created_at)}</div>
+          </div>
+          <hr className="user__hr" />
           {/* <hr/> */}
           {/* <p>payment info</p> */}
         </div>
@@ -110,10 +124,17 @@ export default function User() {
             </button>
           </div>
         </Link>
-        <div className="message"><ModeCommentIcon/> message</div>
+        <Link to="/inbox">
+          <div className="message">
+            {/* <div>message</div> */}
+            <div className="user__icon">
+              <img src={icon} alt="icon"></img>
+            </div>
+          </div>
+        </Link>
+        {/* <div className="reviews">reviews for</div> */}
       </div>
-      <div className="reviews">reviews for</div>
-      <div className="reviews__posted">reviews posted</div>
+      {/* <div className="reviews__posted">reviews posted</div> */}
       <CustomTabs userId={id} />
     </>
   );
