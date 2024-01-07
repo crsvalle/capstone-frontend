@@ -172,7 +172,7 @@ export default function Checkout() {
   return (
     <div className="checkout__container">
       <div className="checkoutBox">
-        <h1>Checkout</h1>
+        {/* <h1>Checkout</h1> */}
         <div className="checkoutListing">
           <ListingCheckoutCard
             listing={listing}
@@ -184,54 +184,63 @@ export default function Checkout() {
 
         <div className="bottomBox">
           <div className="checkoutLeft">
-            <label htmlFor="requestTextarea" className="text-sm font-medium">
-              Request/Concerns
-            </label>
+            <label
+              htmlFor="requestTextarea"
+              className="text-sm font-medium"></label>
             <Textarea
               id="requestTextarea"
-              size="lg"
-              label=""
-              rows="6"
+              size="sm"
+              label="Request/Concerns"
+              rows="2"
               value={textareaValue}
               onChange={handleTextareaChange}
             />
           </div>
-          <div className="checkoutPrice bg-gray-100 rounded-lg shadow-md border border-gray-300">
-            <p className="text-sm ">Zip Code: {listing.zip}</p>
-            <p className="text-sm">
-              Daily price: ${(listing.price / 30).toFixed(2)}
-            </p>
-            {listing && listing.price !== undefined && (
-              <p className="text-sm">
-                Monthly price: ${listing.price.toFixed(2)}
-              </p>
-            )}
-            <div className="mt-3">
-              <p className="customSmallerText mb-1">
-                {bookingInfo && bookingInfo.time !== undefined
-                  ? bookingInfo.time === 1
-                    ? "Your storage booking spans 1 day."
-                    : `Your storage booking spans ${bookingInfo.time} days.`
-                  : "N/A"}
-              </p>
-              <div className="text-lg font-bold">
-                Total:
-                {bookingInfo && bookingInfo.time ? ` $${totalPrice}` : "N/A"}
-              </div>
-              <div className="flex">
-                <p className="mr-1">
-                  Due Now: ${(totalPrice * 0.075).toFixed(2)}{" "}
-                </p>
-                <HelperIcon
-                  title={"Reservation Protection"}
-                  body={"Payment is required for confirmed booking."}
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-      <button onClick={handleCheckout}>Checkout</button>
+      <div className="checkoutPrice rounded-lg">
+        <div className="flex justify-between mb-5 ">
+          <p className="text-sm ">Zip Code: </p>
+          <p className="text-sm ">{listing.zip}</p>
+        </div>
+        <div className="flex justify-between mb-5">
+          <p className="text-sm">Daily price:</p>
+          <p className="text-sm">${(listing.price / 30).toFixed(2)}</p>
+        </div>
+        {listing && listing.price !== undefined && (
+          <div className="flex justify-between">
+            <p className="text-sm">Monthly price:</p>
+            <p className="text-sm">${listing.price.toFixed(2)}</p>
+          </div>
+        )}
+        <p className="customSmallerText mt-10 mb-2">
+          {bookingInfo && bookingInfo.time !== undefined
+            ? bookingInfo.time === 1
+              ? "Your storage booking spans 1 day."
+              : `Your storage booking spans ${bookingInfo.time} days.`
+            : "N/A"}
+        </p>
+        <hr className="checkout__hr" />
+
+        {/* <div className="flex">
+            <p className="mr-1">Due Now: ${(totalPrice * 0.075).toFixed(2)} </p>
+            <HelperIcon
+              title={"Reservation Protection"}
+              body={"Payment is required for confirmed booking."}
+            />
+          </div> */}
+
+        <div className=" total flex justify-between ">
+          <p className="text-lg font-bold">Total:</p>
+          <p className="text-lg font-bold">{bookingInfo && bookingInfo.time ? ` $${totalPrice}` : "N/A"}</p>
+          
+        </div>
+        <button
+          className="checkout__btn bg-customBlue hover:bg-customBlueLight"
+          onClick={handleCheckout}>
+          Checkout
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,115 +1,136 @@
-
 .user__conainer {
-    display: flex;
-    flex-direction: column;
-    margin: 25px;
-    background-color: rgba(239, 243, 229, 0.628);
-    height: 100vh;
-  }
-  
-  .user__block {
-    height: 300px;
-    width: 100%;
-    position: relative;
-  }
-  
-  .user__conainer > img {
-    width: 210px;
-    height: 210px;
-    object-fit: cover;
-    border: 5px solid white;
-    border-radius: 50%;
-    padding: 3px;
-    position: absolute;
-    top: 145px;
-    left: 100px;
-  }
-  
-  .user__conainer > img:hover {
-    border: 2px solid transparent;
-    transition: 1s;
-    box-shadow: 5px 5px 5px rgb(133, 133, 133);
-  }
-  
-  .profile {
-    margin-top: 175px;
-    margin-left: 25px;
-    padding: 25px;
-    width: 35%;
-    position: absolute;
-    left: 350px;
-    top: 70px;
-    border: 5px solid white;
-    border-radius: 10px;
-    background-color: white;
-  }
-  
-  .hello {
-    font-size: larger;
-    font-weight: bold;
-    position: absolute;
-    top: 350px;
-    right: 320px;
-    color: white;
-  }
-  .message {
-    margin-left: 5%;
-    background-color: azure;
-    border-radius: 10px;
-    height: fit-content;
-    width: fit-content;
-    padding: 5px;
-    position: absolute;
-    right: 35px;
-    top: 115px;
-  }
-  
-  .message:hover {
-    cursor: pointer;
-    scale: 1.1; ;
-  }
-  
-  .reviews {
-    margin-left: 25px;
-    border-bottom: 2px solid green;
-    width: fit-content;
-    margin-bottom: 200px;
-  }
-  
-  .profile__btn {
-    margin: 25px 0 0 60px;
-  }
-  
-  /* tr:nth-child() {
+  display: flex;
+  flex-direction: column;
+  /* margin: 25px; */
+  background-color: rgba(239, 243, 229, 0.628);
+  height: 100vh;
+}
+
+.user__block {
+  height: 300px;
+  width: 100%;
+  position: relative;
+}
+
+.user__conainer > img {
+  width: 210px;
+  height: 210px;
+  object-fit: cover;
+  border: 5px solid white;
+  border-radius: 50%;
+  padding: 3px;
+  position: absolute;
+  top: 145px;
+  left: 80px;
+}
+
+.user__conainer > img:hover {
+  border: 2px solid transparent;
+  transition: 1s;
+  box-shadow: 5px 5px 5px rgba(179, 171, 171, 0.475);
+}
+.profile {
+  margin-top: 175px;
+  margin-left: 25px;
+  padding: 25px 25px 50px 25px;
+  width: 35%;
+  position: absolute;
+  left: 350px;
+  top: 70px;
+  /* border: 5px solid white; */
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(35px);
+  box-shadow: 0px 4px 6px rgba(34, 32, 32, 0.51), 0px 6px 15px rgba(19, 16, 16, 0.619);
+}
+
+
+.hello {
+  font-size: larger;
+  font-weight: bold;
+  position: absolute;
+  top: 350px;
+  right: 270px;
+  color: white;
+}
+
+.message {
+  /* margin-left: 5%; */
+  background-color: azure;
+  border-radius:50%;
+  height: fit-content;
+  width: fit-content;
+  padding: 5px;
+  position: absolute;
+  right: 35px;
+  top: 115px;
+}
+
+.user__icon {
+  width: 30px;
+}
+
+.message:hover {
+  cursor: pointer;
+  scale: 1.1;
+}
+
+.reviews {
+  margin-left: 25px;
+  border-bottom: 2px solid green;
+  width: fit-content;
+  margin-bottom: 200px;
+}
+
+.profile__btn {
+  margin: 25px 0 0 110px;
+}
+
+/* tr:nth-child() {
     background-color: #dddddd;
   } */
-  .label {
-    /* background-color: #e0e0e0; */
-    color: #a8a0a0;
-    font-size: smaller;
-    padding: 2px 0 1px 0;
+
+.user__field {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}  
+.label {
+  /* background-color: #e0e0e0; */
+  color: #8d8c8c;
+  font-size: smaller;
+  padding: 2px 0 1px 0;
+}
+
+.value {
+  font-size: medium;
+  /* font-family: 'Poppins', sans-serif; */
+}
+
+.user__hr {
+  border: 1px solid rgba(58, 54, 54, 0.068);
+  /* background-color: rgba(0, 0, 0, 0.191); */
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .user__conainer > img {
+    left: 85px;
   }
-  
-  .value {
-    font-size: medium;
+  .profile {
+    top: 200px;
+    left: 20px;
+    width: 300px;
   }
-  
-  @media screen and (max-width: 768px) {
-    .user__conainer > img {
-        left: 85px;
-    }
-    .profile {
-        top: 200px;
-        left: 20px;
-        width: 300px;
-    }
-    .hello {
-        display: none;
-    }
-    .message {
-        top: 135px;
-    }
-    .profile__btn {
-        margin-top: 400px;
-    }
-  }  
+  .hello {
+    display: none;
+  }
+  .message {
+    top: 135px;
+  }
+  .profile__btn {
+    margin-top: 330px;
+    margin-left: 120px;
+  }
+}

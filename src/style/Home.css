@@ -105,14 +105,14 @@
   .home > img {
     width: 100%;
   }
-
+  
   .search__bar {
     top: 25%;
     left: 5%;
   }
 
   .home__img__text__wrapper {
-    margin: 10px;
+    margin: 10px 10px 0 10px;
     padding-bottom: 15px;
   }
 
@@ -130,6 +130,7 @@
   .home__img__text1 {
     font-size: small;
     padding: 20px 10px 10px 10px;
+    line-height: 1;
   }
 
   .first {
@@ -151,6 +152,7 @@
     font-size: 1em;
     padding: 60px 0 0 10px;
     margin-top: 20px;
+    line-height: 1.5;
   }
   /* .home__img__wrapper {
     margin: 0 15px 20px 15px;
@@ -182,6 +184,7 @@
   }
   .home__img__text2 {
     padding-top: 0;
+    padding-left: 0px;
   }
   .home__img__wrapper {
     margin-bottom: 50px;
