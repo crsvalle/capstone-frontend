@@ -1,7 +1,7 @@
 import "../style/About.css";
 const About = () => {
   return (
-    <div className="about">
+    <div className="about bg-customCreamyButterLight">
       <h2>About Us</h2>
       <br/>
       <p>
