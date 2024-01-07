@@ -62,10 +62,8 @@ function App() {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/listings/new" element={<NewListing />} />
                 <Route path="/listings/:id/edit" element={<EditListing />} />
-
-         
-
-
+                <Route path="/user/:index/edit" element={<EditUser />} />
+                <Route path="/checkout" element={<Checkout />} />
                 <Route path="/inbox" element={<Inbox />} />
               </Route>
 
@@ -76,11 +74,11 @@ function App() {
               </Route>
 
               <Route path="/listings/:index" element={<IndexListings />} />
-              {/* <Route path="/listings/new" element={<NewListing/>}/> */}
+              <Route path="/user/profile" element={<User />} />
               <Route path="/listings/show/:index" element={<ShowListing />} />
-              {/* <Route path="/listings/:index/edit" element={<EditListing />} /> */}
 
               <Route path="/confirmation/" element={<Confirmation />} />
+
 
               <Route path="/user/profile" element={<User />} />
               <Route path="/user/:index/edit" element={<EditUser />} />
@@ -88,6 +86,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/about" element={<About />} />
               <Route path="/checkout" element={<Checkout />} />
+
 
               <Route path='*' element={<FourOFour />} />
 

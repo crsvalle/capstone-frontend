@@ -9,11 +9,10 @@ import { useParams } from "react-router-dom";
 
 const API = process.env.REACT_APP_API_URL;
 
-export default function Listings({ googleMapsLoader }) {
+export default function Listings({ setHoveredListingId, googleMapsLoader }) {
   const [listings, setListings] = useState([]);
-  const [hoveredListingId, setHoveredListingId] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { index } = useParams();
+  const { index } = useParams();  
 
   useEffect(() => {
     axios
@@ -44,7 +43,6 @@ export default function Listings({ googleMapsLoader }) {
               ))}
             </div>
           )}
-          {/* <GeoLocation listing={listings} hoveredListingId={hoveredListingId} googleMapsLoader={googleMapsLoader} /> */}
         </>
   );
 }
