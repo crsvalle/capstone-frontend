@@ -21,7 +21,7 @@
   padding: 3px;
   position: absolute;
   top: 145px;
-  left: 80px;
+  left: 60px;
 }
 
 .user__conainer > img:hover {
@@ -35,7 +35,7 @@
   padding: 25px 25px 50px 25px;
   width: 35%;
   position: absolute;
-  left: 350px;
+  left: 300px;
   top: 70px;
   /* border: 5px solid white; */
   border-radius: 5px;
