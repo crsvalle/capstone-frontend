@@ -24,7 +24,7 @@ export default function Home() {
               <p className="home__img__text1 one second">Memories, Our</p>
               <p className="home__img__text1 one span">Keepsake.</p>
               <p className="home__img__text1 two ">
-                <span>Where Memories Find Their Home.</span>
+                <span>Where Memories Find &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Their Home.</span>
               </p>
               <p className="home__img__text1 three">
                 Making Space a <span>Keepsake Experience.</span>
