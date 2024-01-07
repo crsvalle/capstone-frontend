@@ -1,15 +1,17 @@
-import {  useState } from "react"
-import { onRegistration } from '../api/auth'
-import { Typography } from  "@material-tailwind/react";
+import { useState } from "react"
+import { onRegistration, onLogin } from '../api/auth'
+import { Typography } from "@material-tailwind/react";
+import { authenticateUser } from "../redux/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
 import "../style/SignUp.css"
 import pic from "../Pages/Pic/lot.jpeg"
+import { useDispatch } from "react-redux";
 
-export default function SignUp () {
+export default function SignUp() {
     const [values, setValues] = useState({
-        first_name:'',
-        last_name:'',
+        first_name: '',
+        last_name: '',
         email: '',
         password: '',
     });
@@ -18,17 +20,18 @@ export default function SignUp () {
     const [error, setError] = useState(false)
     const [success, setSuccess] = useState(false)
     const [loading, setLoading] = useState(false);
-    
+    const dispatch = useDispatch();
+
     const navigate = useNavigate()
     const onChange = (e) => {
         const { name, value } = e.target;
 
         if (name === 'confirmEmail') {
-          setConfirmEmail(value);
+            setConfirmEmail(value);
         } else if (name === 'confirmPassword') {
-          setConfirmPassword(value);
+            setConfirmPassword(value);
         } else {
-          setValues({ ...values, [name]: value });
+            setValues({ ...values, [name]: value });
         }
     }
 
@@ -39,19 +42,33 @@ export default function SignUp () {
             setError('Email and Confirm Email must match');
             return;
         }
-    
+
         if (values.password !== confirmPassword) {
             setError('Password and Confirm Password must match');
             return;
         }
 
         try {
-            
+
             const { data } = await onRegistration(values)
+            try {
+                const loginResponse = await onLogin(values);
+                dispatch(authenticateUser());
+
+                localStorage.setItem("isAuth", JSON.stringify(true));
+
+
+                setSuccess(data.message);
+                navigate("/"); // Redirect to desired page after successful login
+            } catch (loginError) {
+                console.error("Login error:", loginError);
+                setError("Login failed. Please try again."); // Handle login failure
+                navigate("/login"); // Redirect to login page on failure
+            }
 
             setError('')
             setSuccess(data.message)
-            setValues({ first_name: '', last_name: '', email: '', password: ''})
+            setValues({ first_name: '', last_name: '', email: '', password: '' })
             setConfirmEmail('');
             setConfirmPassword('');
             navigate('/login')
@@ -62,54 +79,54 @@ export default function SignUp () {
             setLoading(false);
         }
     }
-    
+
     return (
         <div className="form__container">
             <form onSubmit={(e) => onSubmit(e)}>
                 <table>
                     <tr>
                         <td>First Name:</td>
-                        <td><input 
+                        <td><input
                             className="form__input"
-                            type="text" 
-                            name="first_name" 
-                            id="first_name" 
+                            type="text"
+                            name="first_name"
+                            id="first_name"
                             required
                             value={values.first_name}
-                            onChange={(e) => onChange(e)} 
+                            onChange={(e) => onChange(e)}
                         /></td>
                     </tr>
                     <tr>
                         <td>Last Name:</td>
-                        <td><input 
+                        <td><input
                             className="form__input"
                             type="text"
                             name="last_name"
                             id="last_name"
                             required
                             value={values.last_name}
-                            onChange={(e) => onChange(e)} 
-                         /></td>
+                            onChange={(e) => onChange(e)}
+                        /></td>
                     </tr>
                     <tr>
                         <td>Email:</td>
-                        <td><input 
+                        <td><input
                             className="form__input"
-                            type="email" 
-                            name="email" 
-                            id="email" 
+                            type="email"
+                            name="email"
+                            id="email"
                             required
                             value={values.email}
-                            onChange={(e) => onChange(e)} 
+                            onChange={(e) => onChange(e)}
                         /></td>
                     </tr>
                     <tr>
                         <td>Confirm Email:</td>
-                        <td><input 
+                        <td><input
                             className="form__input"
-                            type="email" 
-                            name="confirmEmail" 
-                            id="confirmEmail" 
+                            type="email"
+                            name="confirmEmail"
+                            id="confirmEmail"
                             required
                             value={confirmEmail}
                             onChange={(e) => onChange(e)}
@@ -117,23 +134,23 @@ export default function SignUp () {
                     </tr>
                     <tr>
                         <td>Password:</td>
-                        <td><input 
+                        <td><input
                             className="form__input"
-                            type="password" 
-                            name="password" 
-                            id="password" 
+                            type="password"
+                            name="password"
+                            id="password"
                             required
                             value={values.password}
-                            onChange={(e) => onChange(e)} 
+                            onChange={(e) => onChange(e)}
                         /></td>
                     </tr>
                     <tr>
                         <td>Confirm Password:</td>
-                        <td><input 
+                        <td><input
                             className="form__input"
-                            type="password" 
-                            name="confirmPassword" 
-                            id="confirmPassword" 
+                            type="password"
+                            name="confirmPassword"
+                            id="confirmPassword"
                             required
                             value={confirmPassword}
                             onChange={(e) => onChange(e)}
@@ -143,7 +160,7 @@ export default function SignUp () {
                 <Typography style={{ color: 'red', marginY: 1 }}>
                     {error}
                 </Typography>
-                <Typography  style={{ color: 'green', marginY: 1 }}>
+                <Typography style={{ color: 'green', marginY: 1 }}>
                     {success}
                 </Typography>
                 <input className="form__btn bg-customBlue hover:bg-customBlueLight" type="submit" value="Submit" />
@@ -151,6 +168,6 @@ export default function SignUp () {
             </form>
             <div className="form__pic"><img className="form__img" src={pic} alt="" /></div>
         </div>
-        
+
     )
 };
