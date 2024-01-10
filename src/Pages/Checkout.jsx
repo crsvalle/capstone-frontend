@@ -138,7 +138,7 @@ export default function Checkout() {
             price_data: {
               currency: "usd",
               product_data: {
-                name: "Your Product Name",
+                name: "Total Price",
               },
               unit_amount: totalPrice * 100, // Amount in cents
             },
