@@ -11,6 +11,10 @@ module.exports = withMT({
         customCreamyButterLight: '#f5f7ef',
         logoGold: '#CEA348'
       },
+
+      height: {
+        '80vh': '80vh',
+      },
     },
   },
   plugins: [],
