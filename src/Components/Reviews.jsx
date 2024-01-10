@@ -15,7 +15,7 @@ export default function Reviews({review}) {
         .then((res) => setUser(res.data))
         .catch((e) => console.warn("catch", e))
     },[review.author_id])
-    //console.log(user[0].image);
+    //console.log(user);
     return (
         <div className='review__container'>
             <div className='review__container__profile__pic'>
