@@ -1,19 +1,23 @@
 .form__container {
   font-family: Arial, sans-serif;
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(239, 243, 229, 0.628);
+  height: 100vh;
 }
 
 .form__container > form {
   max-width: 400px;
   padding: 20px;
   border-radius: 5px;
-  flex: 1;
+  /* flex: 1; */
 }
 
 .form__pic {
-  flex: 1;
+  /* flex: 1; */
   margin: 25px;
+  height: 485px;
 }
 
 .form__img {

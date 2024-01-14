@@ -25,6 +25,10 @@
   margin-left: 10px;
 }
 
+.nav__item:hover {
+  color: rgb(3, 82, 96)
+}
+
 .nav__logo__wrapper {
   display: flex;
   align-items: center;
@@ -32,7 +36,7 @@
 }
 
 .nav__logo {
-  width: 50px;
+  width: 200px;
   margin-right: 20px;
 }
 
@@ -77,7 +81,7 @@
     height: 100px;
   }
   .nav__logo {
-    width: 50px;
+    width: 250px;
   }
 
   .nav__logo__text {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Search from "./Searchbar";
 import "../style/Navbar.css";
-import logo from "../Pages/Pic/LOGO OVER BRAND COLOR.png";
+import logo from "../Pages/Pic/logo.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { unauthenticateUser } from "../redux/slices/authSlice";
@@ -50,7 +50,7 @@ export default function Navbar() {
       <Link to="/">
         <div className="nav__logo__wrapper">
           <img className="nav__logo" src={logo} alt="logo" />
-          <div className="nav__logo__text">KEEPSAKE</div>
+          {/* <div className="nav__logo__text">KEEPSAKE</div> */}
         </div>
       </Link>
       {/* checking if the path and applying customClass attribute passed from searchbar comp */}
