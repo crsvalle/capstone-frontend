@@ -1,9 +1,10 @@
 .login__wrapper {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(239, 243, 229, 0.628);
-
+  height: 100vh;
 }
 
 .login__box__main {
@@ -25,7 +26,11 @@
 .forgetPass,
 .signUp {
   font-size: small;
-  text-decoration: underline;
+  text-decoration: underline; 
+}
+
+.signUp:hover {
+   color: rgb(4, 107, 122);
 }
 
 .login__box__footer {

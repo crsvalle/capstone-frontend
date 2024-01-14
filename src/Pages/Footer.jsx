@@ -18,7 +18,7 @@ export default function Footer (){
                 </div>
                 <div>
                 <Link to="/"><div>Keepsake</div></Link>
-                    <div>Become a Host</div>
+                    <Link to="/register"><div>Become a Host</div></Link>
                     <div>Carrers</div>
                     <div>Terms of Service</div>
                 </div>
