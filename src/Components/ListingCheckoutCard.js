@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { storage } from "./firebase";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
-import { formatDate } from "../utils/formatters";
+import { formatDate, formatName } from "../utils/formatters";
+
+import { useUserDataById } from '../api/fetch'
 
 export default function ListingCheckoutCard({
   listing,
@@ -11,6 +13,7 @@ export default function ListingCheckoutCard({
   bookingInfo,
 }) {
   const [images, setImages] = useState([]);
+  const hostInfo = useUserDataById(host)
 
   useEffect(() => {
     listAll(imgListRef).then((res) =>
@@ -44,11 +47,11 @@ export default function ListingCheckoutCard({
       {/* Text Section */}
       <div className="p-4 w-2/3">
         <h3 className="text-lg font-semibold">
-          {listing.size} - {listing.type}
+          {listing.size} - {formatName(listing.type)}
         </h3>
         <h4 className="text-base font-medium">
-          Hosted by: {host.first_name}{" "}
-          {host.last_name && host.last_name.charAt(0)}
+          Hosted by: {hostInfo?.first_name}{" "}
+          {hostInfo?.last_name && hostInfo?.last_name.charAt(0)}
         </h4>
         <p className="text-gray-500 text-sm">
           Start Date: {formatDate(startDate)}
