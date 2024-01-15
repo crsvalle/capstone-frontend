@@ -168,6 +168,7 @@ export default function Checkout() {
     bookingInfo && bookingInfo.time
       ? ((listing.price / 30) * bookingInfo.time).toFixed(2)
       : 0;
+      console.log('host:',host)
 
   return (
     <div className="checkout__container">
