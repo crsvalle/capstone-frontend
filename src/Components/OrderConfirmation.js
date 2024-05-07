@@ -41,7 +41,6 @@ export default function OrderConfirmation({ bookingData }) {
       <div className="w-full max-w-4xl mx-auto p-6">
         <h2 className="text-2xl font-bold mb-4">Booking Summary</h2>
         <div className="bg-white shadow-md rounded px-8 py-6 flex">
-          {/* Left side  */}
           <div className="w-1/2 pr-4">
             <h3 className="text-xl font-bold mb-3 text-green-800">
               ✅ Booking Confirmed!
@@ -55,7 +54,6 @@ export default function OrderConfirmation({ bookingData }) {
               <p>
                 Booking Date: {formattedStartDate} - {formattedEndDate}
               </p>
-              {/* Add more user details as needed */}
             </div>
             <div className="flex items-center mt-4">
               <a
@@ -63,12 +61,10 @@ export default function OrderConfirmation({ bookingData }) {
                 className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Back to Home
               </a>
-              {/* <a href="/" className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Edit</a> */}
-              {/* Add more actions or buttons here */}
+
             </div>
           </div>
 
-          {/* Right side */}
           <div className="w-1/2 pl-4">
             <div className="mb-4">
               <h2 className="font-bold">Host Details</h2>
@@ -84,7 +80,6 @@ export default function OrderConfirmation({ bookingData }) {
                   <p>
                     {city}, {state}, {zip}
                   </p>
-                  {/* Add more host details as needed */}
                 </div>
               )}
             </div>

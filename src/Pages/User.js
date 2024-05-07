@@ -47,7 +47,6 @@ export default function User() {
     created_at,
   } = user;
 
-  // Conditionally render the edit or complete profile btn
   const buttonLabel =
     user.first_name &&
     user.last_name &&

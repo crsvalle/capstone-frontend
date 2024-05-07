@@ -59,11 +59,11 @@ export default function SignUp() {
 
 
                 setSuccess(data.message);
-                navigate("/"); // Redirect to desired page after successful login
+                navigate("/"); 
             } catch (loginError) {
                 console.error("Login error:", loginError);
-                setError("Login failed. Please try again."); // Handle login failure
-                navigate("/login"); // Redirect to login page on failure
+                setError("Login failed. Please try again.");
+                navigate("/login");
             }
 
             setError('')

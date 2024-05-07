@@ -47,9 +47,9 @@ const ProfileMenu = ({ logout, id }) => {
       path: "/inbox",
     },
     {
-      label: 'Create a Listing', // New label 'Create'
-      icon: PlusIcon, // PlusIcon for the 'Create' item
-      path: "/listings/new", // Path for 'Create' item
+      label: 'Create a Listing', 
+      icon: PlusIcon, 
+      path: "/listings/new",
     },
     {
       label: 'Sign Out',

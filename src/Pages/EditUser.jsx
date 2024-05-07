@@ -32,10 +32,8 @@ function EditProfile() {
   useEffect(() => {
     axios.get(`${API}/users/${index}`).then((res) => setUser(res.data));
   }, [index]);
-  //console.log(user);
 
   const editProfile = (updateProfile) => {
-    // console.log(updateProfile);
     axios
       .put(`${API}/users/${index}`, updateProfile)
       .then(() => navigate(`/user/profile`))
@@ -63,16 +61,13 @@ function EditProfile() {
 
   const handleTextChange = (event) => {
     setUser({ ...user, [event.target.id]: event.target.value });
-    // console.log(user);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     editProfile(user);
-    // navigate('/user/profile')
-    //console.log(user);
   };
-  //console.log(user);
+
   return (
     <div className="edit__user">
       <div className=" form mt-7 w-10">
@@ -164,10 +159,6 @@ function EditProfile() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  {/* <DriveFolderUploadIcon
-                    className="w-s"
-                    style={{ fontSize: "20px" }}
-                  /> */}
                 </InputAdornment>
               ),
             }}

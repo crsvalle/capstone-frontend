@@ -3,13 +3,12 @@ import { DateRange } from "react-date-range";
 import 'react-date-range/dist/theme/default.css';
 import 'react-date-range/dist/styles.css';
 import '../style/calendar.css'
-import useBlackoutDates from '../api/blackoutdates'; // Import the custom hook
-
+import useBlackoutDates from '../api/blackoutdates'; 
 
 export default function Calendar({ dateRange, setDateRange, listingId, datesBooked, onDisabledDatesChange = () => {} }) {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    const { blackoutDates } = useBlackoutDates(listingId); // Using the custom hook
+    const { blackoutDates } = useBlackoutDates(listingId); 
 
     const [disabledDates, setDisabledDates] = useState([]);
 
@@ -75,7 +74,7 @@ export default function Calendar({ dateRange, setDateRange, listingId, datesBook
     }, [blackoutDates, datesBooked]);
 
     const today = new Date();
-    today.setHours(0, 0, 0, 0); //set time to 0:0:0:0 to ensure that day gets compared 
+    today.setHours(0, 0, 0, 0); 
     const nextDay = new Date(today);
     nextDay.setDate(today.getDate() + 1)
 
