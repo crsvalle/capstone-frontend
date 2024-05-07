@@ -23,7 +23,7 @@ export default function BookedListing({bookingInfo, allowEdit}) {
   
 console.log(bookingInfo)
   if (!bookingInfo) {
-      return <p>Loading...</p>; // Or any loading indicator
+      return <p>Loading...</p>; 
     }
 
   const formattedStartDate = bookingInfo ? formatDate(bookingInfo.start_date || '') : '';
@@ -35,7 +35,6 @@ console.log(bookingInfo)
             { allowEdit ? <EditBooking listingId={bookingInfo.listing_id} blackoutId={bookingInfo.blackoutdate_id} bookingId={bookingInfo.booking_id} total={bookingInfo.total} listingPrice={bookingInfo.listing_price}/> :""}
         </div>
   
-      {/* Image Section */}
     <div className="flex-none w-1/3">
         <img
             src={images[0]}
@@ -44,7 +43,6 @@ console.log(bookingInfo)
         />
     </div>
   
-      {/* Text Section */}
       <div className="p-4 w-2/3">
         <h3 className="text-lg font-semibold">{bookingInfo.size}</h3>
         <h4 className="text-base font-medium">

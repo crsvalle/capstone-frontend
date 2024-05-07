@@ -15,7 +15,6 @@ export default function Reviews({review}) {
         .then((res) => setUser(res.data))
         .catch((e) => console.warn("catch", e))
     },[review.author_id])
-    //console.log(user);
     return (
         <div className='review__container'>
             <div className='review__container__profile__pic'>
@@ -24,7 +23,6 @@ export default function Reviews({review}) {
             </div>
             <div className='review__title pt-3'>{review.title}</div>
             <div className='review__body'>{review.body}</div>
-            {/* <hr className='review__hr'/> */}
         </div>
     )
 }

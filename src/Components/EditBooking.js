@@ -49,7 +49,7 @@ export default function EditBooking({ listingId, blackoutId, bookingId, total, l
         start_date: blackoutResponse.data.start_date,
         end_date: blackoutResponse.data.end_date
       })
-      setDate(blackoutResponse.data); // Update date state with blackout data
+      setDate(blackoutResponse.data); 
       setBooking(bookingResponse.data);
     } catch (error) {
       console.error('Error fetching data:', error);

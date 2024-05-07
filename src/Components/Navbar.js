@@ -50,10 +50,9 @@ export default function Navbar() {
       <Link to="/">
         <div className="nav__logo__wrapper">
           <img className="nav__logo" src={logo} alt="logo" />
-          {/* <div className="nav__logo__text">KEEPSAKE</div> */}
+    
         </div>
       </Link>
-      {/* checking if the path and applying customClass attribute passed from searchbar comp */}
       {!isHomePage && <Search customClass="nav__searchBar" />}
       {isAuth ? (
         <div
@@ -80,7 +79,6 @@ export default function Navbar() {
           <Link to="/login">
             <div className="nav__item">Login</div>
           </Link>
-          {/* <div>/</div> */}
           <Link to="/register">
             <div className="nav__item">Register</div>
           </Link>

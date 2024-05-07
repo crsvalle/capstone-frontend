@@ -5,17 +5,12 @@ import { useNavigate } from "react-router-dom";
 
 import { useStripe } from "@stripe/react-stripe-js";
 
-//STYLE
 import "../style/checkout.css";
 
-//COMPONENTS
 import ListingCheckoutCard from "../Components/ListingCheckoutCard";
-import HelperIcon from "../Components/HelperIcon";
 
-//IMPORT USERINFO
 import { useUserInfo } from "../api/fetch";
 
-// import { useBookingContext } from "../Components/bookingDataReducer/BookingContext";
 
 const API = process.env.REACT_APP_API_URL;
 const CLIENT = process.env.REACT_APP_CLIENT_URL;
@@ -173,7 +168,6 @@ export default function Checkout() {
   return (
     <div className="checkout__container">
       <div className="checkoutBox">
-        {/* <h1>Checkout</h1> */}
         <div className="checkoutListing">
           <ListingCheckoutCard
             listing={listing}
@@ -222,15 +216,6 @@ export default function Checkout() {
             : "N/A"}
         </p>
         <hr className="checkout__hr" />
-
-        {/* <div className="flex">
-            <p className="mr-1">Due Now: ${(totalPrice * 0.075).toFixed(2)} </p>
-            <HelperIcon
-              title={"Reservation Protection"}
-              body={"Payment is required for confirmed booking."}
-            />
-          </div> */}
-
         <div className=" total flex justify-between ">
           <p className="text-lg font-bold">Total:</p>
           <p className="text-lg font-bold">{bookingInfo && bookingInfo.time ? ` $${totalPrice}` : "N/A"}</p>
