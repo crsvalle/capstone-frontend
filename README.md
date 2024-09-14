@@ -2,7 +2,7 @@
 
 ### Requirements
 - For development, you will only need Node.js installed on your environement and the backend API.
-- A firebase account for image storage, Google API for Geolocation, and Stripe API.
+- A [firebase account for image storage](https://firebase.google.com/docs/storage), [Google API for Geolocation](https://developers.google.com/maps/documentation/geolocation/overview), and [Stripe API](https://docs.stripe.com/api).
 - [The Backend Repository for API](https://github.com/teegrg/keepsake-backend)
 
 ### Getting started
