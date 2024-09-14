@@ -37,6 +37,13 @@ REACT_APP_STRIPE_API_KEY = <"stripe_api">
 npm start
 ```
 
+### Future Features
+* [ ] Add a secure Chat system to enable users to chat to one another.
+* [ ] Notifications and Alerts:
+Expiration Dates: Notify users of items nearing expiration or needing maintenance.
+Item Reminders: Set reminders for retrieving or replacing items.
+* [ ] Integrate a better User Management System.
+
 ## Creators
 
 👤 **Cristian Valle**  
