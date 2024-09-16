@@ -18,7 +18,7 @@ export default function IndexListings() {
 
 
   return (
-    <div className="whole-page">
+    <div className="whole-page bg-customCreamyButterLight">
       <Listings googleMapsLoader={googleMapsLoader} setHoveredListingId={setHoveredListingId}/>
       <GeoLocation googleMapsLoader={googleMapsLoader} hoveredListingId={hoveredListingId}/>
     </div>

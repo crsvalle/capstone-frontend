@@ -166,7 +166,7 @@ export default function Checkout() {
       console.log('host:',host)
 
   return (
-    <div className="checkout__container">
+    <div className="checkout__container bg-customCreamyButterLight">
       <div className="checkoutBox">
         <div className="checkoutListing">
           <ListingCheckoutCard
