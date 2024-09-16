@@ -79,12 +79,12 @@ export default function Listing({ listing, onMouseEnter, onMouseLeave }) {
 
 
   return (
-    <div className="listing"
+    <div className="listing "
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}>
-      <div className="flex content-card-box flex-col my-2">
-        <div className=" content-card relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3  md:max-w-3xl mx-auto border border-white bg-white">
-          <div className="w-full md:w-1/2 bg-white grid place-items-center">
+      <div className="flex content-card-box flex-col my-2 ">
+        <div className=" content-card relative flex flex-col md:flex-row md:space-x-5 space-y-3 md:space-y-0 rounded-xl shadow-lg p-3  md:max-w-3xl mx-auto border border-white bg-customCreamyButterLight">
+          <div className="w-full md:w-1/2 bg-customCreamyButterLight grid place-items-center">
             <div className="image-box h-60 overflow-hidden rounded-xl">
               <Carousel>
                 {images.length ?
@@ -104,7 +104,7 @@ export default function Listing({ listing, onMouseEnter, onMouseLeave }) {
               </Carousel>
             </div>
           </div>
-          <div className="text-box w-full md:w-1/2 bg-white flex flex-col space-y-2 p-3">
+          <div className="text-box w-full md:w-1/2 bg-customCreamyButterLight flex flex-col space-y-2 p-3">
             <div className="flex items-center justify-between md:justify-start lg:justify-between">
               <p className="city-text text-gray-500 ">{listing.type} | {listing.city}</p>
               <div className="flex items-center">

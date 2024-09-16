@@ -1,7 +1,10 @@
-.home > img {
+
+.home>img {
   position: relative;
   width: 100%;
+
 }
+
 /* SEARCHBAR IN HOMEPAGE */
 .search__bar {
   position: absolute;
@@ -29,29 +32,34 @@
   font-size: medium;
   font-family: "Alfa Slab One", serif;
 }
+
 .one {
   /* padding-top: 50px; */
   font-size: 3em;
   font-family: "Alfa Slab One", serif;
 }
+
 .first {
   font-size: 3em;
   position: absolute;
   top: 0%;
   left: 90px;
 }
+
 .second {
   font-size: 2em;
   position: absolute;
   top: 8%;
   left: 240px;
 }
+
 .span {
   font-size: 7em;
   position: absolute;
   top: 5%;
   left: 100px;
 }
+
 .two {
   padding-top: 155px;
   padding-left: 50px;
@@ -82,7 +90,7 @@
 
 .home__list__header {
   font-weight: 500;
-  font-size:large;
+  font-size: large;
   color: rgba(0, 0, 0, 0.537);
   display: flex;
   flex-direction: row;
@@ -96,16 +104,17 @@
   0% {
     transform: translateX(-100%);
   }
+
   100% {
     transform: translateX(100%);
   }
 }
 
 @media screen and (max-width: 768px) {
-  .home > img {
+  .home>img {
     width: 100%;
   }
-  
+
   .search__bar {
     top: 25%;
     left: 5%;
@@ -127,6 +136,7 @@
   .home__img__china {
     margin-top: 20px;
   }
+
   .home__img__text1 {
     font-size: small;
     padding: 20px 10px 10px 10px;
@@ -138,22 +148,26 @@
     top: 5%;
     left: 0px;
   }
+
   .second {
     font-size: 1em;
     top: 12%;
     left: 0;
   }
+
   .span {
     font-size: xx-large;
     top: 20%;
     left: 0px;
   }
+
   .home__img__text2 {
     font-size: 1em;
     padding: 60px 0 0 10px;
     margin-top: 20px;
     line-height: 1.5;
   }
+
   /* .home__img__wrapper {
     margin: 0 15px 20px 15px;
   } */
@@ -168,6 +182,7 @@
   .three {
     display: none;
   }
+
   .home__list__header {
     display: none;
   }
@@ -178,17 +193,21 @@
     top: 25%;
     left: 50%;
   }
-  .one > span {
+
+  .one>span {
     font-size: 2em;
     padding-top: 45px;
   }
+
   .home__img__text2 {
     padding-top: 0;
     padding-left: 0px;
   }
+
   .home__img__wrapper {
     margin-bottom: 50px;
   }
+
   .home__img__packing {
     margin-top: 15px;
   }

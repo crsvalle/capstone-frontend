@@ -46,7 +46,7 @@ export default function Navbar() {
   const isHomePage = location.pathname === "/";
 
   return (
-    <div className="nav">
+    <div className="nav bg-customCreamyButterLight">
       <Link to="/">
         <div className="nav__logo__wrapper">
           <img className="nav__logo" src={logo} alt="logo" />
